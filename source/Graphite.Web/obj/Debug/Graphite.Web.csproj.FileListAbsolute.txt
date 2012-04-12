@@ -1,0 +1,9 @@
+H:\Csharp\github\graphite\source\Graphite.Web\bin\Debug\Graphite.Web.dll
+H:\Csharp\github\graphite\source\Graphite.Web\bin\Debug\Graphite.Web.pdb
+H:\Csharp\github\graphite\source\Graphite.Web\obj\Debug\Graphite.Web.dll
+H:\Csharp\github\graphite\source\Graphite.Web\obj\Debug\Graphite.Web.pdb
+H:\Csharp\github\graphite-client\bin\Graphite.Web.dll
+H:\Csharp\github\graphite-client\bin\Graphite.Web.pdb
+H:\Csharp\github\graphite-client\source\Graphite.Web\obj\Debug\Graphite.Web.csprojResolveAssemblyReference.cache
+H:\Csharp\github\graphite-client\source\Graphite.Web\obj\Debug\Graphite.Web.dll
+H:\Csharp\github\graphite-client\source\Graphite.Web\obj\Debug\Graphite.Web.pdb

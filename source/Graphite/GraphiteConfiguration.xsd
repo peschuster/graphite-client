@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="GraphiteConfiguration"
+  xmlns:tns="http://github.com/peschuster/Graphite/Configuration"
+  elementFormDefault="qualified"
+  targetNamespace="http://github.com/peschuster/Graphite/Configuration"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="graphite" type="tns:Graphite.Configuration.GraphiteConfiguration" />
+  <xs:complexType name="Graphite.Configuration.GraphiteConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="graphite" type="tns:Graphite.Configuration.GraphiteElement" />
+      <xs:element minOccurs="0" name="statsd" type="tns:Graphite.Configuration.StatsDElement" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Graphite.Configuration.GraphiteElement">
+    <xs:attribute name="address" use="required" type="xs:string"></xs:attribute>
+    <xs:attribute name="port" use="required" type="xs:integer"></xs:attribute>
+    <xs:attribute name="transport" use="optional" type="tns:Graphite.Configuration.TransportType"></xs:attribute>
+    <xs:attribute name="prefixKey" use="optional" type="xs:string"></xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="Graphite.Configuration.StatsDElement">
+    <xs:attribute name="address" use="required" type="xs:string"></xs:attribute>
+    <xs:attribute name="port" use="required" type="xs:integer"></xs:attribute>
+    <xs:attribute name="prefixKey" use="optional" type="xs:string"></xs:attribute>
+  </xs:complexType>
+  <xs:simpleType name="Graphite.Configuration.TransportType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Udp"/>
+      <xs:enumeration value="Tcp"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

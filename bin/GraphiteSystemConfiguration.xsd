@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="GraphiteSystemConfiguration"
+  xmlns:tns="http://github.com/peschuster/Graphite/Configuration"
+  elementFormDefault="qualified"
+  targetNamespace="http://github.com/peschuster/Graphite/Configuration"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="graphite.system" type="tns:Graphite.System.Configuration.GraphiteSystemConfiguration" />
+  <xs:complexType name="Graphite.System.Configuration.GraphiteSystemConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="listeners" type="tns:Graphite.System.Configuration.ListenerElementCollection" />
+    </xs:sequence>
+    <xs:attribute name="interval" use="optional" type="xs:integer"/>
+  </xs:complexType>
+  <xs:complexType name="Graphite.System.Configuration.ListenerElementCollection">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="add" type="tns:Graphite.System.Configuration.ListenerElement">
+      </xs:element>
+      <xs:element name="remove">
+        <xs:complexType>
+          <xs:attribute name="key" use="required" type="xs:string" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="clear">
+        <xs:complexType>
+          <!--tag is empty-->
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="Graphite.System.Configuration.ListenerElement">
+    <xs:attribute name="key" use="required" type="xs:string"/>
+    <xs:attribute name="category" use="required" type="xs:string"/>
+    <xs:attribute name="instance" use="required" type="xs:string"/>
+    <xs:attribute name="counter" use="required" type="xs:string"/>
+    <xs:attribute name="type" use="required" type="xs:string"/>
+    <xs:attribute name="target" use="required" type="xs:string"/>    
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+	<PropertyGroup>
+		<BinDir>../bin</BinDir>
+		<SourceDir>../source</SourceDir>
+		<DistDir>../dist</DistDir>
+		<IlmergePath>../Tools/ILMerge.exe</IlmergePath>
+		<XunitPath>../Tools/xunit-1.9/xunit.runner.msbuild.dll</XunitPath>
+
+		<Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+	</PropertyGroup>
+
+	<UsingTask AssemblyFile="$(XunitPath)" TaskName="Xunit.Runner.MSBuild.xunit"/>
+
+	<ItemGroup>
+		<BinFiles Include="$(BinDir)/**\*" />
+	</ItemGroup>
+
+	<ItemGroup Label="Solutions to build">
+		<SolutionToBuild Include="$(SourceDir)/Graphite.sln" />
+	</ItemGroup>
+
+	<Target Name="build">
+
+		<MakeDir Condition="!Exists('$(BinDir)')" Directories="$(BinDir)"/>
+
+		<ConvertToAbsolutePath Paths="$(BinDir)">
+			<Output TaskParameter="AbsolutePaths" PropertyName="BinDirAbs"/>
+		</ConvertToAbsolutePath>
+
+		<MSBuild
+			Projects="@(SolutionToBuild->'%(FullPath)')"
+			Properties="Configuration=$(Configuration);OutputPath=$(BinDirAbs)"
+			ContinueOnError="false" />
+	</Target>
+
+	<Target Name="test" DependsOnTargets="build">
+		<xunit Assembly="$(BinDir)\Graphite.Tests.dll" />
+	</Target>
+
+	<Target Name="clean">
+		<Delete Condition="Exists('$(BinDir)')" Files="@(BinFiles)" />
+	</Target>
+
+</Project>

@@ -1,0 +1,11 @@
+H:\Csharp\github\graphite\source\Graphite.System\bin\Debug\Graphite.dll
+H:\Csharp\github\graphite\source\Graphite.System\bin\Debug\Graphite.pdb
+H:\Csharp\github\graphite\source\Graphite.System\obj\x86\Debug\Graphite.System.csprojResolveAssemblyReference.cache
+H:\Csharp\github\graphite\source\Graphite.System\obj\x86\Debug\Graphite.System.ServiceInstaller.resources
+H:\Csharp\github\graphite\source\Graphite.System\obj\x86\Debug\Graphite.System.WindowsService.resources
+H:\Csharp\github\graphite\source\Graphite.System\obj\x86\Debug\Graphite.System.csproj.GenerateResource.Cache
+H:\Csharp\github\graphite\source\Graphite.System\bin\Debug\GraphiteSystemMonitor.exe.config
+H:\Csharp\github\graphite\source\Graphite.System\bin\Debug\GraphiteSystemMonitor.exe
+H:\Csharp\github\graphite\source\Graphite.System\bin\Debug\GraphiteSystemMonitor.pdb
+H:\Csharp\github\graphite\source\Graphite.System\obj\x86\Debug\GraphiteSystemMonitor.exe
+H:\Csharp\github\graphite\source\Graphite.System\obj\x86\Debug\GraphiteSystemMonitor.pdb

@@ -1,0 +1,18 @@
+#ignore thumbnails created by windows
+Thumbs.db
+package*/
+#Ignore files build by Visual Studio
+*.obj
+*.pdb
+*.user
+*.vspscc
+*.suo
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+*.vs10x

@@ -1,0 +1,4 @@
+H:\Csharp\github\graphite\source\Graphite\bin\Debug\Graphite.pdb
+H:\Csharp\github\graphite\source\Graphite\obj\x86\Debug\Graphite.pdb
+H:\Csharp\github\graphite\source\Graphite\bin\Debug\Graphite.dll
+H:\Csharp\github\graphite\source\Graphite\obj\x86\Debug\Graphite.dll

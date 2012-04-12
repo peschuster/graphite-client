@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Graphite</name>
+    </assembly>
+    <members>
+        <member name="F:Graphite.Configuration.GraphiteConfiguration.GraphiteConfigurationSectionName">
+            <summary>
+            The XML name of the GraphiteConfigurationSectionName Configuration Section.
+            </summary>        
+        </member>
+        <member name="F:Graphite.Configuration.GraphiteConfiguration.XmlnsPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Graphite.Configuration.GraphiteConfiguration.Xmlns"/> property.
+            </summary>        
+        </member>
+        <member name="F:Graphite.Configuration.GraphiteConfiguration.GraphitePropertyName">
+            <summary>
+            The XML name of the <see cref="P:Graphite.Configuration.GraphiteConfiguration.Graphite"/> property.
+            </summary>        
+        </member>
+        <member name="F:Graphite.Configuration.GraphiteConfiguration.StatsDPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Graphite.Configuration.GraphiteConfiguration.StatsD"/> property.
+            </summary>        
+        </member>
+        <member name="P:Graphite.Configuration.GraphiteConfiguration.Instance">
+            <summary>
+            Gets the W3CReadersConfiguration instance.
+            </summary>        
+        </member>
+        <member name="P:Graphite.Configuration.GraphiteConfiguration.Xmlns">
+            <summary>
+            Gets the XML namespace of this Configuration Section.
+            </summary>
+            <remarks>
+            This property makes sure that if the configuration file contains the XML namespace,
+            the parser doesn't throw an exception because it encounters the unknown "xmlns" attribute.
+            </remarks>        
+        </member>
+        <member name="P:Graphite.Configuration.GraphiteConfiguration.Graphite">
+            <summary>
+            Gets or sets the Graphite configuration.
+            </summary>
+        </member>
+        <member name="P:Graphite.Configuration.GraphiteConfiguration.StatsD">
+            <summary>
+            Gets or sets the StatsD configuration.
+            </summary>
+        </member>
+        <member name="F:Graphite.Configuration.GraphiteElement.AddressPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Graphite.Configuration.GraphiteElement.Address"/> property.
+            </summary>        
+        </member>
+        <member name="F:Graphite.Configuration.GraphiteElement.PortPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Graphite.Configuration.GraphiteElement.Port"/> property.
+            </summary>        
+        </member>
+        <member name="F:Graphite.Configuration.GraphiteElement.TransportPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Graphite.Configuration.GraphiteElement.Transport"/> property.
+            </summary>        
+        </member>
+        <member name="P:Graphite.Configuration.GraphiteElement.Port">
+            <summary>
+            Gets or sets the port number.
+            </summary>        
+        </member>
+        <member name="P:Graphite.Configuration.GraphiteElement.Address">
+            <summary>
+            Gets or sets the port number.
+            </summary>        
+        </member>
+        <member name="P:Graphite.Configuration.GraphiteElement.Transport">
+            <summary>
+            Gets or sets the port number.
+            </summary>        
+        </member>
+        <member name="P:Graphite.Configuration.GraphiteElement.PrefixKey">
+            <summary>
+            Gets or sets the prefix key.
+            </summary>        
+        </member>
+        <member name="F:Graphite.Configuration.StatsDElement.AddressPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Graphite.Configuration.StatsDElement.Address"/> property.
+            </summary>        
+        </member>
+        <member name="F:Graphite.Configuration.StatsDElement.PortPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Graphite.Configuration.StatsDElement.Port"/> property.
+            </summary>
+        </member>
+        <member name="P:Graphite.Configuration.StatsDElement.Port">
+            <summary>
+            Gets or sets the port number.
+            </summary>        
+        </member>
+        <member name="P:Graphite.Configuration.StatsDElement.Address">
+            <summary>
+            Gets or sets the port number.
+            </summary>        
+        </member>
+        <member name="P:Graphite.Configuration.StatsDElement.PrefixKey">
+            <summary>
+            Gets or sets the prefix key.
+            </summary>        
+        </member>
+        <member name="F:Graphite.Helpers.ValidIpAddressPattern">
+            <see cref="!:http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address#106223"/>
+        </member>
+        <member name="F:Graphite.Helpers.ValidHostnamePattern">
+            <see cref="!:http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address#106223"/>
+        </member>
+        <member name="M:Graphite.Helpers.ParseAddress(System.String)">
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="P:Graphite.Logging.Source">
+            <summary>
+            Graphite trace source.
+            </summary>
+        </member>
+    </members>
+</doc>

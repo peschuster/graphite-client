@@ -1,0 +1,6 @@
+H:\Csharp\github\graphite-client\bin\GraphiteConfiguration.xsd
+H:\Csharp\github\graphite-client\bin\Graphite.dll
+H:\Csharp\github\graphite-client\bin\Graphite.pdb
+H:\Csharp\github\graphite-client\source\Graphite\obj\Debug\Graphite.csprojResolveAssemblyReference.cache
+H:\Csharp\github\graphite-client\source\Graphite\obj\Debug\Graphite.dll
+H:\Csharp\github\graphite-client\source\Graphite\obj\Debug\Graphite.pdb
