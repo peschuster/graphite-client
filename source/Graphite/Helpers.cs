@@ -7,15 +7,7 @@ namespace Graphite
     public static class Helpers
     {
         /// <see cref="http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address#106223" />
-        public const string ValidIpAddressPattern = @"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
-
-        /// <see cref="http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address#106223" />
         public const string ValidHostnamePattern = @"^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$";
-
-        public static bool IsIpAddress(string value)
-        {
-            return Regex.IsMatch(value, ValidIpAddressPattern);
-        }
         
         public static bool IsHostname(string value)
         {
@@ -40,9 +32,11 @@ namespace Graphite
         /// <exception cref="System.ArgumentException" />
         public static IPAddress ParseAddress(string ipAddressOrHostname)
         {
-            if (IsIpAddress(ipAddressOrHostname))
+            IPAddress result;
+
+            if (IPAddress.TryParse(ipAddressOrHostname, out result))
             {
-                return IPAddress.Parse(ipAddressOrHostname);
+                return result;
             }
             else if (IsHostname(ipAddressOrHostname))
             {
