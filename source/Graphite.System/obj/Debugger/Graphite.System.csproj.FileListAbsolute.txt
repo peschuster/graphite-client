@@ -1,2 +1,0 @@
-H:\Csharp\github\graphite\source\Graphite.System\bin\Debugger\GraphiteSystemMonitor.exe.config
-H:\Csharp\github\graphite\bin\GraphiteSystemMonitor.exe.config

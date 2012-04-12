@@ -1,7 +1,0 @@
-H:\Csharp\github\graphite-client\bin\GraphiteConfiguration.xsd
-H:\Csharp\github\graphite-client\bin\Graphite.XML
-H:\Csharp\github\graphite-client\bin\Graphite.dll
-H:\Csharp\github\graphite-client\bin\Graphite.pdb
-H:\Csharp\github\graphite-client\source\Graphite\obj\Release\Graphite.csprojResolveAssemblyReference.cache
-H:\Csharp\github\graphite-client\source\Graphite\obj\Release\Graphite.dll
-H:\Csharp\github\graphite-client\source\Graphite\obj\Release\Graphite.pdb

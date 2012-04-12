@@ -7,6 +7,7 @@ package*/
 *.user
 *.vspscc
 *.suo
+*.jtconfig
 [Bb]in
 [Dd]ebug*/
 *.lib
