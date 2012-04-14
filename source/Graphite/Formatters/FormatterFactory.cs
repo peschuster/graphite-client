@@ -19,10 +19,10 @@ namespace Graphite.Formatters
                 .ToArray();
         }
 
-        public IMessageFormatter Get(string target, string type)
+        public IMessageFormatter Get(string target, string type, bool sampled)
         {
             IMessageFormatter formatter = this.formatters
-                .FirstOrDefault(f => f.IsMatch(target, type));
+                .FirstOrDefault(f => (!sampled || f is ISampledMessageFormatter) && f.IsMatch(target, type));
 
             if (formatter == null)
                 throw new ArgumentException("Invalid combination: target '" + target + "', type '" + type + "'.");
