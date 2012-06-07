@@ -3,10 +3,17 @@ using System.Linq;
 
 namespace Graphite.Formatters
 {
+    /// <summary>
+    /// Factory for message formatters (<see cref="Graphite.Formatters.IMessageFormater" />).
+    /// </summary>
     public class FormatterFactory
     {
         private readonly IMessageFormatter[] formatters;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormatterFactory" /> class to 
+        /// create message formatters (<see cref="Graphite.Formatters.IMessageFormater" />).
+        /// </summary>
         public FormatterFactory()
         {
             Type type = typeof(IMessageFormatter);
@@ -19,13 +26,21 @@ namespace Graphite.Formatters
                 .ToArray();
         }
 
-        public IMessageFormatter Get(string target, string type)
+        /// <summary>
+        /// Gets the corresponding message formater for specified <paramref name="target" /> and <paramref name="type" />.
+        /// </summary>
+        /// <param name="target">The target string (e.g. graphite, statsd, etc.)</param>
+        /// <param name="type">[Optional] The type string (e.g. counter, gauge, etc.)</param>
+        /// <param name="sampling">Set to true, if the message formatter must support sampling.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">Invalid combination of <paramref name="target" /> and <paramref name="type" />.</exception>
+        public IMessageFormatter Get(string target, string type = null, bool sampling = false)
         {
             IMessageFormatter formatter = this.formatters
-                .FirstOrDefault(f => f.IsMatch(target, type));
+                .FirstOrDefault(f => f.IsMatch(target, type) && (!sampling || f is ISampledMessageFormatter));
 
             if (formatter == null)
-                throw new ArgumentException("Invalid combination: target '" + target + "', type '" + type + "'.");
+                throw new ArgumentException("Invalid combination: target '" + target + "', type '" + type + "', sampling required '" + sampling + "'.");
 
             return formatter;
         }

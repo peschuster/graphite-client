@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Graphite
 {
-    internal class UdpPipe : IPipe
+    internal class UdpPipe : IPipe, IDisposable
     {
         private readonly UdpClient udpClient;
 

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Graphite
 {
-    internal class TcpPipe : IPipe
+    internal class TcpPipe : IPipe, IDisposable
     {
         private readonly IPEndPoint endpoint;
 

@@ -4,7 +4,6 @@ namespace Graphite.Configuration
 {
     public class GraphiteConfiguration : ConfigurationSection
     {
-
         /// <summary>
         /// The XML name of the GraphiteConfigurationSectionName Configuration Section.
         /// </summary>        

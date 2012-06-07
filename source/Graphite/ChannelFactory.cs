@@ -11,7 +11,8 @@ namespace Graphite
 
         ////private static ChannelFactory defaultInstance;
 
-        private static readonly Func<string, string, string> BuildKey = (prefix, key) => !string.IsNullOrEmpty(prefix) ? prefix + "." + key : key;
+        private static readonly Func<string, string, string> buildKey = (prefix, key) => 
+            !string.IsNullOrEmpty(prefix) ? prefix + "." + key : key;
 
         private readonly FormatterFactory formatters;
 
@@ -23,6 +24,11 @@ namespace Graphite
 
         private bool disposed;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChannelFactory" /> class.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        /// <exception cref="System.ArgumentException">Invalid configuration values.</exception>
         public ChannelFactory(GraphiteConfiguration configuration)
         {
             this.formatters = new FormatterFactory();
@@ -49,19 +55,28 @@ namespace Graphite
         ////    }
         ////}
 
+        /// <summary>
+        /// Creates a new sampled monitoring channel.
+        /// </summary>
+        /// <param name="target">The target string (e.g. graphite, statsd, etc.)</param>
+        /// <param name="type">The type string (e.g. counter, gauge, etc.)</param>
+        /// <param name="key">The key string.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException">No implementation for specified target available.</exception>
+        /// <exception cref="System.ArgumentException">No message formatter for specified target and type available.</exception>
         public IMonitoringChannel CreateChannel(string type, string target, string key)
         {
             var formatter = this.formatters.Get(target, type);
 
             if (string.Equals(target, "graphite", StringComparison.OrdinalIgnoreCase))
             {
-                key = BuildKey(this.graphitePrefix, key);
+                key = buildKey(this.graphitePrefix, key);
 
                 return new MonitoringChannel(key, formatter, this.graphitePipe);
             }
             else if (string.Equals(target, "statsd", StringComparison.OrdinalIgnoreCase))
             {
-                key = BuildKey(this.statsdPrefix, key);
+                key = buildKey(this.statsdPrefix, key);
 
                 return new MonitoringChannel(key, formatter, this.statsdPipe);
             }
@@ -69,13 +84,23 @@ namespace Graphite
             throw new NotImplementedException("No pipe for configured target '" + target + "' implemented.");
         }
 
+        /// <summary>
+        /// Creates a new sampled monitoring channel.
+        /// </summary>
+        /// <param name="target">The target string (e.g. graphite, statsd, etc.)</param>
+        /// <param name="type">The type string (e.g. counter, gauge, etc.)</param>
+        /// <param name="key">The key string.</param>
+        /// <param name="sampling">The sampling factor.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException">No implementation for specified target available.</exception>
+        /// <exception cref="System.ArgumentException">No message formatter for specified target and type available. Or sampling is for the specified target not available.</exception>
         public IMonitoringChannel CreateChannel(string type, string target, string key, float sampling)
         {
-            var formatter = this.formatters.Get(target, type);
+            var formatter = (ISampledMessageFormatter)this.formatters.Get(target, type, sampling: true);
 
             if (string.Equals(target, "statsd", StringComparison.OrdinalIgnoreCase))
             {
-                key = BuildKey(this.statsdPrefix, key);
+                key = buildKey(this.statsdPrefix, key);
 
                 return new SamplingMonitoringChannel(key, formatter, this.statsdPipe, sampling);
             }
@@ -129,6 +154,7 @@ namespace Graphite
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht", Justification="Ownership trasferred to outer pipe.")]
         private void SetupStatsD(StatsDElement configuration)
         {
             IPAddress address = Helpers.ParseAddress(configuration.Address);
@@ -139,6 +165,7 @@ namespace Graphite
             this.statsdPipe = new SamplingPipe(inner);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht", Justification = "Disposed on class level.")]
         private void SetupGraphite(GraphiteElement configuration)
         {
             IPAddress address = Helpers.ParseAddress(configuration.Address);

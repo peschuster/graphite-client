@@ -9,9 +9,6 @@ using Graphite.System.Configuration;
 // Note: Windows-Dienst (De-)Installation mit installutil.exe (/u) <Assemblyname>
 namespace Graphite.System
 {
-    /// <summary>
-    /// The WINPACCS communication service.
-    /// </summary>
     public partial class WindowsService : ServiceBase
     {
         private Kernel kernel;

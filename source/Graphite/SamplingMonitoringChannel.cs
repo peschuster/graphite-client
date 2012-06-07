@@ -8,13 +8,13 @@ namespace Graphite
     {
         private readonly string key;
 
-        private readonly IMessageFormatter formatter;
+        private readonly ISampledMessageFormatter formatter;
 
         private readonly ISamplingPipe pipe;
 
         private readonly float sampling;
 
-        public SamplingMonitoringChannel(string key, IMessageFormatter formatter, ISamplingPipe pipe, float sampling)
+        public SamplingMonitoringChannel(string key, ISampledMessageFormatter formatter, ISamplingPipe pipe, float sampling)
         {
             if (pipe == null)
                 throw new ArgumentNullException("pipe");
@@ -31,7 +31,7 @@ namespace Graphite
 
         public bool Report(int value)
         {
-            string formattedValue = this.formatter.Format(this.key, value);
+            string formattedValue = this.formatter.Format(this.key, value, this.sampling);
 
             return this.pipe.Send(formattedValue, this.sampling);
         }
