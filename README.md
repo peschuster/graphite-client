@@ -5,12 +5,13 @@ Windows (.NET) library and tools for feeding data into [Graphite](http://readthe
 ## Current status
 
 - Base library (Graphite.dll)
-- Monitoring service for [PerformanceCounters](http://www.codeproject.com/Articles/8590/An-Introduction-To-Performance-Counters) (GraphiteSystemMonitor.exe)
+- Monitoring service for [PerformanceCounters](http://www.codeproject.com/Articles/8590/An-Introduction-To-Performance-Counters) (PerfCounterMonitor.exe)
 
 ## TODO
 
 - Instrumentation of ASP.NET MVC applications
 - Instrumentation of WCF services
+- Montioring log files
 - ...
 
 ## Building...

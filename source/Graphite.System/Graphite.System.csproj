@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Graphite.System</RootNamespace>
-    <AssemblyName>GraphiteSystemMonitor</AssemblyName>
+    <AssemblyName>PerfCounterMonitor</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -113,6 +113,7 @@
     <Compile Include="Configuration\GraphiteSystemConfiguration.cs" />
     <Compile Include="Configuration\ListenerElement.cs" />
     <Compile Include="Configuration\ListenerElementCollection.cs" />
+    <Compile Include="Explorer.cs" />
     <Compile Include="Kernel.cs" />
     <Compile Include="Listener.cs" />
     <Compile Include="Program.cs" />

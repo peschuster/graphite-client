@@ -66,7 +66,7 @@ namespace Graphite
         /// <exception cref="System.ArgumentException">No message formatter for specified target and type available.</exception>
         public IMonitoringChannel CreateChannel(string type, string target, string key)
         {
-            var formatter = this.formatters.Get(target, type);
+            var formatter = this.formatters.Get(target, type, false);
 
             if (string.Equals(target, "graphite", StringComparison.OrdinalIgnoreCase))
             {

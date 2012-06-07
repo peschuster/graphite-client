@@ -37,7 +37,7 @@ namespace Graphite.Formatters
         public IMessageFormatter Get(string target, string type = null, bool sampling = false)
         {
             IMessageFormatter formatter = this.formatters
-                .FirstOrDefault(f => f.IsMatch(target, type) && (!sampling || f is ISampledMessageFormatter));
+                .FirstOrDefault(f => (!sampling || f is ISampledMessageFormatter) && f.IsMatch(target, type));
 
             if (formatter == null)
                 throw new ArgumentException("Invalid combination: target '" + target + "', type '" + type + "', sampling required '" + sampling + "'.");
