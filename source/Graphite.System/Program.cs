@@ -39,8 +39,8 @@ namespace Graphite.System
                 {
                     using (new Kernel(GraphiteConfiguration.Instance, GraphiteSystemConfiguration.Instance))
                     {
-                        Console.WriteLine("Monitoring configured performance counters.");
-                        Console.WriteLine("Press [enter] to exit...");
+                        Console.WriteLine("Listening on configured performance counters...");
+                        Console.WriteLine("Press [enter] to exit.");
 
                         Console.ReadLine();
                     }
