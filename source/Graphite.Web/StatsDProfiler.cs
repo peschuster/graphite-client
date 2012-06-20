@@ -5,8 +5,6 @@ namespace Graphite.Web
 {
     public class StatsDProfiler : IDisposable
     {
-        private static readonly ChannelCache channels = new ChannelCache(20, (IMonitoringChannel c) => c != null);
-
         private readonly ChannelFactory factory;
 
         private IStopwatch watch;
@@ -28,9 +26,6 @@ namespace Graphite.Web
         internal bool ReportCounter(string key, int value, float sampling = 1)
         {
             var channel = this.factory.CreateChannel("counter", "statsd", key, sampling);
-
-            // var channel = channels.GetOrCreate("c/" + key + "/" + sampling,
-            //     () => this.factory.CreateChannel("counter", "statsd", key, sampling));
             
             return channel.Report(value);
         }
@@ -39,18 +34,12 @@ namespace Graphite.Web
         {
             var channel = this.factory.CreateChannel("timing", "statsd", key);
 
-            // var channel = channels.GetOrCreate("t/" + key,
-            //     () => this.factory.CreateChannel("timing", "statsd", key));
-
             return channel.Report(value);
         }
 
         internal bool ReportGauge(string key, int value)
         {
             var channel = this.factory.CreateChannel("gauge", "statsd", key);
-
-            // var channel = channels.GetOrCreate("g/" + key,
-            //     () => this.factory.CreateChannel("gauge", "statsd", key));
 
             return channel.Report(value);
         }
