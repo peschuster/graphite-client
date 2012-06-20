@@ -27,30 +27,24 @@ namespace Graphite.Web
 
         internal bool ReportCounter(string key, int value, float sampling = 1)
         {
-            var channel = this.factory.CreateChannel("counter", "statsd", key, sampling);
-
-            // var channel = channels.GetOrCreate("c/" + key + "/" + sampling,
-            //     () => this.factory.CreateChannel("counter", "statsd", key, sampling));
+            var channel = channels.GetOrCreate("c/" + key + "/" + sampling,
+                () => this.factory.CreateChannel("counter", "statsd", key, sampling));
             
             return channel.Report(value);
         }
 
         internal bool ReportTiming(string key, int value)
         {
-            var channel = this.factory.CreateChannel("timing", "statsd", key);
-
-            // var channel = channels.GetOrCreate("t/" + key,
-            //     () => this.factory.CreateChannel("timing", "statsd", key));
+            var channel = channels.GetOrCreate("t/" + key,
+                () => this.factory.CreateChannel("timing", "statsd", key));
 
             return channel.Report(value);
         }
 
         internal bool ReportGauge(string key, int value)
         {
-            var channel = this.factory.CreateChannel("gauge", "statsd", key);
-
-            // var channel = channels.GetOrCreate("g/" + key,
-            //     () => this.factory.CreateChannel("gauge", "statsd", key));
+            var channel = channels.GetOrCreate("g/" + key,
+                () => this.factory.CreateChannel("gauge", "statsd", key));
 
             return channel.Report(value);
         }
