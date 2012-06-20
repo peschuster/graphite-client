@@ -15,16 +15,18 @@ namespace Graphite.Web
             {
                 timing.Dispose();
 
-                if (timing.ElapsedMilliseconds.HasValue)
+                int? elapsed = timing.ElapsedMilliseconds;
+
+                if (elapsed.HasValue)
                 {
-                    profiler.ReportTiming((int)timing.ElapsedMilliseconds.Value, key);
+                    profiler.ReportTiming(key, elapsed.Value);
                 }
             });
         }
 
         public static void Count(this StatsDProfiler profiler, string key, int value = 1)
         {
-            profiler.ReportCounter(value, key);
+            profiler.ReportCounter(key, value);
         }
 
         internal class Reporter : IDisposable

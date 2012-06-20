@@ -81,10 +81,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChannelCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatsDProfiler.cs" />
     <Compile Include="StatsDProfilerExtensions.cs" />
     <Compile Include="StatsDProfilerProvider.cs" />
+    <Compile Include="StopwatchWrapper.cs" />
+    <Compile Include="IStopwatch.cs" />
     <Compile Include="Timing.cs" />
   </ItemGroup>
   <ItemGroup>

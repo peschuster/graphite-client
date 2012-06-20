@@ -1,64 +1,48 @@
-﻿using System.Diagnostics;
-using System.Web;
+﻿using System;
 using Graphite.Configuration;
 
 namespace Graphite.Web
 {
     public class StatsDProfiler
     {
-        private const string CacheKey = "StatsD.Profiler";
-        
+        private static readonly ChannelCache channels = new ChannelCache(20, (IMonitoringChannel c) => c != null);
+
         private readonly ChannelFactory factory;
 
-        private Stopwatch watch;
+        private IStopwatch watch;
 
-        public StatsDProfiler(GraphiteConfiguration configuration)
+        public StatsDProfiler(GraphiteConfiguration configuration, Func<IStopwatch> watch)
         {
             this.factory = new ChannelFactory(configuration);
 
-            this.watch = Stopwatch.StartNew();
+            this.watch = watch();
         }
 
         public static StatsDProfiler Current
         {
-            get
-            {
-                var context = HttpContext.Current;
-
-                if (context == null)
-                    return null;
-
-                return context.Items[CacheKey] as StatsDProfiler;
-            }
-
-            set
-            {
-                var context = HttpContext.Current;
-
-                if (context == null)
-                    return;
-
-                context.Items[CacheKey] = value;
-            }
+            get { return StatsDProfilerProvider.Current; }
         }
 
-        internal bool ReportCounter(int value, string key)
+        internal bool ReportCounter(string key, int value, float sampling = 1)
         {
-            var channel = this.factory.CreateChannel("counter", "statsd", key);
+            var channel = channels.GetOrCreate("c/" + key + "/" + sampling,
+                () => this.factory.CreateChannel("counter", "statsd", key, sampling));
             
             return channel.Report(value);
         }
 
-        internal bool ReportTiming(int value, string key)
+        internal bool ReportTiming(string key, int value, float sampling = 1)
         {
-            var channel = this.factory.CreateChannel("timing", "statsd", key);
+            var channel = channels.GetOrCreate("t/" + key + "/" + sampling,
+                () => this.factory.CreateChannel("timing", "statsd", key, sampling));
 
             return channel.Report(value);
         }
 
-        internal bool ReportGauge(int value, string key)
+        internal bool ReportGauge(string key, int value, float sampling = 1)
         {
-            var channel = this.factory.CreateChannel("gauge", "statsd", key);
+            var channel = channels.GetOrCreate("g/" + key + "/" + sampling,
+                () => this.factory.CreateChannel("gauge", "statsd", key, sampling));
 
             return channel.Report(value);
         }

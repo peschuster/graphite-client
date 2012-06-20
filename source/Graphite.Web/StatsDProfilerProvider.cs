@@ -9,6 +9,8 @@ namespace Graphite.Web
 {
     public class StatsDProfilerProvider
     {
+        private const string CacheKey = "StatsD.Profiler";
+
         private static StatsDProfilerProvider instance;
 
         public static StatsDProfilerProvider Instance
@@ -24,6 +26,29 @@ namespace Graphite.Web
             }
         }
 
+        internal static StatsDProfiler Current
+        {
+            get
+            {
+                var context = HttpContext.Current;
+
+                if (context == null)
+                    return null;
+
+                return context.Items[CacheKey] as StatsDProfiler;
+            }
+
+            private set
+            {
+                var context = HttpContext.Current;
+
+                if (context == null)
+                    return;
+
+                context.Items[CacheKey] = value;
+            }
+        }
+
         public static StatsDProfiler Start()
         {
             var context = HttpContext.Current;
@@ -31,15 +56,15 @@ namespace Graphite.Web
             if (context == null)
                 return null;
 
-            var result = new StatsDProfiler(GraphiteConfiguration.Instance);
-            StatsDProfiler.Current = result;
+            var result = new StatsDProfiler(GraphiteConfiguration.Instance, StopwatchWrapper.StartNew);
+            Current = result;
 
             return result;
         }
 
         public static void Stop()
         {
-            StatsDProfiler current = StatsDProfiler.Current;
+            StatsDProfiler current = Current;
 
             if (current != null)
             {

@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Graphite.Web
 {
     internal class Timing
     {
-        private bool disposed;
-
         private readonly bool ownsWatch = false;
 
-        private Stopwatch watch;
+        private readonly IStopwatch watch;
 
         private readonly long startTicks;
 
         private long? stopTicks;
 
-        public Timing(Stopwatch watch)
+        private bool disposed;
+
+        public Timing(IStopwatch watch)
         {
             if (watch == null)
                 throw new ArgumentNullException("watch");
@@ -25,7 +24,7 @@ namespace Graphite.Web
         }
 
         public Timing()
-            : this(Stopwatch.StartNew())
+            : this(StopwatchWrapper.StartNew())
         {
             this.ownsWatch = true;
         }
@@ -37,8 +36,23 @@ namespace Graphite.Web
                 if (!this.stopTicks.HasValue)
                     return default(int?);
 
-                return (int)((this.stopTicks.Value - this.startTicks) / TimeSpan.TicksPerMillisecond);
+                long ticks = (this.stopTicks.Value - this.startTicks) * 10000;
+                decimal time10Ms = (int)(ticks / this.watch.Frequency);
+
+                return (int)Math.Round(time10Ms / 10, 0);
             }
+        }
+
+        public bool Stop()
+        {
+            if (this.watch != null && !this.stopTicks.HasValue)
+            {
+                this.stopTicks = this.watch.ElapsedTicks;
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Dispose()
@@ -52,17 +66,12 @@ namespace Graphite.Web
         {
             if (disposing && !this.disposed)
             {
-                if (this.watch != null)
+                this.Stop();
+
+                if (this.watch != null && this.ownsWatch)
                 {
-                    this.stopTicks = this.watch.ElapsedTicks;
-
-                    if (this.ownsWatch)
-                    {
-                        this.watch.Stop();
-                    }
+                    this.watch.Stop();
                 }
-
-                this.watch = null;
 
                 this.disposed = true;
             }
