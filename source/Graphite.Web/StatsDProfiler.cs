@@ -11,7 +11,7 @@ namespace Graphite.Web
 
         private IStopwatch watch;
 
-        public StatsDProfiler(GraphiteConfiguration configuration, Func<IStopwatch> watch)
+        internal StatsDProfiler(GraphiteConfiguration configuration, Func<IStopwatch> watch)
         {
             this.factory = new ChannelFactory(configuration);
 
