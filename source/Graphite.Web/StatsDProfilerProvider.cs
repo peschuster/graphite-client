@@ -69,6 +69,8 @@ namespace Graphite.Web
             if (current != null)
             {
                 current.Stop();
+
+                current.Dispose();
             }
         }
     }
