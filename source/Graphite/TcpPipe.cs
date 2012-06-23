@@ -68,19 +68,19 @@ namespace Graphite
 
         private void EnsureConnected()
         {
-            if (this.tcpClient.Connected)
-                return;
-
             try
             {
+                if (this.tcpClient.Connected)
+                    return;
+
                 this.tcpClient.Connect(this.endpoint);
             }
             catch (ObjectDisposedException)
             {
                 this.RenewClient();
-            }
 
-            this.tcpClient.Connect(this.endpoint);
+                this.tcpClient.Connect(this.endpoint);
+            }
         }
 
         private void RenewClient()
