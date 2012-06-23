@@ -78,7 +78,7 @@ namespace Graphite.System
 
             this.listeners.Add(listener);
 
-            return () => channel.Report(listener.ReportValue());
+            return () => channel.Report((int)listener.ReportValue());
         }
 
         private void TriggerAction(object state)
