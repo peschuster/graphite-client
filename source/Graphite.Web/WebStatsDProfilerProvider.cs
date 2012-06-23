@@ -69,7 +69,8 @@ namespace Graphite.Web
         /// <summary>
         /// Stops the current StatsDProfiler instance.
         /// </summary>
-        public void Stop()
+        /// <returns></returns>
+        public StatsDProfiler Stop()
         {
             StatsDProfiler current = Current;
 
@@ -79,6 +80,8 @@ namespace Graphite.Web
 
                 current.Dispose();
             }
+
+            return current;
         }
     }
 }

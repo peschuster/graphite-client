@@ -19,6 +19,7 @@ namespace Graphite
         /// <summary>
         /// Stops the current StatsDProfiler instance.
         /// </summary>
-        void Stop();
+        /// <returns></returns>
+        StatsDProfiler Stop();
     }
 }

@@ -54,5 +54,12 @@ namespace Graphite
 
             throw new ArgumentException("'" + ipAddressOrHostname + "' is neigher an ip address nor a hostname.", "ipAddressOrHostname");
         }
+
+        public static int ConvertTicksToMs(long ticks, long fequency)
+        {
+            decimal time10Ms = (int)(10000 * ticks / fequency);
+
+            return (int)Math.Round(time10Ms / 10, 0);
+        }
     }
 }

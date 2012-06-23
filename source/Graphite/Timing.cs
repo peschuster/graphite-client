@@ -34,10 +34,7 @@ namespace Graphite
             if (!this.stopTicks.HasValue)
                 return default(int?);
 
-            long ticks = (this.stopTicks.Value - this.startTicks) * 10000;
-            decimal time10Ms = (int)(ticks / this.watch.Frequency);
-
-            return (int)Math.Round(time10Ms / 10, 0);
+            return Helpers.ConvertTicksToMs(this.stopTicks.Value - this.startTicks, this.watch.Frequency);
         }
 
         public bool Stop()

@@ -42,6 +42,14 @@ namespace Graphite
             get { return provider == null ? null : provider.Current; }
         }
 
+        /// <summary>
+        /// Total elapsed milliseconds.
+        /// </summary>
+        public int ElapsedMilliseconds
+        {
+            get { return Helpers.ConvertTicksToMs(this.watch.ElapsedTicks, this.watch.Frequency); }
+        }
+
         internal bool ReportCounter(string key, int value, float sampling = 1)
         {
             var channel = this.factory.CreateChannel("counter", "statsd", key, sampling);
