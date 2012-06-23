@@ -7,10 +7,6 @@ namespace Graphite
 {
     public class ChannelFactory : IDisposable
     {
-        ////private static readonly object defaultInstanceLock = new object();
-
-        ////private static ChannelFactory defaultInstance;
-
         private static readonly Func<string, string, string> buildKey = (prefix, key) => 
             !string.IsNullOrEmpty(prefix) ? prefix + "." + key : key;
 
@@ -35,25 +31,6 @@ namespace Graphite
 
             this.SetupPipes(configuration);
         }
-
-        ////public static ChannelFactory Default
-        ////{
-        ////    get 
-        ////    {
-        ////        if (defaultInstance == null)
-        ////        {
-        ////            lock (defaultInstanceLock)
-        ////            {
-        ////                if (defaultInstance == null)
-        ////                {
-        ////                    defaultInstance = new ChannelFactory(GraphiteConfiguration.Instance);
-        ////                }
-        ////            }
-        ////        }
-
-        ////        return defaultInstance; 
-        ////    }
-        ////}
 
         /// <summary>
         /// Creates a new sampled monitoring channel.
