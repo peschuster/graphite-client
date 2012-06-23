@@ -23,7 +23,7 @@ namespace Graphite.System
 
             // Initialize timer with interval of 1 second.
             this.timer = new Timer(this.TimerAction, null, 0, 1000);
-            this.counter = uint.MaxValue;
+            this.counter = 0;
         }
 
         public void Stop()
