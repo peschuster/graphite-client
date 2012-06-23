@@ -22,6 +22,10 @@ namespace Graphite.Web
             }
         }
 
+        /// <summary>
+        /// Returns the current StatsDProfiler instance.
+        /// </summary>
+        /// <value></value>
         public StatsDProfiler Current
         {
             get
@@ -45,6 +49,10 @@ namespace Graphite.Web
             }
         }
 
+        /// <summary>
+        /// Starts a new StatsDProfiler instance.
+        /// </summary>
+        /// <returns></returns>
         public StatsDProfiler Start()
         {
             var context = HttpContext.Current;
@@ -58,6 +66,9 @@ namespace Graphite.Web
             return result;
         }
 
+        /// <summary>
+        /// Stops the current StatsDProfiler instance.
+        /// </summary>
         public void Stop()
         {
             StatsDProfiler current = Current;

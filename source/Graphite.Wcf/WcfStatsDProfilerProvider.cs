@@ -20,6 +20,10 @@ namespace Graphite.Wcf
             }
         }
 
+        /// <summary>
+        /// Returns the current StatsDProfiler instance.
+        /// </summary>
+        /// <value></value>
         public StatsDProfiler Current
         {
             get
@@ -33,6 +37,10 @@ namespace Graphite.Wcf
             }
         }
 
+        /// <summary>
+        /// Starts a new StatsDProfiler instance.
+        /// </summary>
+        /// <returns></returns>
         public StatsDProfiler Start()
         {
             var context = OperationContext.Current;
@@ -46,6 +54,9 @@ namespace Graphite.Wcf
             return result;
         }
 
+        /// <summary>
+        /// Stops the current StatsDProfiler instance.
+        /// </summary>
         public void Stop()
         {
             StatsDProfiler current = Current;
