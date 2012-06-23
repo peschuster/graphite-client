@@ -5,18 +5,22 @@ namespace Graphite.Web
 {
     public class StatsDStartupModule : IHttpModule
     {
-        private readonly bool reportRequestTime;
-
-        private readonly string constantRequestTimeKey;
-
-        private readonly string requestTimePrefix;
-
-        public StatsDStartupModule(bool reportRequestTime, string constantRequestTimeKey = null, string requestTimePrefix = null)
+        public static class Settings
         {
-            this.reportRequestTime = reportRequestTime;
-            this.constantRequestTimeKey = constantRequestTimeKey;
-            this.requestTimePrefix = requestTimePrefix;
+            static Settings()
+            {
+                ReportRequestTime = false;
+                FixedRequestTimeKey = null;
+                RequestTimePrefix = null;
+            }
+
+            public static bool ReportRequestTime { get; set; }
+
+            public static string FixedRequestTimeKey { get; set; }
+
+            public static string RequestTimePrefix { get; set; }
         }
+
 
         public virtual void Init(HttpApplication context)
         {
@@ -29,9 +33,11 @@ namespace Graphite.Web
             {
                 var profiler = WebStatsDProfilerProvider.Instance.Stop();
 
-                if (profiler != null && reportRequestTime)
+                if (profiler != null && Settings.ReportRequestTime)
                 {
-                    this.ReportRequestTime(profiler, HttpContext.Current);
+                    profiler.ReportTiming(
+                        Settings.FixedRequestTimeKey ?? this.ParseMetricKey(HttpContext.Current),
+                        profiler.ElapsedMilliseconds);
                 }
             };
         }
@@ -40,26 +46,20 @@ namespace Graphite.Web
         {
         }
 
-        private void ReportRequestTime(StatsDProfiler profiler, HttpContext context)
-        {
-            profiler.ReportTiming(
-                constantRequestTimeKey ?? this.ParseMetricKey(context), 
-                profiler.ElapsedMilliseconds);
-        }
-
         private string ParseMetricKey(HttpContext context)
         {
             Uri uri = context.Request.Url;
 
             string key = uri.AbsolutePath
+                .Replace('.', '_')
                 .Replace('/', '.')
                 .Replace('\\', '.')
                 .Trim('.');
 
-            if (string.IsNullOrWhiteSpace(this.requestTimePrefix))
+            if (string.IsNullOrWhiteSpace(Settings.RequestTimePrefix))
                 return key;
 
-            return this.requestTimePrefix + "." + key;
+            return Settings.RequestTimePrefix + "." + key;
         }
     }
 }

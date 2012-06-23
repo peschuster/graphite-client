@@ -11,6 +11,9 @@ namespace MvcWebTest.App_Start
         {
             // Make sure StatsDProfiler handles BeginRequest and EndRequest
             DynamicModuleUtility.RegisterModule(typeof(StatsDStartupModule));
+
+            StatsDStartupModule.Settings.ReportRequestTime = true;
+            StatsDStartupModule.Settings.RequestTimePrefix = "request.time";
         }
     }
 }
