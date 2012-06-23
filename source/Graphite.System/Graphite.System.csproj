@@ -44,9 +44,11 @@
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSetDirectories></CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleSetDirectories>
+    </CodeAnalysisRuleSetDirectories>
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisRuleDirectories></CodeAnalysisRuleDirectories>
+    <CodeAnalysisRuleDirectories>
+    </CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
