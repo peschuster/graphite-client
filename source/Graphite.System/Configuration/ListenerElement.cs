@@ -117,10 +117,10 @@ namespace Graphite.System.Configuration
         /// <summary>
         /// Gets or sets the Interval (in seconds).
         /// </summary>
-        [ConfigurationPropertyAttribute(IntervalPropertyName, DefaultValue = 30)]
-        public ushort Interval
+        [ConfigurationPropertyAttribute(IntervalPropertyName, DefaultValue = (short)30)]
+        public short Interval
         {
-            get { return (ushort)base[IntervalPropertyName]; }
+            get { return (short)base[IntervalPropertyName]; }
             set { base[IntervalPropertyName] = value; }
         }
     }

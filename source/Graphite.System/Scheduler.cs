@@ -6,11 +6,11 @@ namespace Graphite.System
 {
     internal class Scheduler : IDisposable
     {
-        private readonly Dictionary<ushort, List<Action>> actions = new Dictionary<ushort, List<Action>>();
+        private readonly Dictionary<short, List<Action>> actions = new Dictionary<short, List<Action>>();
 
         private Timer timer;
 
-        private ulong counter;
+        private volatile uint counter;
 
         private bool disposed;
 
@@ -23,7 +23,7 @@ namespace Graphite.System
 
             // Initialize timer with interval of 1 second.
             this.timer = new Timer(this.TimerAction, null, 0, 1000);
-            this.counter = 0;
+            this.counter = uint.MaxValue;
         }
 
         public void Stop()
@@ -34,7 +34,7 @@ namespace Graphite.System
             }
         }
 
-        public Scheduler Add(Action action, ushort interval)
+        public Scheduler Add(Action action, short interval)
         {
             if (!this.actions.ContainsKey(interval))
             {
@@ -69,13 +69,11 @@ namespace Graphite.System
 
         private void TimerAction(object state)
         {
-            this.counter = this.counter == ulong.MaxValue 
-                ? 0 
-                : this.counter + 1;
+            long localCounter = ++this.counter;
 
-            foreach (ushort interval in this.actions.Keys)
+            foreach (short interval in this.actions.Keys)
             {
-                if (this.counter % interval == 0)
+                if (localCounter % interval == 0)
                 {
                     this.actions[interval].ForEach(a => a.Invoke());
                 }
