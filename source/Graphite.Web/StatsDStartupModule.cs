@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 
 namespace Graphite.Web
 {
@@ -8,10 +9,13 @@ namespace Graphite.Web
 
         private readonly string constantRequestTimeKey;
 
-        public StatsDStartupModule(bool reportRequestTime, string constantRequestTimeKey = null)
+        private readonly string requestTimePrefix;
+
+        public StatsDStartupModule(bool reportRequestTime, string constantRequestTimeKey = null, string requestTimePrefix = null)
         {
-            this.constantRequestTimeKey = constantRequestTimeKey;
             this.reportRequestTime = reportRequestTime;
+            this.constantRequestTimeKey = constantRequestTimeKey;
+            this.requestTimePrefix = requestTimePrefix;
         }
 
         public virtual void Init(HttpApplication context)
@@ -45,11 +49,17 @@ namespace Graphite.Web
 
         private string ParseMetricKey(HttpContext context)
         {
-            var uri = context.Request.Url;
+            Uri uri = context.Request.Url;
 
-            return uri.AbsolutePath
+            string key = uri.AbsolutePath
                 .Replace('/', '.')
-                .Replace('\\', '.');
+                .Replace('\\', '.')
+                .Trim('.');
+
+            if (string.IsNullOrWhiteSpace(this.requestTimePrefix))
+                return key;
+
+            return this.requestTimePrefix + "." + key;
         }
     }
 }
