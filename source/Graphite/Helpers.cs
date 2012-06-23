@@ -4,9 +4,11 @@ using System.Text.RegularExpressions;
 
 namespace Graphite
 {
-    public static class Helpers
+    internal static class Helpers
     {
-        /// <see cref="http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address#106223" />
+        /// <remarks>
+        /// See: http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address#106223"
+        /// </remarks>
         public const string ValidHostnamePattern = @"^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$";
         
         public static bool IsHostname(string value)

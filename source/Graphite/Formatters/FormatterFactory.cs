@@ -4,7 +4,7 @@ using System.Linq;
 namespace Graphite.Formatters
 {
     /// <summary>
-    /// Factory for message formatters (<see cref="Graphite.Formatters.IMessageFormater" />).
+    /// Factory for message formatters (<see cref="Graphite.Formatters.IMessageFormatter" />).
     /// </summary>
     public class FormatterFactory
     {
@@ -12,7 +12,7 @@ namespace Graphite.Formatters
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormatterFactory" /> class to 
-        /// create message formatters (<see cref="Graphite.Formatters.IMessageFormater" />).
+        /// create message formatters (<see cref="Graphite.Formatters.IMessageFormatter" />).
         /// </summary>
         public FormatterFactory()
         {

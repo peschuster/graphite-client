@@ -2,6 +2,9 @@
 
 namespace Graphite.Configuration
 {
+    /// <summary>
+    /// Base configuration for graphite package.
+    /// </summary>
     public class GraphiteConfiguration : ConfigurationSection
     {
         /// <summary>

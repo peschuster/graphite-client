@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{54410F
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphite.Wcf", "Graphite.Wcf\Graphite.Wcf.csproj", "{2D96AB33-EED6-4ACE-89BC-79AB9B8A3A84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debugger|Any CPU = Debugger|Any CPU
@@ -35,6 +37,12 @@ Global
 		{2A4858FE-7353-4E9A-84C1-1FD11808AF39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A4858FE-7353-4E9A-84C1-1FD11808AF39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A4858FE-7353-4E9A-84C1-1FD11808AF39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D96AB33-EED6-4ACE-89BC-79AB9B8A3A84}.Debugger|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D96AB33-EED6-4ACE-89BC-79AB9B8A3A84}.Debugger|Any CPU.Build.0 = Debug|Any CPU
+		{2D96AB33-EED6-4ACE-89BC-79AB9B8A3A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D96AB33-EED6-4ACE-89BC-79AB9B8A3A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D96AB33-EED6-4ACE-89BC-79AB9B8A3A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D96AB33-EED6-4ACE-89BC-79AB9B8A3A84}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6C8A1808-4C7B-4127-AC44-29146C0F2D9C}.Debugger|Any CPU.ActiveCfg = Debug|Any CPU
 		{6C8A1808-4C7B-4127-AC44-29146C0F2D9C}.Debugger|Any CPU.Build.0 = Debug|Any CPU
 		{6C8A1808-4C7B-4127-AC44-29146C0F2D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

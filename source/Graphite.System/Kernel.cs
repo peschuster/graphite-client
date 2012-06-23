@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Graphite.Configuration;
+using Graphite.Infrastructure;
 using Graphite.System.Configuration;
 
 namespace Graphite.System

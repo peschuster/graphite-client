@@ -2,6 +2,9 @@
 
 namespace Graphite.Configuration
 {
+    /// <summary>
+    /// Configuration for statsD backend.
+    /// </summary>
     public class StatsDElement : ConfigurationElement
     {
         /// <summary>

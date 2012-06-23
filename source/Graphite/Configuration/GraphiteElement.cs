@@ -3,6 +3,9 @@ using System.Net;
 
 namespace Graphite.Configuration
 {
+    /// <summary>
+    /// Configuration for graphite backend.
+    /// </summary>
     public class GraphiteElement : ConfigurationElement
     {
         /// <summary>

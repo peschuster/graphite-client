@@ -1,17 +1,16 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
-[assembly: AssemblyTitle("Graphite")]
+[assembly: AssemblyTitle("Graphite.Wcf")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Peter Schuster")]
-[assembly: AssemblyProduct("Graphite")]
-[assembly: AssemblyCopyright("Copyright © Peter Schuster 2012")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Graphite.Wcf")]
+[assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,10 +19,8 @@ using System.Runtime.InteropServices;
 // COM zugreifen müssen, legen Sie das ComVisible-Attribut für diesen Typ auf "true" fest.
 [assembly: ComVisible(false)]
 
-[assembly: CLSCompliant(false)]
-
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("62d3274e-529b-4e99-b5d7-cc2aeb9f1fbc")]
+[assembly: Guid("c5056e88-835a-43bf-bbfc-c923c6292511")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //
@@ -37,7 +34,3 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-[assembly: InternalsVisibleTo("Graphite.System")]
-[assembly: InternalsVisibleTo("Graphite.Wcf")]
-[assembly: InternalsVisibleTo("Graphite.Web")]

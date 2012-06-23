@@ -2,9 +2,13 @@
 using System.Net;
 using Graphite.Configuration;
 using Graphite.Formatters;
+using Graphite.Infrastructure;
 
 namespace Graphite
 {
+    /// <summary>
+    /// Factory for monitoring channels.
+    /// </summary>
     public class ChannelFactory : IDisposable
     {
         private static readonly Func<string, string, string> buildKey = (prefix, key) => 
@@ -89,6 +93,10 @@ namespace Graphite
             throw new NotImplementedException("No pipe for configured target '" + target + "' implemented.");
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing,
+        /// or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
@@ -96,6 +104,10 @@ namespace Graphite
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Disposes the instance.
+        /// </summary>
+        /// <param name="disposing">True for disposing managed resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing && !this.disposed)
@@ -131,7 +143,7 @@ namespace Graphite
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht", Justification="Ownership trasferred to outer pipe.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht", Justification="Ownership transferred to outer pipe.")]
         private void SetupStatsD(StatsDElement configuration)
         {
             IPAddress address = Helpers.ParseAddress(configuration.Address);

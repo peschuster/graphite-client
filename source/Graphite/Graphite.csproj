@@ -48,9 +48,11 @@
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSetDirectories></CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleSetDirectories>
+    </CodeAnalysisRuleSetDirectories>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisRuleDirectories></CodeAnalysisRuleDirectories>
+    <CodeAnalysisRuleDirectories>
+    </CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <DocumentationFile>..\..\bin\Graphite.XML</DocumentationFile>
@@ -66,9 +68,11 @@
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSetDirectories></CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleSetDirectories>
+    </CodeAnalysisRuleSetDirectories>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisRuleDirectories></CodeAnalysisRuleDirectories>
+    <CodeAnalysisRuleDirectories>
+    </CodeAnalysisRuleDirectories>
     <DocumentationFile>..\..\bin\Graphite.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
@@ -94,15 +98,21 @@
     <Compile Include="Formatters\StatsDCounterFormatter.cs" />
     <Compile Include="Formatters\StatsDGaugeFormatter.cs" />
     <Compile Include="Formatters\StatsDTimingFormatter.cs" />
-    <Compile Include="IMonitoringChannel.cs" />
-    <Compile Include="ISamplingPipe.cs" />
-    <Compile Include="SamplingMonitoringChannel.cs" />
-    <Compile Include="MonitoringChannel.cs" />
-    <Compile Include="SamplingPipe.cs" />
-    <Compile Include="TcpPipe.cs" />
-    <Compile Include="UdpPipe.cs" />
+    <Compile Include="Infrastructure\IMonitoringChannel.cs" />
+    <Compile Include="Infrastructure\ISamplingPipe.cs" />
+    <Compile Include="IStatsDProfilerProvider.cs" />
+    <Compile Include="IStopwatch.cs" />
+    <Compile Include="Infrastructure\SamplingMonitoringChannel.cs" />
+    <Compile Include="Infrastructure\MonitoringChannel.cs" />
+    <Compile Include="Infrastructure\SamplingPipe.cs" />
+    <Compile Include="StatsDProfiler.cs" />
+    <Compile Include="StatsDProfilerExtensions.cs" />
+    <Compile Include="StopwatchWrapper.cs" />
+    <Compile Include="Infrastructure\TcpPipe.cs" />
+    <Compile Include="Timing.cs" />
+    <Compile Include="Infrastructure\UdpPipe.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="IPipe.cs" />
+    <Compile Include="Infrastructure\IPipe.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
