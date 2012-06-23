@@ -20,11 +20,6 @@ namespace Graphite.System.Configuration
         internal const string ListenersPropertyName = "listeners";
 
         /// <summary>
-        /// The XML name of the <see cref="Interval"/> property.
-        /// </summary>        
-        internal const string IntervalPropertyName = "interval";
-
-        /// <summary>
         /// Gets the W3CReadersConfiguration instance.
         /// </summary>        
         public static GraphiteSystemConfiguration Instance
@@ -53,16 +48,6 @@ namespace Graphite.System.Configuration
         {
             get { return (ListenerElementCollection)this[ListenersPropertyName]; }
             set { base[ListenersPropertyName] = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the Interval (in ms).
-        /// </summary>
-        [ConfigurationPropertyAttribute(IntervalPropertyName, DefaultValue = 60000)]
-        public int Interval
-        {
-            get { return (int)base[IntervalPropertyName]; }
-            set { base[IntervalPropertyName] = value; }
         }
     }
 }

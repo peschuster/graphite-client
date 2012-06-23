@@ -40,6 +40,11 @@ namespace Graphite.System.Configuration
         internal const string SamplingPropertyName = "sampling";
 
         /// <summary>
+        /// The XML name of the <see cref="Interval"/> property.
+        /// </summary>        
+        internal const string IntervalPropertyName = "interval";
+
+        /// <summary>
         /// Gets or sets the Key.
         /// </summary>
         [ConfigurationPropertyAttribute(KeyPropertyName, IsRequired = true, IsKey = true)]
@@ -107,6 +112,16 @@ namespace Graphite.System.Configuration
         {
             get { return (float?)base[SamplingPropertyName]; }
             set { base[SamplingPropertyName] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the Interval (in seconds).
+        /// </summary>
+        [ConfigurationPropertyAttribute(IntervalPropertyName, DefaultValue = 30)]
+        public ushort Interval
+        {
+            get { return (ushort)base[IntervalPropertyName]; }
+            set { base[IntervalPropertyName] = value; }
         }
     }
 }

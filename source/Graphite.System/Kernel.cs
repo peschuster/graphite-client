@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Graphite.Configuration;
 using Graphite.System.Configuration;
 
@@ -9,9 +8,7 @@ namespace Graphite.System
 {
     internal class Kernel : IDisposable
     {
-        private readonly List<Action> actions;
-
-        private readonly Timer timer;
+        private readonly Scheduler scheduler;
 
         private readonly ChannelFactory factory;
 
@@ -23,12 +20,16 @@ namespace Graphite.System
         {
             this.factory = new ChannelFactory(configuration);
 
-            this.actions = systemConfiguration.Listeners
-                .Cast<ListenerElement>()
-                .Select(config => this.CreateReportingAction(config))
-                .ToList();
+            this.scheduler = new Scheduler();
 
-            this.timer = new Timer(this.TriggerAction, null, 0, systemConfiguration.Interval);
+            foreach (var listener in systemConfiguration.Listeners.Cast<ListenerElement>())
+            {
+                var action = this.CreateReportingAction(listener);
+
+                this.scheduler.Add(action, listener.Interval);
+            }
+
+            this.scheduler.Start();
         }
 
         public void Dispose()
@@ -42,9 +43,9 @@ namespace Graphite.System
         {
             if (disposing && !this.disposed)
             {
-                if (this.timer != null)
+                if (this.scheduler != null)
                 {
-                    this.timer.Dispose();
+                    this.scheduler.Dispose();
                 }
 
                 if (this.factory != null)
@@ -79,14 +80,6 @@ namespace Graphite.System
             this.listeners.Add(listener);
 
             return () => channel.Report((int)listener.ReportValue());
-        }
-
-        private void TriggerAction(object state)
-        {
-            foreach (var listener in this.actions)
-            {
-                listener.Invoke();
-            }
         }
     }
 }

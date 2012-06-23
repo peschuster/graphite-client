@@ -9,7 +9,6 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="listeners" type="tns:Graphite.System.Configuration.ListenerElementCollection" />
     </xs:sequence>
-    <xs:attribute name="interval" use="optional" type="xs:integer"/>
   </xs:complexType>
   <xs:complexType name="Graphite.System.Configuration.ListenerElementCollection">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -35,5 +34,6 @@
     <xs:attribute name="type" use="required" type="xs:string"/>
     <xs:attribute name="target" use="required" type="xs:string"/>
     <xs:attribute name="sampling" use="optional" type="xs:float"/>
+    <xs:attribute name="interval" use="optional" type="xs:short"/>
   </xs:complexType>
 </xs:schema>
