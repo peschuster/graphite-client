@@ -24,7 +24,7 @@ namespace Graphite.Formatters
 
         private long CalculateTimestamp(DateTime dateTime)
         {
-            return (long)(dateTime - this.unixOffset).TotalSeconds;
+            return (long)(dateTime.ToUniversalTime() - this.unixOffset).TotalSeconds;
         }
     }
 }
