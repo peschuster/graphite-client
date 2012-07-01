@@ -5,7 +5,7 @@ namespace Graphite.System
 {
     internal class Listener : IDisposable
     {
-        private readonly PerformanceCounter counter;
+        private PerformanceCounter counter;
         
         private bool disposed;
 
@@ -23,13 +23,28 @@ namespace Graphite.System
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.ObjectDisposedException">The object or underlying performance counter is already disposed.</exception>
+        /// <exception cref="System.InvalidOperationException">Connection to the underlying counter was closed.</exception>
         public float ReportValue()
         {
             if (this.disposed)
                 throw new ObjectDisposedException(typeof(PerformanceCounter).Name);
 
-            // Report current value.
-            return this.counter.NextValue();
+            try
+            {
+                // Report current value.
+                return this.counter.NextValue();
+            }
+            catch (InvalidOperationException)
+            {
+                // Connection to the underlying counter was losed.
+
+                this.Dispose(true);
+
+                this.RenewCounter();
+
+                // Report current value.
+                return this.counter.NextValue();
+            }
         }
 
         public void Dispose()
@@ -50,6 +65,20 @@ namespace Graphite.System
 
                 this.disposed = true;
             }
+        }
+
+        protected virtual void RenewCounter()
+        {
+            this.counter = new PerformanceCounter(this.counter.CategoryName,
+                this.counter.InstanceName,
+                this.counter.CounterName);
+
+            this.counter.Disposed += (sender, e) => this.disposed = true;
+
+            this.disposed = false;
+
+            // First call to NextValue returns always 0 -> perforn it without taking value.
+            this.counter.NextValue();
         }
     }
 }
