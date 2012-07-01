@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
 
@@ -6,11 +7,21 @@ namespace Graphite.Wcf
 {
     public class StatsDProfilerMessageInspector : IDispatchMessageInspector
     {
+        private readonly bool reportRequestTime;
+
+        private readonly string fixedRequestTimeKey;
+
+        private readonly string requestTimePrefix;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="StatsDProfilerMessageInspector"/> class.
         /// </summary>
-        public StatsDProfilerMessageInspector() : base()
+        public StatsDProfilerMessageInspector(bool reportRequestTime, string fixedRequestTimeKey = null, string requestTimePrefix = null) 
+            : base()
         {
+            this.requestTimePrefix = requestTimePrefix;
+            this.fixedRequestTimeKey = fixedRequestTimeKey;
+            this.reportRequestTime = reportRequestTime;
         }
 
         /// <summary>
@@ -34,7 +45,36 @@ namespace Graphite.Wcf
         /// <param name="correlationState">The correlation object returned from the AfterReceiveRequest method.</param>
         public void BeforeSendReply(ref Message reply, object correlationState)
         {
-            WcfStatsDProfilerProvider.Instance.Stop();
+            StatsDProfiler profiler = WcfStatsDProfilerProvider.Instance.Stop();
+            
+            if (profiler != null && this.reportRequestTime)
+            {
+                if (!string.IsNullOrEmpty(this.fixedRequestTimeKey))
+                {
+                    profiler.ReportTiming(
+                        this.fixedRequestTimeKey.ToLowerInvariant(), 
+                        profiler.ElapsedMilliseconds);
+                }
+                else if (OperationContext.Current != null && OperationContext.Current.IncomingMessageHeaders != null)
+                {
+                    profiler.ReportTiming(
+                        this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders).ToLowerInvariant(), 
+                        profiler.ElapsedMilliseconds);
+                }
+            }
+        }
+
+        private string ParseMetricKey(MessageHeaders headers)
+        {
+            if (headers == null)
+                throw new ArgumentNullException("headers");
+
+            string key = headers.Action.ToUnderscores();
+
+            if (string.IsNullOrWhiteSpace(this.requestTimePrefix))
+                return key;
+
+            return this.requestTimePrefix + "." + key;
         }
     }
 }

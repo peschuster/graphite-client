@@ -50,11 +50,7 @@ namespace Graphite.Web
         {
             Uri uri = context.Request.Url;
 
-            string key = uri.AbsolutePath
-                .Replace('.', '_')
-                .Replace('/', '.')
-                .Replace('\\', '.')
-                .Trim('.');
+            string key = uri.ToMetricKey();
 
             if (string.IsNullOrWhiteSpace(Settings.RequestTimePrefix))
                 return key;

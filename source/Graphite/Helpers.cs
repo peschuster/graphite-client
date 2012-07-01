@@ -61,5 +61,25 @@ namespace Graphite
 
             return (int)Math.Round(time10Ms / 10, 0);
         }
+
+        public static string ToUnderscores(this string camelCased)
+        {
+            if (string.IsNullOrEmpty(camelCased))
+                return camelCased;
+
+            return Regex.Replace(camelCased, "(?<=[a-z])([A-Z])", @"_\1");
+        }
+
+        public static string ToMetricKey(this Uri uri)
+        {
+            if (uri == null)
+                return null;
+
+            return uri.AbsolutePath
+                .Replace('.', '_')
+                .Replace('/', '.')
+                .Replace('\\', '.')
+                .Trim('.');
+        }
     }
 }

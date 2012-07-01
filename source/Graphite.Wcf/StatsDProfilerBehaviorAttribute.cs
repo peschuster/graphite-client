@@ -10,6 +10,19 @@ namespace Graphite.Wcf
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class StatsDProfilerBehaviorAttribute : Attribute, IServiceBehavior
     {
+        private readonly bool reportRequestTime;
+
+        private readonly string fixedRequestTimeKey;
+
+        private readonly string requestTimePrefix;
+
+        public StatsDProfilerBehaviorAttribute(bool reportRequestTime, string fixedRequestTimeKey = null, string requestTimePrefix = null)
+        {
+            this.reportRequestTime = reportRequestTime;
+            this.fixedRequestTimeKey = fixedRequestTimeKey;
+            this.requestTimePrefix = requestTimePrefix;
+        }
+
         public void AddBindingParameters(
             ServiceDescription serviceDescription, 
             ServiceHostBase serviceHostBase, 
@@ -24,7 +37,8 @@ namespace Graphite.Wcf
             {
                 foreach (EndpointDispatcher endpoint in dispatcher.Endpoints)
                 {
-                    endpoint.DispatchRuntime.MessageInspectors.Add(new StatsDProfilerMessageInspector());
+                    endpoint.DispatchRuntime.MessageInspectors.Add(
+                        new StatsDProfilerMessageInspector(this.reportRequestTime, this.fixedRequestTimeKey, this.requestTimePrefix));
                 }
             }
         }
