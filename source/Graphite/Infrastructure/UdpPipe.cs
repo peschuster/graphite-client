@@ -32,7 +32,7 @@ namespace Graphite.Infrastructure
             if (messages == null)
                 return false;
 
-            var data = Encoding.Default.GetBytes(string.Join("\n", messages) + "\n");
+            var data = Encoding.Default.GetBytes(string.Join("\n", messages));
 
             return this.CoreSend(data);
         }
