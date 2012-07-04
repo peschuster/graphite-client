@@ -44,11 +44,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ToUnderscoresTest.cs" />
     <Compile Include="UriTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Graphite\Graphite.csproj">
+      <Project>{e9ed1c85-2c0a-43a7-a98a-fc3ec92b6f8a}</Project>
+      <Name>Graphite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

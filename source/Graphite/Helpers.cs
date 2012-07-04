@@ -67,7 +67,7 @@ namespace Graphite
             if (string.IsNullOrEmpty(camelCased))
                 return camelCased;
 
-            return Regex.Replace(camelCased, "(?<=[a-z])([A-Z])", @"_\1");
+            return Regex.Replace(camelCased, "(?<=[a-z])([A-Z])", @"_$1");
         }
 
         public static string ToMetricKey(this Uri uri)

@@ -39,5 +39,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: InternalsVisibleTo("Graphite.System")]
+[assembly: InternalsVisibleTo("Graphite.Test")]
 [assembly: InternalsVisibleTo("Graphite.Wcf")]
 [assembly: InternalsVisibleTo("Graphite.Web")]
