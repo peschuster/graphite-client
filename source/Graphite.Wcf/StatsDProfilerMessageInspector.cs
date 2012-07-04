@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
@@ -69,7 +70,7 @@ namespace Graphite.Wcf
             if (headers == null)
                 throw new ArgumentNullException("headers");
 
-            string key = headers.Action.ToUnderscores();
+            string key = headers.Action.Split('/', '\\').Last().ToUnderscores();
 
             if (string.IsNullOrWhiteSpace(this.requestTimePrefix))
                 return key;
