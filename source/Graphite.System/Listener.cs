@@ -70,8 +70,8 @@ namespace Graphite.System
         protected virtual void RenewCounter()
         {
             this.counter = new PerformanceCounter(this.counter.CategoryName,
-                this.counter.InstanceName,
-                this.counter.CounterName);
+                this.counter.CounterName,
+                this.counter.InstanceName);
 
             this.counter.Disposed += (sender, e) => this.disposed = true;
 
