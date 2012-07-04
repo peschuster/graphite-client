@@ -65,8 +65,6 @@ namespace Graphite.Wcf
             if (current != null)
             {
                 current.Stop();
-
-                current.Dispose();
             }
 
             return current;

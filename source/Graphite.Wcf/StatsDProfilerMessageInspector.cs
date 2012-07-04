@@ -63,6 +63,11 @@ namespace Graphite.Wcf
                         profiler.ElapsedMilliseconds);
                 }
             }
+
+            if (profiler != null)
+            {
+                profiler.Dispose();
+            }
         }
 
         private string ParseMetricKey(MessageHeaders headers)

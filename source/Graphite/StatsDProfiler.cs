@@ -78,8 +78,6 @@ namespace Graphite
         {
             if (this.watch != null && this.watch.IsRunning)
                 this.watch.Stop();
-
-            this.watch = null;
         }
 
         internal Timing StartTiming()
