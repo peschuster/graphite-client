@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -47,21 +48,28 @@ namespace Graphite.Wcf
         public void BeforeSendReply(ref Message reply, object correlationState)
         {
             StatsDProfiler profiler = WcfStatsDProfilerProvider.Instance.Stop();
-            
-            if (profiler != null && this.reportRequestTime)
+
+            try
             {
-                if (!string.IsNullOrEmpty(this.fixedRequestTimeKey))
+                if (profiler != null && this.reportRequestTime)
                 {
-                    profiler.ReportTiming(
-                        this.fixedRequestTimeKey.ToLowerInvariant(), 
-                        profiler.ElapsedMilliseconds);
+                    if (!string.IsNullOrEmpty(this.fixedRequestTimeKey))
+                    {
+                        profiler.ReportTiming(
+                            this.fixedRequestTimeKey.ToLowerInvariant(),
+                            profiler.ElapsedMilliseconds);
+                    }
+                    else if (OperationContext.Current != null && OperationContext.Current.IncomingMessageHeaders != null)
+                    {
+                        profiler.ReportTiming(
+                            this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders).ToLowerInvariant(),
+                            profiler.ElapsedMilliseconds);
+                    }
                 }
-                else if (OperationContext.Current != null && OperationContext.Current.IncomingMessageHeaders != null)
-                {
-                    profiler.ReportTiming(
-                        this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders).ToLowerInvariant(), 
-                        profiler.ElapsedMilliseconds);
-                }
+            }
+            catch (SystemException exception)
+            {
+                Trace.TraceError(exception.Format());
             }
 
             if (profiler != null)
