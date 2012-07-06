@@ -80,7 +80,15 @@ namespace Graphite.System
 
             this.listeners.Add(listener);
 
-            return () => channel.Report((int)listener.ReportValue());
+            return () =>
+            {
+                float? value = listener.ReportValue();
+
+                if (value.HasValue)
+                {
+                    channel.Report((int)value.Value);
+                }
+            };
         }
     }
 }

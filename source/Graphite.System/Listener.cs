@@ -24,7 +24,7 @@ namespace Graphite.System
         /// <returns></returns>
         /// <exception cref="System.ObjectDisposedException">The object or underlying performance counter is already disposed.</exception>
         /// <exception cref="System.InvalidOperationException">Connection to the underlying counter was closed.</exception>
-        public float ReportValue()
+        public float? ReportValue()
         {
             if (this.disposed)
                 throw new ObjectDisposedException(typeof(PerformanceCounter).Name);
@@ -42,8 +42,7 @@ namespace Graphite.System
 
                 this.RenewCounter();
 
-                // Report current value.
-                return this.counter.NextValue();
+                return null;
             }
         }
 
@@ -77,8 +76,15 @@ namespace Graphite.System
 
             this.disposed = false;
 
-            // First call to NextValue returns always 0 -> perforn it without taking value.
-            this.counter.NextValue();
+            try
+            {
+                // First call to NextValue returns always 0 -> perforn it without taking value.
+                this.counter.NextValue();
+            }
+            catch (InvalidOperationException)
+            {
+                // nop
+            }
         }
     }
 }
