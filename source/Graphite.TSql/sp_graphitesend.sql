@@ -6,6 +6,12 @@ GO
 ALTER DATABASE [master] SET TRUSTWORTHY ON;
 GO
 
+-- enable clr code
+EXEC sp_configure 'clr enabled', 1
+GO
+RECONFIGURE
+GO
+
 -- Add Graphite.TSql.dll assembly
 CREATE ASSEMBLY [Graphite.TSql]
 AUTHORIZATION [dbo]
