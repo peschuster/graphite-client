@@ -24,7 +24,8 @@ CREATE PROCEDURE sp_graphitesend
 (
 @host nvarchar(255),
 @port int,
-@key nvarchar(255)
+@key nvarchar(255),
+@value int
 )
 AS
 EXTERNAL NAME [Graphite.TSql].[Graphite.TSql.GraphiteProcedures].GraphiteSend
@@ -33,6 +34,6 @@ GO
 -- --------------------------------------------------------------------------
 -- Example usage:
 --
--- exec sp_graphitesend N'192.168.0.1', 2003, 'stats.events.myserver.test'
+-- exec sp_graphitesend N'192.168.0.1', 2003, 'stats.events.myserver.test', 1
 --
 -- --------------------------------------------------------------------------

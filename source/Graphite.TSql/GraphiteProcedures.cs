@@ -7,7 +7,7 @@ namespace Graphite.TSql
     public class GraphiteProcedures
     {
         [SqlProcedure]
-        public static void GraphiteSend(string host, int port, string key)
+        public static void GraphiteSend(string host, int port, string key, int value)
         {
             IPAddress address = Helpers.ParseAddress(host);
 
@@ -15,7 +15,7 @@ namespace Graphite.TSql
             {
                 try
                 {
-                    pipe.Send(GraphiteFormatter.Format(key, 1));
+                    pipe.Send(GraphiteFormatter.Format(key, value));
                 }
                 catch (InvalidOperationException exception)
                 {
