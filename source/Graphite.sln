@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphite.Wcf", "Graphite.Wc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphite.Test", "Graphite.Test\Graphite.Test.csproj", "{CA860A6C-3189-480A-8940-1A3D6F143DFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphite.EventFeeder", "Graphite.EventFeeder\Graphite.EventFeeder.csproj", "{8B0A907A-8283-4111-93E5-E7A5FFCEB81A}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphite.TSql", "Graphite.TSql\Graphite.TSql.csproj", "{DF9722BC-BB2D-4081-9FBA-3A4FE386122C}"
 EndProject
 Global
@@ -53,6 +55,12 @@ Global
 		{6C8A1808-4C7B-4127-AC44-29146C0F2D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C8A1808-4C7B-4127-AC44-29146C0F2D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C8A1808-4C7B-4127-AC44-29146C0F2D9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B0A907A-8283-4111-93E5-E7A5FFCEB81A}.Debugger|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B0A907A-8283-4111-93E5-E7A5FFCEB81A}.Debugger|Any CPU.Build.0 = Debug|Any CPU
+		{8B0A907A-8283-4111-93E5-E7A5FFCEB81A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B0A907A-8283-4111-93E5-E7A5FFCEB81A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B0A907A-8283-4111-93E5-E7A5FFCEB81A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B0A907A-8283-4111-93E5-E7A5FFCEB81A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA860A6C-3189-480A-8940-1A3D6F143DFF}.Debugger|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA860A6C-3189-480A-8940-1A3D6F143DFF}.Debugger|Any CPU.Build.0 = Debug|Any CPU
 		{CA860A6C-3189-480A-8940-1A3D6F143DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

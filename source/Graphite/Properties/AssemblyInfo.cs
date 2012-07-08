@@ -38,6 +38,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
+[assembly: InternalsVisibleTo("Graphite.EventFeeder")]
 [assembly: InternalsVisibleTo("Graphite.System")]
 [assembly: InternalsVisibleTo("Graphite.Test")]
 [assembly: InternalsVisibleTo("Graphite.Wcf")]
