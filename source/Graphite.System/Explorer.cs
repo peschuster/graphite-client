@@ -38,12 +38,29 @@ namespace Graphite.System
 
                     if (filteredPath.Length == 1)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("Instances:");
-                        string intend = new string(' ', 4);
-                        foreach (var instance in category.GetInstanceNames())
+                        var instances = category.GetInstanceNames();
+
+                        if (instances.Any())
                         {
-                            Console.WriteLine(intend + instance);
+                            Console.WriteLine();
+                            Console.WriteLine("Instances:");
+                            string intend = new string(' ', 4);
+                            foreach (var instance in instances)
+                            {
+                                Console.WriteLine(intend + instance);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Instance: [None]");
+                            Console.WriteLine();
+                            Console.WriteLine("Counters:");
+                            string intend = new string(' ', 4);
+
+                            foreach (var counter in category.GetCounters())
+                            {
+                                Console.WriteLine(intend + counter.CounterName);
+                            }
                         }
                     }
                     else
@@ -58,7 +75,10 @@ namespace Graphite.System
                             Console.WriteLine();
                             Console.WriteLine("Counters:");
                             string intend = new string(' ', 4);
-                            foreach (var counter in category.GetCounters(filteredPath[1]))
+
+                            string instanceName = filteredPath[1];
+
+                            foreach (var counter in category.GetCounters(instanceName))
                             {
                                 Console.WriteLine(intend + counter.CounterName);
                             }
