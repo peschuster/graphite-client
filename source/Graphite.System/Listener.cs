@@ -36,7 +36,7 @@ namespace Graphite.System
             }
             catch (InvalidOperationException)
             {
-                // Connection to the underlying counter was losed.
+                // Connection to the underlying counter was closed.
 
                 this.Dispose(true);
 
