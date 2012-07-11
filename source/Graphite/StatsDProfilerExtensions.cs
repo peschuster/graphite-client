@@ -39,9 +39,20 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        public static void Count(this StatsDProfiler profiler, string key, int value = 1)
+        public static void Count(this StatsDProfiler profiler, string key, int value = 1, float sampling = 1)
         {
-            profiler.ReportCounter(key, value);
+            profiler.ReportCounter(key, value, sampling);
+        }
+
+        /// <summary>
+        /// Reports a gauge value for specified key.
+        /// </summary>
+        /// <param name="profiler">The profiler.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        public static void Gauge(this StatsDProfiler profiler, string key, int value = 1)
+        {
+            profiler.ReportGauge(key, value);
         }
 
         internal class Reporter : IDisposable
