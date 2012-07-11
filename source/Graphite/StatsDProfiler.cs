@@ -27,7 +27,7 @@ namespace Graphite
             if (watch == null)
                 throw new ArgumentNullException("watch");
 
-            this.factory = new ChannelFactory(configuration);
+            this.factory = new ChannelFactory(configuration.Graphite, configuration.StatsD);
             
             StatsDProfiler.provider = provider;
 

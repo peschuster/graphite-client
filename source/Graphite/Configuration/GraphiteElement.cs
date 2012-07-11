@@ -6,7 +6,7 @@ namespace Graphite.Configuration
     /// <summary>
     /// Configuration for graphite backend.
     /// </summary>
-    public class GraphiteElement : ConfigurationElement
+    public class GraphiteElement : ConfigurationElement, IGraphiteConfiguration
     {
         /// <summary>
         /// The XML name of the <see cref="Address"/> property.

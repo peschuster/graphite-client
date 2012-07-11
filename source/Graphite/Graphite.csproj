@@ -90,6 +90,8 @@
     <Compile Include="ChannelFactory.cs" />
     <Compile Include="Configuration\GraphiteConfiguration.cs" />
     <Compile Include="Configuration\GraphiteElement.cs" />
+    <Compile Include="Configuration\IGraphiteConfiguration.cs" />
+    <Compile Include="Configuration\IStatsDConfiguration.cs" />
     <Compile Include="Configuration\StatsDElement.cs" />
     <Compile Include="Formatters\FormatterFactory.cs" />
     <Compile Include="Formatters\GraphiteFormatter.cs" />

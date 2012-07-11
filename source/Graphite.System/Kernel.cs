@@ -19,7 +19,7 @@ namespace Graphite.System
 
         public Kernel(GraphiteConfiguration configuration, GraphiteSystemConfiguration systemConfiguration)
         {
-            this.factory = new ChannelFactory(configuration);
+            this.factory = new ChannelFactory(configuration.Graphite, configuration.StatsD);
 
             this.scheduler = new Scheduler();
 

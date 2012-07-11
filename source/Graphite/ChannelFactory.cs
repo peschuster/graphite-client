@@ -29,11 +29,11 @@ namespace Graphite
         /// </summary>
         /// <param name="configuration">The configuration.</param>
         /// <exception cref="System.ArgumentException">Invalid configuration values.</exception>
-        public ChannelFactory(GraphiteConfiguration configuration)
+        public ChannelFactory(IGraphiteConfiguration graphite, IStatsDConfiguration statsd)
         {
             this.formatters = new FormatterFactory();
 
-            this.SetupPipes(configuration);
+            this.SetupPipes(graphite, statsd);
         }
 
         /// <summary>
@@ -128,23 +128,23 @@ namespace Graphite
             }
         }
 
-        private void SetupPipes(GraphiteConfiguration configuration)
+        private void SetupPipes(IGraphiteConfiguration graphite, IStatsDConfiguration statsd)
         {
-            if (configuration.Graphite != null && !string.IsNullOrWhiteSpace(configuration.Graphite.Address))
+            if (graphite != null && !string.IsNullOrWhiteSpace(graphite.Address))
             {
-                this.SetupGraphite(configuration.Graphite);
-                this.graphitePrefix = configuration.Graphite.PrefixKey;
+                this.SetupGraphite(graphite);
+                this.graphitePrefix = graphite.PrefixKey;
             }
 
-            if (configuration.StatsD != null && !string.IsNullOrWhiteSpace(configuration.StatsD.Address))
+            if (statsd != null && !string.IsNullOrWhiteSpace(statsd.Address))
             {
-                this.SetupStatsD(configuration.StatsD);
-                this.statsdPrefix = configuration.StatsD.PrefixKey;
+                this.SetupStatsD(statsd);
+                this.statsdPrefix = statsd.PrefixKey;
             }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht", Justification="Ownership transferred to outer pipe.")]
-        private void SetupStatsD(StatsDElement configuration)
+        private void SetupStatsD(IStatsDConfiguration configuration)
         {
             IPAddress address = Helpers.ParseAddress(configuration.Address);
 
@@ -155,7 +155,7 @@ namespace Graphite
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht", Justification = "Disposed on class level.")]
-        private void SetupGraphite(GraphiteElement configuration)
+        private void SetupGraphite(IGraphiteConfiguration configuration)
         {
             IPAddress address = Helpers.ParseAddress(configuration.Address);
 

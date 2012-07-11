@@ -5,7 +5,7 @@ namespace Graphite.Configuration
     /// <summary>
     /// Configuration for statsD backend.
     /// </summary>
-    public class StatsDElement : ConfigurationElement
+    public class StatsDElement : ConfigurationElement, IStatsDConfiguration
     {
         /// <summary>
         /// The XML name of the <see cref="Address"/> property.
