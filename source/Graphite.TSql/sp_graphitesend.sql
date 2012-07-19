@@ -12,6 +12,14 @@ GO
 RECONFIGURE
 GO
 
+-- Check if procedure and assembly already exist and drop them
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_graphitesend]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_graphitesend]
+GO
+IF  EXISTS (SELECT * FROM sys.assemblies WHERE name = N'Graphite.TSql')
+DROP ASSEMBLY [Graphite.TSql]
+GO
+
 -- Add Graphite.TSql.dll assembly
 CREATE ASSEMBLY [Graphite.TSql]
 AUTHORIZATION [dbo]
