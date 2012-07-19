@@ -18,3 +18,4 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.vs10x
 StyleCop.Cache
+/tests/

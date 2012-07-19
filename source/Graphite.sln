@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphite.Test", "Graphite.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphite.TSql", "Graphite.TSql\Graphite.TSql.csproj", "{DF9722BC-BB2D-4081-9FBA-3A4FE386122C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Graphite", "MSBuild.Graphite\MSBuild.Graphite.csproj", "{003884F7-C602-4505-AAE5-ED276921A4A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debugger|Any CPU = Debugger|Any CPU
@@ -29,6 +31,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{003884F7-C602-4505-AAE5-ED276921A4A3}.Debugger|Any CPU.ActiveCfg = Debug|Any CPU
+		{003884F7-C602-4505-AAE5-ED276921A4A3}.Debugger|Any CPU.Build.0 = Debug|Any CPU
+		{003884F7-C602-4505-AAE5-ED276921A4A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{003884F7-C602-4505-AAE5-ED276921A4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{003884F7-C602-4505-AAE5-ED276921A4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{003884F7-C602-4505-AAE5-ED276921A4A3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{00748014-056A-46DC-AA41-0445534ABDD5}.Debugger|Any CPU.ActiveCfg = Debugger|Any CPU
 		{00748014-056A-46DC-AA41-0445534ABDD5}.Debugger|Any CPU.Build.0 = Debugger|Any CPU
 		{00748014-056A-46DC-AA41-0445534ABDD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
