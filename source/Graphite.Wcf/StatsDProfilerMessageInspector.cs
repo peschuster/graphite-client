@@ -15,12 +15,21 @@ namespace Graphite.Wcf
 
         private readonly string requestTimePrefix;
 
+        private readonly bool reportHitCount;
+
+        private readonly string fixedHitCountKey;
+
+        private readonly string hitCountPrefix;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="StatsDProfilerMessageInspector"/> class.
         /// </summary>
-        public StatsDProfilerMessageInspector(bool reportRequestTime, string fixedRequestTimeKey = null, string requestTimePrefix = null) 
+        public StatsDProfilerMessageInspector(bool reportRequestTime, bool reportHitCount, string fixedRequestTimeKey = null, string requestTimePrefix = null, string fixedHitCountKey = null, string hitCountPrefix = null) 
             : base()
         {
+            this.hitCountPrefix = hitCountPrefix;
+            this.fixedHitCountKey = fixedHitCountKey;
+            this.reportHitCount = reportHitCount;
             this.requestTimePrefix = requestTimePrefix;
             this.fixedRequestTimeKey = fixedRequestTimeKey;
             this.reportRequestTime = reportRequestTime;
@@ -51,19 +60,34 @@ namespace Graphite.Wcf
 
             try
             {
-                if (profiler != null && this.reportRequestTime)
+                if (profiler != null)
                 {
-                    if (!string.IsNullOrEmpty(this.fixedRequestTimeKey))
+                    if (this.reportRequestTime)
                     {
-                        profiler.ReportTiming(
-                            this.fixedRequestTimeKey.ToLowerInvariant(),
-                            profiler.ElapsedMilliseconds);
+                        if (!string.IsNullOrEmpty(this.fixedRequestTimeKey))
+                        {
+                            profiler.ReportTiming(
+                                this.fixedRequestTimeKey.ToLowerInvariant(),
+                                profiler.ElapsedMilliseconds);
+                        }
+                        else if (OperationContext.Current != null && OperationContext.Current.IncomingMessageHeaders != null)
+                        {
+                            profiler.ReportTiming(
+                                this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders, this.requestTimePrefix).ToLowerInvariant(),
+                                profiler.ElapsedMilliseconds);
+                        }
                     }
-                    else if (OperationContext.Current != null && OperationContext.Current.IncomingMessageHeaders != null)
+
+                    if (this.reportHitCount)
                     {
-                        profiler.ReportTiming(
-                            this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders).ToLowerInvariant(),
-                            profiler.ElapsedMilliseconds);
+                        if (!string.IsNullOrEmpty(this.fixedHitCountKey))
+                        {
+                            profiler.ReportCounter(this.fixedHitCountKey.ToLowerInvariant(), 1);
+                        }
+                        else if (OperationContext.Current != null && OperationContext.Current.IncomingMessageHeaders != null)
+                        {
+                            profiler.ReportCounter(this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders, this.hitCountPrefix).ToLowerInvariant(), 1);
+                        }
                     }
                 }
             }
@@ -78,17 +102,17 @@ namespace Graphite.Wcf
             }
         }
 
-        private string ParseMetricKey(MessageHeaders headers)
+        private string ParseMetricKey(MessageHeaders headers, string prefix)
         {
             if (headers == null)
                 throw new ArgumentNullException("headers");
 
             string key = headers.Action.Split('/', '\\').Last().ToUnderscores();
 
-            if (string.IsNullOrWhiteSpace(this.requestTimePrefix))
+            if (string.IsNullOrWhiteSpace(prefix))
                 return key;
 
-            return this.requestTimePrefix + "." + key;
+            return prefix + "." + key;
         }
     }
 }
