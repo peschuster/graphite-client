@@ -16,8 +16,17 @@ namespace Graphite.Wcf
 
         private readonly string requestTimePrefix;
 
-        public StatsDProfilerBehaviorAttribute(bool reportRequestTime, string fixedRequestTimeKey = null, string requestTimePrefix = null)
+        private readonly bool reportHitCount;
+
+        private readonly string hitCountPrefix;
+
+        private readonly string fixedHitCountKey;
+
+        public StatsDProfilerBehaviorAttribute(bool reportRequestTime, bool reportHitCount, string fixedRequestTimeKey = null, string requestTimePrefix = null, string fixedHitCountKey = null, string hitCountPrefix = null)
         {
+            this.fixedHitCountKey = fixedHitCountKey;
+            this.hitCountPrefix = hitCountPrefix;
+            this.reportHitCount = reportHitCount;
             this.reportRequestTime = reportRequestTime;
             this.fixedRequestTimeKey = fixedRequestTimeKey;
             this.requestTimePrefix = requestTimePrefix;
@@ -38,7 +47,13 @@ namespace Graphite.Wcf
                 foreach (EndpointDispatcher endpoint in dispatcher.Endpoints)
                 {
                     endpoint.DispatchRuntime.MessageInspectors.Add(
-                        new StatsDProfilerMessageInspector(this.reportRequestTime, this.fixedRequestTimeKey, this.requestTimePrefix));
+                        new StatsDProfilerMessageInspector(
+                            this.reportRequestTime, 
+                            this.reportHitCount, 
+                            this.fixedRequestTimeKey, 
+                            this.requestTimePrefix,
+                            this.fixedHitCountKey,
+                            this.hitCountPrefix));
                 }
             }
         }
