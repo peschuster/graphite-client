@@ -2,6 +2,9 @@ using System.Net;
 
 namespace Graphite.Configuration
 {
+    /// <summary>
+    /// Configuration for graphite endpoint.
+    /// </summary>
     public interface IGraphiteConfiguration
     {
         /// <summary>

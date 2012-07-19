@@ -53,6 +53,7 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
+        /// <param name="sampling">Sample by provided value.</param>
         public static void Count(this StatsDProfiler profiler, string key, int value = 1, float sampling = 1)
         {
             profiler.ReportCounter(key, value, sampling);

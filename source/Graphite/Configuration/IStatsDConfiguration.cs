@@ -1,6 +1,9 @@
 
 namespace Graphite.Configuration
 {
+    /// <summary>
+    /// Configuration for statsd endpoint.
+    /// </summary>
     public interface IStatsDConfiguration
     {
         /// <summary>

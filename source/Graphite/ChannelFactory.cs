@@ -27,7 +27,8 @@ namespace Graphite
         /// <summary>
         /// Initializes a new instance of the <see cref="ChannelFactory" /> class.
         /// </summary>
-        /// <param name="configuration">The configuration.</param>
+        /// <param name="graphite">The graphite configuration.</param>
+        /// <param name="statsd">The statsd configuration.</param>
         /// <exception cref="System.ArgumentException">Invalid configuration values.</exception>
         public ChannelFactory(IGraphiteConfiguration graphite, IStatsDConfiguration statsd)
         {
