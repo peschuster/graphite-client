@@ -9,30 +9,18 @@ namespace Graphite.Wcf
 {
     public class StatsDProfilerMessageInspector : IDispatchMessageInspector
     {
-        private readonly bool reportRequestTime;
+        private readonly MetricSetting reportRequestTime;
 
-        private readonly string fixedRequestTimeKey;
-
-        private readonly string requestTimePrefix;
-
-        private readonly bool reportHitCount;
-
-        private readonly string fixedHitCountKey;
-
-        private readonly string hitCountPrefix;
+        private readonly MetricSetting reportHitCount;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StatsDProfilerMessageInspector"/> class.
         /// </summary>
-        public StatsDProfilerMessageInspector(bool reportRequestTime, bool reportHitCount, string fixedRequestTimeKey = null, string requestTimePrefix = null, string fixedHitCountKey = null, string hitCountPrefix = null) 
+        public StatsDProfilerMessageInspector(MetricSetting reportRequestTime = null, MetricSetting reportHitCount = null) 
             : base()
         {
-            this.hitCountPrefix = hitCountPrefix;
-            this.fixedHitCountKey = fixedHitCountKey;
-            this.reportHitCount = reportHitCount;
-            this.requestTimePrefix = requestTimePrefix;
-            this.fixedRequestTimeKey = fixedRequestTimeKey;
             this.reportRequestTime = reportRequestTime;
+            this.reportHitCount = reportHitCount;
         }
 
         /// <summary>
@@ -62,31 +50,35 @@ namespace Graphite.Wcf
             {
                 if (profiler != null)
                 {
-                    if (this.reportRequestTime)
+                    if (this.reportRequestTime != null && this.reportRequestTime.Enable)
                     {
-                        if (!string.IsNullOrEmpty(this.fixedRequestTimeKey))
+                        if (!string.IsNullOrEmpty(this.reportRequestTime.FixedKey))
                         {
                             profiler.ReportTiming(
-                                this.fixedRequestTimeKey.ToLowerInvariant(),
+                                this.reportRequestTime.FixedKey.ToLowerInvariant(),
                                 profiler.ElapsedMilliseconds);
                         }
                         else if (OperationContext.Current != null && OperationContext.Current.IncomingMessageHeaders != null)
                         {
                             profiler.ReportTiming(
-                                this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders, this.requestTimePrefix).ToLowerInvariant(),
+                                this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders, this.reportRequestTime.KeyPrefix).ToLowerInvariant(),
                                 profiler.ElapsedMilliseconds);
                         }
                     }
 
-                    if (this.reportHitCount)
+                    if (this.reportHitCount != null && this.reportHitCount.Enable)
                     {
-                        if (!string.IsNullOrEmpty(this.fixedHitCountKey))
+                        if (!string.IsNullOrEmpty(this.reportHitCount.FixedKey))
                         {
-                            profiler.ReportCounter(this.fixedHitCountKey.ToLowerInvariant(), 1);
+                            profiler.ReportCounter(
+                                this.reportHitCount.FixedKey.ToLowerInvariant(), 
+                                1);
                         }
                         else if (OperationContext.Current != null && OperationContext.Current.IncomingMessageHeaders != null)
                         {
-                            profiler.ReportCounter(this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders, this.hitCountPrefix).ToLowerInvariant(), 1);
+                            profiler.ReportCounter(
+                                this.ParseMetricKey(OperationContext.Current.IncomingMessageHeaders, this.reportHitCount.KeyPrefix).ToLowerInvariant(), 
+                                1);
                         }
                     }
                 }

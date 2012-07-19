@@ -10,26 +10,14 @@ namespace Graphite.Wcf
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class StatsDProfilerBehaviorAttribute : Attribute, IServiceBehavior
     {
-        private readonly bool reportRequestTime;
+        private readonly MetricSetting reportRequestTime;
 
-        private readonly string fixedRequestTimeKey;
+        private readonly MetricSetting reportHitCount;
 
-        private readonly string requestTimePrefix;
-
-        private readonly bool reportHitCount;
-
-        private readonly string hitCountPrefix;
-
-        private readonly string fixedHitCountKey;
-
-        public StatsDProfilerBehaviorAttribute(bool reportRequestTime, bool reportHitCount, string fixedRequestTimeKey = null, string requestTimePrefix = null, string fixedHitCountKey = null, string hitCountPrefix = null)
+        public StatsDProfilerBehaviorAttribute(MetricSetting reportRequestTime = null, MetricSetting reportHitCount = null)
         {
-            this.fixedHitCountKey = fixedHitCountKey;
-            this.hitCountPrefix = hitCountPrefix;
-            this.reportHitCount = reportHitCount;
             this.reportRequestTime = reportRequestTime;
-            this.fixedRequestTimeKey = fixedRequestTimeKey;
-            this.requestTimePrefix = requestTimePrefix;
+            this.reportHitCount = reportHitCount;
         }
 
         public void AddBindingParameters(
@@ -49,11 +37,7 @@ namespace Graphite.Wcf
                     endpoint.DispatchRuntime.MessageInspectors.Add(
                         new StatsDProfilerMessageInspector(
                             this.reportRequestTime, 
-                            this.reportHitCount, 
-                            this.fixedRequestTimeKey, 
-                            this.requestTimePrefix,
-                            this.fixedHitCountKey,
-                            this.hitCountPrefix));
+                            this.reportHitCount));
                 }
             }
         }
