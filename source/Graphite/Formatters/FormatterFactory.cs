@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Graphite.Formatters
@@ -18,12 +19,33 @@ namespace Graphite.Formatters
         {
             Type type = typeof(IMessageFormatter);
 
+#if DYNAMIC_FORMATTERS_ENABLE
+            Func<System.Reflection.Assembly, IEnumerable<Type>> typeLoader = s => 
+                {
+                    try 
+                    {
+                        return s.GetTypes();
+                    }
+                    catch (SystemException)
+                    {
+                    }
+
+                    return Enumerable.Empty<Type>();
+                };
+
             // Dynamically load all formatters
             this.formatters = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
+                .SelectMany(s => typeLoader(s))
                 .Where(t => type.IsAssignableFrom(t) && t.IsClass)
                 .Select(t => Activator.CreateInstance(t) as IMessageFormatter)
                 .ToArray();
+#else
+            // Dynamically load all formatters
+            this.formatters = typeof(FormatterFactory).Assembly.GetTypes()
+                .Where(t => type.IsAssignableFrom(t) && t.IsClass)
+                .Select(t => Activator.CreateInstance(t) as IMessageFormatter)
+                .ToArray();
+#endif
         }
 
         /// <summary>
