@@ -34,6 +34,20 @@ namespace Graphite
         }
 
         /// <summary>
+        /// Submits a timing directly.
+        /// </summary>
+        /// <param name="profiler">The profiler.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The timing value.</param>
+        public static void Timing(this StatsDProfiler profiler, string key, int value)
+        {
+            if (profiler == null)
+                return;
+
+            profiler.Timing(key, value);
+        }
+
+        /// <summary>
         /// Increases a counter for specified key.
         /// </summary>
         /// <param name="profiler">The profiler.</param>
