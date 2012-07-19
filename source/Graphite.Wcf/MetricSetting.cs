@@ -2,6 +2,11 @@
 {
     public sealed class MetricSetting
     {
+        public MetricSetting()
+            : this(true, null, null)
+        {
+        }
+
         public MetricSetting(bool enable)
             : this(enable, null, null)
         {
