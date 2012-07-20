@@ -44,7 +44,7 @@ namespace Graphite
             if (profiler == null)
                 return;
 
-            profiler.Timing(key, value);
+            profiler.ReportTiming(key, value);
         }
 
         /// <summary>
