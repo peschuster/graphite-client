@@ -9,6 +9,7 @@ Windows (.NET) library and tools for feeding data into [Graphite](http://readthe
 - Basic instrumentation of ASP.NET MVC apps (inspired by MiniProfiler)
 - Instrumentation of WCF services
 - Sending stats from inside SQL Server using TSQL / a stored procedure
+- MSBuild task for sending stats to Graphite and StatsD 
 
 ## TODO
 
