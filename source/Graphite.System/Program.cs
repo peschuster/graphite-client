@@ -16,6 +16,7 @@ namespace Graphite.System
                 Func<string, bool> isParamater = (s) => s != null && (s.StartsWith("-") || s.StartsWith("/"));
                 Func<string, bool> isEParamater = (s) => s == "-e" || s == "/e";
                 Func<string, bool> isHParamater = (s) => s == "-h" || s == "/h" || s == "-?" || s == "/?" || s == "--help" || s == "/help";
+                Func<string, bool> isIParamater = (s) => s == "-i" || s == "/i";
 
                 if (parameter != null && parameter.Any(isHParamater))
                 {
@@ -34,6 +35,10 @@ namespace Graphite.System
                         .ToArray();
 
                     Explorer.Print(path);
+                }
+                else if (parameter != null && parameter.Any(isIParamater))
+                {
+                    Inspector.Print(GraphiteSystemConfiguration.Instance.Listeners.OfType<ListenerElement>());
                 }
                 else
                 {

@@ -10,12 +10,21 @@ namespace Graphite.System
         private bool disposed;
 
         public Listener(string category, string instance, string counter)
-        {   
-            this.counter = new PerformanceCounter(category, counter, instance);
-            this.counter.Disposed += (sender, e) => this.disposed = true;
+        {
+            try
+            {
+                this.counter = new PerformanceCounter(category, counter, instance);
+                this.counter.Disposed += (sender, e) => this.disposed = true;
 
-            // First call to NextValue returns always 0 -> perforn it without taking value.
-            this.counter.NextValue();
+                // First call to NextValue returns always 0 -> perforn it without taking value.
+                this.counter.NextValue();
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new InvalidOperationException(
+                    exception.Message + string.Format(" (Category: '{0}', Counter: '{1}', Instance: '{2}')", category, counter, instance),
+                    exception);
+            }
         }
 
         /// <summary>

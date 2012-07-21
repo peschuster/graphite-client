@@ -59,7 +59,7 @@ namespace Graphite.System
 
                             foreach (var counter in category.GetCounters())
                             {
-                                Console.WriteLine(intend + counter.CounterName);
+                                Console.WriteLine(intend + counter.CounterName + " (" + counter.CounterType + ")");
                             }
                         }
                     }
@@ -80,7 +80,7 @@ namespace Graphite.System
 
                             foreach (var counter in category.GetCounters(instanceName))
                             {
-                                Console.WriteLine(intend + counter.CounterName);
+                                Console.WriteLine(intend + counter.CounterName + " (" + counter.CounterType + ")");
                             }
                         }
                     }
