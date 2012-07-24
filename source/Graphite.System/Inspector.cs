@@ -7,13 +7,13 @@ namespace Graphite.System
 {
     internal static class Inspector
     {
-        public static void Print(IEnumerable<ListenerElement> listeners)
+        public static void Print(IEnumerable<CounterListenerElement> listeners)
         {
             foreach (var listener in listeners)
                 Print(listener);
         }
 
-        private static void Print(ListenerElement listener)
+        private static void Print(CounterListenerElement listener)
         {
             try
             {

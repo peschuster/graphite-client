@@ -3,13 +3,13 @@ using System.Diagnostics;
 
 namespace Graphite.System
 {
-    internal class Listener : IDisposable
+    internal class CounterListener : IDisposable
     {
         private PerformanceCounter counter;
         
         private bool disposed;
 
-        public Listener(string category, string instance, string counter)
+        public CounterListener(string category, string instance, string counter)
         {
             try
             {
