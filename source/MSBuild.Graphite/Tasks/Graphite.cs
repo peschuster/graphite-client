@@ -48,10 +48,9 @@ namespace MSBuild.Graphite.Tasks
             {
                 IMonitoringChannel channel = channelFactory.CreateChannel(
                     "gauge", 
-                    "graphite", 
-                    this.Key);
+                    "graphite");
 
-                channel.Report(this.Value);
+                channel.Report(this.Key, this.Value);
 
                 Console.Out.WriteLine(
                     "Reported value '{0}' for key '{1}' to {2}:{3}.",

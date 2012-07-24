@@ -36,10 +36,9 @@ namespace MSBuild.Graphite.Tasks
             {
                 IMonitoringChannel channel = channelFactory.CreateChannel(
                     this.Type.ToString(),
-                    "statsd",
-                    this.Key);
+                    "statsd");
 
-                channel.Report(this.Value);
+                channel.Report(this.Key, this.Value);
 
                 Console.Out.WriteLine(
                     "Reported value '{0}' of type '{1}' for key '{2}' to {3}:{4}.",

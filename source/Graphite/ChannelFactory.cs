@@ -42,25 +42,32 @@ namespace Graphite
         /// </summary>
         /// <param name="target">The target string (e.g. graphite, statsd, etc.)</param>
         /// <param name="type">The type string (e.g. counter, gauge, etc.)</param>
-        /// <param name="key">The key string.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException">No implementation for specified target available.</exception>
         /// <exception cref="System.ArgumentException">No message formatter for specified target and type available.</exception>
-        public IMonitoringChannel CreateChannel(string type, string target, string key)
+        public IMonitoringChannel CreateChannel(string type, string target)
         {
             var formatter = this.formatters.Get(target, type, false);
 
             if (string.Equals(target, "graphite", StringComparison.OrdinalIgnoreCase))
             {
-                key = buildKey(this.graphitePrefix, key);
+                if (this.graphitePipe == null)
+                    throw new InvalidOperationException("graphite pipe is not configured.");
 
-                return new MonitoringChannel(key, formatter, this.graphitePipe);
+                return new MonitoringChannel(
+                    k => buildKey(this.graphitePrefix, k), 
+                    formatter, 
+                    this.graphitePipe);
             }
             else if (string.Equals(target, "statsd", StringComparison.OrdinalIgnoreCase))
             {
-                key = buildKey(this.statsdPrefix, key);
+                if (this.statsdPipe == null)
+                    throw new InvalidOperationException("statsd pipe is not configured.");
 
-                return new MonitoringChannel(key, formatter, this.statsdPipe);
+                return new MonitoringChannel(
+                    k => buildKey(this.statsdPrefix, k), 
+                    formatter, 
+                    this.statsdPipe);
             }
 
             throw new NotImplementedException("No pipe for configured target '" + target + "' implemented.");
@@ -71,20 +78,24 @@ namespace Graphite
         /// </summary>
         /// <param name="target">The target string (e.g. graphite, statsd, etc.)</param>
         /// <param name="type">The type string (e.g. counter, gauge, etc.)</param>
-        /// <param name="key">The key string.</param>
         /// <param name="sampling">The sampling factor.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException">No implementation for specified target available.</exception>
         /// <exception cref="System.ArgumentException">No message formatter for specified target and type available. Or sampling is for the specified target not available.</exception>
-        public IMonitoringChannel CreateChannel(string type, string target, string key, float sampling)
+        public IMonitoringChannel CreateChannel(string type, string target, float sampling)
         {
             var formatter = (ISampledMessageFormatter)this.formatters.Get(target, type, sampling: true);
 
             if (string.Equals(target, "statsd", StringComparison.OrdinalIgnoreCase))
             {
-                key = buildKey(this.statsdPrefix, key);
+                if (this.statsdPipe == null)
+                    throw new InvalidOperationException("statsd pipe is not configured.");
 
-                return new SamplingMonitoringChannel(key, formatter, this.statsdPipe, sampling);
+                return new SamplingMonitoringChannel(
+                    k => buildKey(this.statsdPrefix, k), 
+                    formatter, 
+                    this.statsdPipe, 
+                    sampling);
             }
             else if (string.Equals(target, "graphite", StringComparison.OrdinalIgnoreCase))
             {

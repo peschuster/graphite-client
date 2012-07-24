@@ -71,11 +71,11 @@ namespace Graphite.System
 
             if (config.Sampling.HasValue)
             {
-                channel = this.factory.CreateChannel(config.Type, config.Target, config.Key, config.Sampling.Value);
+                channel = this.factory.CreateChannel(config.Type, config.Target, config.Sampling.Value);
             }
             else
             {
-                channel = this.factory.CreateChannel(config.Type, config.Target, config.Key);
+                channel = this.factory.CreateChannel(config.Type, config.Target);
             }
 
             this.listeners.Add(listener);
@@ -86,7 +86,7 @@ namespace Graphite.System
 
                 if (value.HasValue)
                 {
-                    channel.Report((int)value.Value);
+                    channel.Report(config.Key, (int)value.Value);
                 }
             };
         }

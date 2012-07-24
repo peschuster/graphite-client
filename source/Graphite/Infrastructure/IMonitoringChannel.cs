@@ -10,15 +10,17 @@ namespace Graphite.Infrastructure
         /// <summary>
         /// Reports the specified value.
         /// </summary>
+        /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        bool Report(int value);
+        bool Report(string key, int value);
 
         /// <summary>
         /// Reports the specifed value asynchron, returning a task.
         /// </summary>
+        /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        Task<bool> ReportAsync(int value);
+        Task<bool> ReportAsync(string key, int value);
     }
 }

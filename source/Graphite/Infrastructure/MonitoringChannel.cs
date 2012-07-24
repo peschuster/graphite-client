@@ -9,19 +9,19 @@ namespace Graphite.Infrastructure
     /// </summary>
     public class MonitoringChannel : IMonitoringChannel
     {
-        private readonly string key;
-
         private readonly IMessageFormatter formatter;
 
         private readonly IPipe pipe;
 
+        private readonly Func<string, string> keyBuilder;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MonitoringChannel" /> class.
         /// </summary>
-        /// <param name="key">The metric key.</param>
+        /// <param name="keyBuilder">Builds up the final metric key.</param>
         /// <param name="formatter">The message formatter.</param>
         /// <param name="pipe">The pipe.</param>
-        public MonitoringChannel(string key, IMessageFormatter formatter, IPipe pipe)
+        public MonitoringChannel(Func<string, string> keyBuilder, IMessageFormatter formatter, IPipe pipe)
         {
             if (pipe == null)
                 throw new ArgumentNullException("pipe");
@@ -31,17 +31,21 @@ namespace Graphite.Infrastructure
 
             this.pipe = pipe;
             this.formatter = formatter;
-            this.key = key;
+
+            this.keyBuilder = keyBuilder ?? (Func<string, string>)((string k) => k);
         }
 
         /// <summary>
         /// Reports the specified value.
         /// </summary>
+        /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public bool Report(int value)
+        public bool Report(string key, int value)
         {
-            string formattedValue = this.formatter.Format(this.key, value);
+            string formattedValue = this.formatter.Format(
+                this.keyBuilder(key),
+                value);
 
             return this.pipe.Send(formattedValue);
         }
@@ -49,12 +53,13 @@ namespace Graphite.Infrastructure
         /// <summary>
         /// Reports the specifed value asynchron, returning a task.
         /// </summary>
+        /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public Task<bool> ReportAsync(int value)
+        public Task<bool> ReportAsync(string key, int value)
         {
             return Task<bool>.Factory
-                .StartNew(() => this.Report(value));
+                .StartNew(() => this.Report(key, value));
         }
     }
 }

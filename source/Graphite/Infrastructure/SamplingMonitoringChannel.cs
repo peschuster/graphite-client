@@ -9,22 +9,22 @@ namespace Graphite.Infrastructure
     /// </summary>
     public class SamplingMonitoringChannel : IMonitoringChannel
     {
-        private readonly string key;
-
         private readonly ISampledMessageFormatter formatter;
 
         private readonly ISamplingPipe pipe;
 
         private readonly float sampling;
 
+        private readonly Func<string, string> keyBuilder;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SamplingMonitoringChannel" /> class.
         /// </summary>
-        /// <param name="key">The metric key.</param>
+        /// <param name="keyBuilder">Builds up the final metric key.</param>
         /// <param name="formatter">The message formatter.</param>
         /// <param name="pipe">The pipe.</param>
         /// <param name="sampling">The sampling.</param>
-        public SamplingMonitoringChannel(string key, ISampledMessageFormatter formatter, ISamplingPipe pipe, float sampling)
+        public SamplingMonitoringChannel(Func<string, string> keyBuilder, ISampledMessageFormatter formatter, ISamplingPipe pipe, float sampling)
         {
             if (pipe == null)
                 throw new ArgumentNullException("pipe");
@@ -35,18 +35,22 @@ namespace Graphite.Infrastructure
             this.pipe = pipe;
             this.formatter = formatter;
 
-            this.key = key;
             this.sampling = sampling;
+            this.keyBuilder = keyBuilder ?? (Func<string, string>)((string k) => k);
         }
 
         /// <summary>
         /// Reports the specified value.
         /// </summary>
+        /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public bool Report(int value)
+        public bool Report(string key, int value)
         {
-            string formattedValue = this.formatter.Format(this.key, value, this.sampling);
+            string formattedValue = this.formatter.Format(
+                this.keyBuilder(key), 
+                value, 
+                this.sampling);
 
             return this.pipe.Send(formattedValue, this.sampling);
         }
@@ -54,12 +58,13 @@ namespace Graphite.Infrastructure
         /// <summary>
         /// Reports the specifed value asynchron, returning a task.
         /// </summary>
+        /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public Task<bool> ReportAsync(int value)
+        public Task<bool> ReportAsync(string key, int value)
         {
             return Task<bool>.Factory
-                .StartNew(() => this.Report(value));
+                .StartNew(() => this.Report(key, value));
         }
     }
 }
