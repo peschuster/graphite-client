@@ -124,11 +124,12 @@ namespace Graphite.System
                 .ToArray();
 
             var listener = new EventlogListener(
-                config.Protocol, 
-                config.Source, 
-                config.Category, 
-                types, 
-                config.Key, 
+                config.Protocol,
+                config.Source,
+                config.Category,
+                types,
+                config.Key,
+                config.Value,
                 channel);
 
             this.listeners.Add(listener);

@@ -61,6 +61,7 @@
     <xs:attribute name="entrytypes" use="required" type="xs:string"/>
     <xs:attribute name="type" use="required" type="xs:string"/>
     <xs:attribute name="target" use="required" type="xs:string"/>
+    <xs:attribute name="value" use="optional" type="xs:integer"/>
     <xs:attribute name="sampling" use="optional" type="xs:float"/>
   </xs:complexType>
 </xs:schema>

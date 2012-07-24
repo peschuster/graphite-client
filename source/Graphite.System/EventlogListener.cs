@@ -29,11 +29,13 @@ namespace Graphite.System
 
         private readonly string key;
 
+        private readonly int value;
+
         private bool disposed;
 
         private EventLog log;
 
-        public EventlogListener(string protocol, string source, string category, EventLogEntryType[] types, string key, IMonitoringChannel channel)
+        public EventlogListener(string protocol, string source, string category, EventLogEntryType[] types, string key, int value, IMonitoringChannel channel)
         {
             if (protocol == null)
                 throw new ArgumentNullException("protocol");
@@ -45,6 +47,8 @@ namespace Graphite.System
                 throw new ArgumentNullException("channel");
 
             this.key = key;
+            this.value = value;
+            
             this.channel = channel;
             this.types = types;
 
@@ -117,7 +121,7 @@ namespace Graphite.System
 
             this.channel.Report(
                 this.key.Replace("${type}", typeTranslation[e.Entry.EntryType]),
-                1);
+                this.value);
         }
     }
 }

@@ -40,6 +40,11 @@ namespace Graphite.System.Configuration
         internal const string TargetPropertyName = "target";
 
         /// <summary>
+        /// The XML name of the <see cref="Value"/> property.
+        /// </summary>        
+        internal const string ValuePropertyName = "value";
+
+        /// <summary>
         /// The XML name of the <see cref="Sampling"/> property.
         /// </summary>        
         internal const string SamplingPropertyName = "sampling";
@@ -112,6 +117,16 @@ namespace Graphite.System.Configuration
         {
             get { return (string)base[TargetPropertyName]; }
             set { base[TargetPropertyName] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the Value.
+        /// </summary>
+        [ConfigurationPropertyAttribute(ValuePropertyName, IsRequired = false, DefaultValue = 1)]
+        public int Value
+        {
+            get { return (int)base[ValuePropertyName]; }
+            set { base[ValuePropertyName] = value; }
         }
 
         /// <summary>
