@@ -66,9 +66,6 @@ namespace Graphite.System
                     exception.Message + " (" + protocol + ")",
                     exception);
             }
-
-            this.log.EnableRaisingEvents = true;
-            this.log.EntryWritten += this.OnEntryWritten;
         }
 
         public void Dispose()
@@ -109,6 +106,9 @@ namespace Graphite.System
             {
                 this.log.Source = this.source;
             }
+
+            this.log.EnableRaisingEvents = true;
+            this.log.EntryWritten += this.OnEntryWritten;
         }
 
         private void OnEntryWritten(object sender, EntryWrittenEventArgs e)
