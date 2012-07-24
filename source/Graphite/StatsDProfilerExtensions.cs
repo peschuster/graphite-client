@@ -76,6 +76,20 @@ namespace Graphite
             profiler.ReportGauge(key, value);
         }
 
+        /// <summary>
+        /// Reports a raw value directly to graphite.
+        /// </summary>
+        /// <param name="profiler">The profiler.</param>
+        /// <param name="key">The metric key.</param>
+        /// <param name="value">The value.</param>
+        public static void Raw(this StatsDProfiler profiler, string key, int value)
+        {
+            if (profiler == null)
+                return;
+
+            profiler.ReportRaw(key, value);
+        }
+
         internal class Reporter : IDisposable
         {
             private bool disposed;
