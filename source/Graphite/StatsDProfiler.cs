@@ -71,6 +71,13 @@ namespace Graphite
             return channel.Report(key, value);
         }
 
+        internal bool ReportRaw(string key, int value)
+        {
+            var channel = this.factory.CreateChannel("gauge", "graphite");
+
+            return channel.Report(key, value);
+        }
+
         /// <summary>
         /// Stops the StatsDProfiler and the internal watch.
         /// </summary>

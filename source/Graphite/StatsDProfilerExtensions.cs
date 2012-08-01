@@ -56,6 +56,9 @@ namespace Graphite
         /// <param name="sampling">Sample by provided value.</param>
         public static void Count(this StatsDProfiler profiler, string key, int value = 1, float sampling = 1)
         {
+            if (profiler == null)
+                return;
+
             profiler.ReportCounter(key, value, sampling);
         }
 
@@ -65,9 +68,26 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        public static void Gauge(this StatsDProfiler profiler, string key, int value = 1)
+        public static void Gauge(this StatsDProfiler profiler, string key, int value)
         {
+            if (profiler == null)
+                return;
+
             profiler.ReportGauge(key, value);
+        }
+
+        /// <summary>
+        /// Reports a raw value directly to graphite.
+        /// </summary>
+        /// <param name="profiler">The profiler.</param>
+        /// <param name="key">The metric key.</param>
+        /// <param name="value">The value.</param>
+        public static void Raw(this StatsDProfiler profiler, string key, int value)
+        {
+            if (profiler == null)
+                return;
+
+            profiler.ReportRaw(key, value);
         }
 
         internal class Reporter : IDisposable
