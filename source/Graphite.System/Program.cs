@@ -38,7 +38,7 @@ namespace Graphite.System
                 }
                 else if (parameter != null && parameter.Any(isIParamater))
                 {
-                    Inspector.Print(GraphiteSystemConfiguration.Instance.Listeners.OfType<ListenerElement>());
+                    Inspector.Print(GraphiteSystemConfiguration.Instance.CounterListeners.OfType<CounterListenerElement>());
                 }
                 else
                 {

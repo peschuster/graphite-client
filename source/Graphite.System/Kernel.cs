@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Graphite.Configuration;
 using Graphite.Infrastructure;
@@ -13,7 +14,9 @@ namespace Graphite.System
 
         private readonly ChannelFactory factory;
 
-        private readonly List<Listener> listeners = new List<Listener>();
+        private readonly List<CounterListener> counters = new List<CounterListener>();
+
+        private readonly List<EventlogListener> listeners = new List<EventlogListener>();
 
         private bool disposed;
 
@@ -21,9 +24,14 @@ namespace Graphite.System
         {
             this.factory = new ChannelFactory(configuration.Graphite, configuration.StatsD);
 
+            foreach (var listener in systemConfiguration.EventlogListeners.Cast<EventlogListenerElement>())
+            {
+                this.CreateEventlogListener(listener);
+            }
+
             this.scheduler = new Scheduler();
 
-            foreach (var listener in systemConfiguration.Listeners.Cast<ListenerElement>())
+            foreach (var listener in systemConfiguration.CounterListeners.Cast<CounterListenerElement>())
             {
                 var action = this.CreateReportingAction(listener);
 
@@ -54,7 +62,12 @@ namespace Graphite.System
                     this.factory.Dispose();
                 }
 
-                foreach (Listener listener in this.listeners)
+                foreach (CounterListener listener in this.counters)
+                {
+                    listener.Dispose();
+                }
+
+                foreach (EventlogListener listener in this.listeners)
                 {
                     listener.Dispose();
                 }
@@ -63,9 +76,9 @@ namespace Graphite.System
             }
         }
 
-        private Action CreateReportingAction(ListenerElement config)
+        private Action CreateReportingAction(CounterListenerElement config)
         {
-            Listener listener = new Listener(config.Category, config.Instance, config.Counter);
+            CounterListener listener = new CounterListener(config.Category, config.Instance, config.Counter);
             
             IMonitoringChannel channel;
 
@@ -78,7 +91,7 @@ namespace Graphite.System
                 channel = this.factory.CreateChannel(config.Type, config.Target);
             }
 
-            this.listeners.Add(listener);
+            this.counters.Add(listener);
 
             return () =>
             {
@@ -89,6 +102,37 @@ namespace Graphite.System
                     channel.Report(config.Key, (int)value.Value);
                 }
             };
+        }
+
+        private void CreateEventlogListener(EventlogListenerElement config)
+        {
+            IMonitoringChannel channel;
+
+            if (config.Sampling.HasValue)
+            {
+                channel = this.factory.CreateChannel(config.Type, config.Target, config.Sampling.Value);
+            }
+            else
+            {
+                channel = this.factory.CreateChannel(config.Type, config.Target);
+            }
+
+            EventLogEntryType[] types = config.EntryTypes
+                .Split(new []{ ';', ',' })
+                .Where(s => !string.IsNullOrEmpty(s))
+                .Select(s => (EventLogEntryType)Enum.Parse(typeof(EventLogEntryType), s.Trim()))
+                .ToArray();
+
+            var listener = new EventlogListener(
+                config.Protocol,
+                config.Source,
+                config.Category,
+                types,
+                config.Key,
+                config.Value,
+                channel);
+
+            this.listeners.Add(listener);
         }
     }
 }
