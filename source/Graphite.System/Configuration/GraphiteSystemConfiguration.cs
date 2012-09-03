@@ -15,9 +15,14 @@ namespace Graphite.System.Configuration
         internal const string XmlnsPropertyName = "xmlns";
 
         /// <summary>
-        /// The XML name of the <see cref="Listeners"/> property.
+        /// The XML name of the <see cref="CounterListeners"/> property.
         /// </summary>        
-        internal const string ListenersPropertyName = "listeners";
+        internal const string CounterListenersPropertyName = "counters";
+
+        /// <summary>
+        /// The XML name of the <see cref="EventlogListeners"/> property.
+        /// </summary>        
+        internal const string EventlogListenersPropertyName = "eventlog";
 
         /// <summary>
         /// Gets the W3CReadersConfiguration instance.
@@ -43,11 +48,21 @@ namespace Graphite.System.Configuration
         /// <summary>
         /// Gets or sets the Listeners configuration.
         /// </summary>
-        [ConfigurationPropertyAttribute(ListenersPropertyName)]
-        public ListenerElementCollection Listeners
+        [ConfigurationPropertyAttribute(CounterListenersPropertyName)]
+        public CounterListenerElementCollection CounterListeners
         {
-            get { return (ListenerElementCollection)this[ListenersPropertyName]; }
-            set { base[ListenersPropertyName] = value; }
+            get { return (CounterListenerElementCollection)this[CounterListenersPropertyName]; }
+            set { base[CounterListenersPropertyName] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the Listeners configuration.
+        /// </summary>
+        [ConfigurationPropertyAttribute(EventlogListenersPropertyName)]
+        public EventlogListenerElementCollection EventlogListeners
+        {
+            get { return (EventlogListenerElementCollection)this[EventlogListenersPropertyName]; }
+            set { base[EventlogListenersPropertyName] = value; }
         }
     }
 }
