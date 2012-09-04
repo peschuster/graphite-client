@@ -19,3 +19,4 @@ _ReSharper*/
 *.vs10x
 StyleCop.Cache
 /tests/
+/source/.JustCode
