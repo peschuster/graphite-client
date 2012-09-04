@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Graphite", "MSBuild
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphite.Elmah", "Graphite.Elmah\Graphite.Elmah.csproj", "{1E287287-BDC9-40C3-940B-45B0F682955A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfTestService", "WcfTestService\WcfTestService.csproj", "{14B4A88F-8CC1-4424-868A-FBAE18701D2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debugger|Any CPU = Debugger|Any CPU
@@ -45,6 +47,12 @@ Global
 		{00748014-056A-46DC-AA41-0445534ABDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00748014-056A-46DC-AA41-0445534ABDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00748014-056A-46DC-AA41-0445534ABDD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14B4A88F-8CC1-4424-868A-FBAE18701D2D}.Debugger|Any CPU.ActiveCfg = Debug|Any CPU
+		{14B4A88F-8CC1-4424-868A-FBAE18701D2D}.Debugger|Any CPU.Build.0 = Debug|Any CPU
+		{14B4A88F-8CC1-4424-868A-FBAE18701D2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14B4A88F-8CC1-4424-868A-FBAE18701D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14B4A88F-8CC1-4424-868A-FBAE18701D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14B4A88F-8CC1-4424-868A-FBAE18701D2D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E287287-BDC9-40C3-940B-45B0F682955A}.Debugger|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E287287-BDC9-40C3-940B-45B0F682955A}.Debugger|Any CPU.Build.0 = Debug|Any CPU
 		{1E287287-BDC9-40C3-940B-45B0F682955A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

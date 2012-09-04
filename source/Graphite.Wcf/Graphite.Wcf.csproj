@@ -65,6 +65,8 @@
     <None Include="..\Graphite\graphite.snk">
       <Link>graphite.snk</Link>
     </None>
+    <None Include="ExampleGraphiteService.cs.pp" />
+    <None Include="Graphite.Wcf.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

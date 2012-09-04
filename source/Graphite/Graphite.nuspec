@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Graphite</id>
+    <version>$version$</version>
+    <authors>Peter Schuster</authors>
+    <owners>Peter Schuster</owners>
+    <licenseUrl>http://github.com/peschuster/graphite-client/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://github.com/peschuster/graphite-client</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Library for feeding data into Graphite and StatsD.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Graphite StatsD metrics monitoring</tags>
+    <dependencies />
+  </metadata>
+  <files>
+    <file src="web.config.transform" target="content\web.config.transform" />
+  </files>
+</package>

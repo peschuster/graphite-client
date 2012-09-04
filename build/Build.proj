@@ -8,6 +8,7 @@
 		<DistDir>../dist</DistDir>
 		<IlmergePath>../Tools/ILMerge.exe</IlmergePath>
 		<XunitPath>../Tools/xunit-1.9/xunit.runner.msbuild.dll</XunitPath>
+        <NugetPath>$(SourceDir)/.nuget/Nuget.exe</NugetPath>
 
 		<Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
 	</PropertyGroup>
@@ -38,6 +39,38 @@
 
 	<Target Name="test" DependsOnTargets="build">
 		<xunit Assembly="$(BinDir)\Graphite.Tests.dll" />
+	</Target>
+
+	<Target Name="dist" DependsOnTargets="clean;build">
+
+		<MSBuild
+			Projects="@(SolutionToBuild->'%(FullPath)')"
+			Properties="Configuration=Release;OutputPath=bin\Release\"
+			ContinueOnError="false" />
+
+		<RemoveDir Condition="Exists('$(DistDir)')" Directories="$(DistDir)"/>
+		<MakeDir Directories="$(DistDir)"/>
+
+		<ConvertToAbsolutePath Paths="$(SourceDir)">
+			<Output TaskParameter="AbsolutePaths" PropertyName="SourceDirAbs"/>
+		</ConvertToAbsolutePath>
+
+		<ConvertToAbsolutePath Paths="$(DistDir)">
+			<Output TaskParameter="AbsolutePaths" PropertyName="DistDirAbs"/>
+		</ConvertToAbsolutePath>
+
+		<ConvertToAbsolutePath Paths="$(NugetPath)">
+			<Output TaskParameter="AbsolutePaths" PropertyName="NugetPathAbs"/>
+		</ConvertToAbsolutePath>
+
+		<Exec WorkingDirectory="$(SourceDirAbs)\Graphite" 
+			Command="$(NugetPathAbs) pack Graphite.csproj -Properties Configuration=Release -Symbols -o $(DistDirAbs)" />
+
+		<Exec WorkingDirectory="$(SourceDirAbs)\Graphite.Elmah" 
+			Command="$(NugetPathAbs) pack Graphite.Elmah.csproj -Properties Configuration=Release -Symbols -o $(DistDirAbs)" />
+
+		<Exec WorkingDirectory="$(SourceDirAbs)\Graphite.Wcf" 
+			Command="$(NugetPathAbs) pack Graphite.Wcf.csproj -Properties Configuration=Release -Symbols -o $(DistDirAbs)" />
 	</Target>
 
 	<Target Name="clean">

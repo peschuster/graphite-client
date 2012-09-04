@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="graphite.elmah" type="Graphite.Configuration.GraphiteElmahConfiguration, Graphite.Elmah"/>
+  </configSections>
+  <graphite.elmah
+    xmlns="http://github.com/peschuster/Graphite/Configuration"
+    key="elmah_errors"
+    type="counter"
+    target="statsd" />
+  <elmah>
+    <errorFilter>
+      <test
+          xmlns:my="http://schemas.microsoft.com/clr/nsassem/Graphite/Graphite.Elmah">
+        <my:log />
+      </test>
+    </errorFilter>
+  </elmah>
+</configuration>

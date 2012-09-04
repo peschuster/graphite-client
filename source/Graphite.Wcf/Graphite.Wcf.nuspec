@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Graphite.Wcf</id>
+    <version>$version$</version>
+    <authors>Peter Schuster</authors>
+    <owners>Peter Schuster</owners>
+    <licenseUrl>http://github.com/peschuster/graphite-client/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://github.com/peschuster/graphite-client</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Instrumentation of WCF services for reporting of hits and execution time to Graphite and StatsD.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>WCF Graphite StatsD metrics monitoring</tags>
+    <dependencies>
+      <dependency id="Graphite" version="1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="ExampleGraphiteService.cs.pp" target="content\ExampleGraphiteService.cs.pp" />
+  </files>
+</package>
