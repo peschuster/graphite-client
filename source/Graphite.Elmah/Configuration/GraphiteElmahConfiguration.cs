@@ -30,7 +30,7 @@ namespace Graphite.Configuration
         internal const string TargetPropertyName = "target";
 
         /// <summary>
-        /// Gets the W3CReadersConfiguration instance.
+        /// Gets the GraphiteElmahConfiguration instance.
         /// </summary>        
         public static GraphiteElmahConfiguration Instance
         {

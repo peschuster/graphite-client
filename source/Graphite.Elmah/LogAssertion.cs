@@ -5,6 +5,9 @@ using Graphite.Infrastructure;
 
 namespace Graphite
 {
+    /// <summary>
+    /// Assertion for logging all exception to Graphite or StatsD.
+    /// </summary>
     public class LogAssertion : IAssertion, IDisposable
     {
         private readonly ChannelFactory factory;
@@ -15,6 +18,9 @@ namespace Graphite
 
         private bool disposed;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogAssertion" /> class.
+        /// </summary>
         public LogAssertion()
         {
             this.factory = new ChannelFactory(
@@ -33,6 +39,11 @@ namespace Graphite
                 configuration.Target ?? "statsd");
         }
 
+        /// <summary>
+        /// Reports the exception to Graphite or StatsD. Returns always false.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns>false</returns>
         public bool Test(object context)
         {
             this.channel.Report(this.metricKey, 1);
