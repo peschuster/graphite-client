@@ -46,10 +46,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssertionFactory.cs" />
-    <Compile Include="StatsDLogAssertion.cs" />
+    <Compile Include="Configuration\GraphiteElmahConfiguration.cs" />
+    <Compile Include="LogAssertion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GraphiteElmahConfiguration.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

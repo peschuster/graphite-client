@@ -5,9 +5,9 @@ namespace Graphite
 {
     public sealed class AssertionFactory
     {
-        public static IAssertion statsd_log(XmlElement config)
+        public static IAssertion assert_log(XmlElement config)
         {
-            return new StatsDLogAssertion();
+            return new LogAssertion();
         }
     }
 }
