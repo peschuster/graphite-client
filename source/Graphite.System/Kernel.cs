@@ -18,6 +18,8 @@ namespace Graphite.System
 
         private readonly List<EventlogListener> listeners = new List<EventlogListener>();
 
+        private readonly List<AppPoolListener> appPools = new List<AppPoolListener>();
+
         private bool disposed;
 
         public Kernel(GraphiteConfiguration configuration, GraphiteSystemConfiguration systemConfiguration)
@@ -36,6 +38,18 @@ namespace Graphite.System
                 var action = this.CreateReportingAction(listener);
 
                 this.scheduler.Add(action, listener.Interval);
+            }
+
+            foreach (var appPool in systemConfiguration.AppPool.Cast<AppPoolElement>())
+            {
+                AppPoolListener element;
+
+                var action = this.CreateReportingAction(appPool, out element);
+
+                this.scheduler.Add(action, appPool.Interval);
+
+                // Reread counter instance name every 90 seconds
+                this.scheduler.Add(() => element.LoadCounterName(), 90);
             }
 
             this.scheduler.Start();
@@ -100,6 +114,30 @@ namespace Graphite.System
                 if (value.HasValue)
                 {
                     channel.Report(config.Key, (int)value.Value);
+                }
+            };
+        }
+
+        private Action CreateReportingAction(AppPoolElement config, out AppPoolListener listener)
+        {
+            var element = new AppPoolListener(config.AppPoolName);
+
+            listener = element;
+            
+            IMonitoringChannel channel = this.factory.CreateChannel(config.Type, config.Target);
+
+            this.appPools.Add(element);
+
+            return () =>
+            {
+                if (config.WorkingSet)
+                {
+                    int? value = element.ReportWorkingSet();
+
+                    if (value.HasValue)
+                    {
+                        channel.Report(config.Key, value.Value);
+                    }
                 }
             };
         }
