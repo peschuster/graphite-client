@@ -9,6 +9,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="counters" type="tns:Graphite.System.Configuration.CounterListenerElementCollection" />
       <xs:element minOccurs="0" name="eventlog" type="tns:Graphite.System.Configuration.EventlogListenerElementCollection" />
+      <xs:element minOccurs="0" name="appPool" type="tns:Graphite.System.Configuration.AppPoolElementCollection" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Graphite.System.Configuration.CounterListenerElementCollection">
@@ -43,6 +44,22 @@
       </xs:element>
     </xs:choice>
   </xs:complexType>
+  <xs:complexType name="Graphite.System.Configuration.AppPoolElementCollection">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="add" type="tns:Graphite.System.Configuration.AppPoolElement">
+      </xs:element>
+      <xs:element name="remove">
+        <xs:complexType>
+          <xs:attribute name="key" use="required" type="xs:string" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="clear">
+        <xs:complexType>
+          <!--tag is empty-->
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
   <xs:complexType name="Graphite.System.Configuration.CounterListenerElement">
     <xs:attribute name="key" use="required" type="xs:string"/>
     <xs:attribute name="category" use="required" type="xs:string"/>
@@ -63,5 +80,13 @@
     <xs:attribute name="target" use="required" type="xs:string"/>
     <xs:attribute name="value" use="optional" type="xs:integer"/>
     <xs:attribute name="sampling" use="optional" type="xs:float"/>
+  </xs:complexType>
+  <xs:complexType name="Graphite.System.Configuration.AppPoolElement">
+    <xs:attribute name="key" use="required" type="xs:string"/>
+    <xs:attribute name="appPoolName" use="required" type="xs:string"/>
+    <xs:attribute name="workingSet" use="required" type="xs:boolean"/>
+    <xs:attribute name="type" use="required" type="xs:string"/>
+    <xs:attribute name="target" use="required" type="xs:string"/>
+    <xs:attribute name="interval" use="optional" type="xs:short"/>
   </xs:complexType>
 </xs:schema>

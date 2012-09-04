@@ -25,6 +25,11 @@ namespace Graphite.System.Configuration
         internal const string EventlogListenersPropertyName = "eventlog";
 
         /// <summary>
+        /// The XML name of the <see cref="IisConfiguration"/> property.
+        /// </summary>        
+        internal const string ApppoolPropertyName = "appPool";
+
+        /// <summary>
         /// Gets the W3CReadersConfiguration instance.
         /// </summary>        
         public static GraphiteSystemConfiguration Instance
@@ -63,6 +68,16 @@ namespace Graphite.System.Configuration
         {
             get { return (EventlogListenerElementCollection)this[EventlogListenersPropertyName]; }
             set { base[EventlogListenersPropertyName] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the App pool configuration.
+        /// </summary>
+        [ConfigurationPropertyAttribute(ApppoolPropertyName)]
+        public AppPoolElementCollection AppPool
+        {
+            get { return (AppPoolElementCollection)this[ApppoolPropertyName]; }
+            set { base[ApppoolPropertyName] = value; }
         }
     }
 }
