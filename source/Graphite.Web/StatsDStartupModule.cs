@@ -39,6 +39,11 @@ namespace Graphite.Web
                         Settings.FixedRequestTimeKey ?? this.ParseMetricKey(HttpContext.Current),
                         profiler.ElapsedMilliseconds);
                 }
+
+                if (profiler != null)
+                {
+                    profiler.Dispose();
+                }
             };
         }
 
