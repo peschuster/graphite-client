@@ -262,7 +262,7 @@ This can be accomplished by the following settings in your `web.config` file:
 
 On using the NuGet package [`Graphite.Elmah`](http://nuget.org/packages/Graphite.Elmah) all required settings are added to your project automatically during installation.
 
-## SQL Server
+### SQL Server
 > Graphite.TSql.dll
 
 From within SQL Server, metrics can be reported by calling a stored procedure:
