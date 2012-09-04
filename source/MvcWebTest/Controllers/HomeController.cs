@@ -31,5 +31,10 @@ namespace MvcWebTest.Controllers
                 return View();
             }
         }
+
+        public ActionResult Exception()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

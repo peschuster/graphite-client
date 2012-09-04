@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="GraphiteElmahConfiguration"
+  xmlns:tns="http://github.com/peschuster/Graphite/Configuration"
+  elementFormDefault="qualified"
+  targetNamespace="http://github.com/peschuster/Graphite/Configuration"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="graphite.elmah" type="tns:Graphite.System.Configuration.GraphiteElmahConfiguration" />
+  <xs:complexType name="Graphite.System.Configuration.GraphiteElmahConfiguration">
+    <xs:attribute name="key" use="required" type="xs:string"/>
+    <xs:attribute name="type" use="required" type="xs:string"/>
+    <xs:attribute name="target" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>

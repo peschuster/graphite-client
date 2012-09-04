@@ -42,6 +42,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -138,6 +141,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Web.config" />
@@ -163,6 +167,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Graphite.Elmah\Graphite.Elmah.csproj">
+      <Project>{1e287287-bdc9-40c3-940b-45b0f682955a}</Project>
+      <Name>Graphite.Elmah</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Graphite.Web\Graphite.Web.csproj">
       <Project>{2a4858fe-7353-4e9a-84c1-1fd11808af39}</Project>
       <Name>Graphite.Web</Name>
