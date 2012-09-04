@@ -10,6 +10,7 @@ Windows (.NET) library and tools for feeding data into [Graphite](http://readthe
 - Instrumentation of WCF services (Graphite.Wcf.dll)
 - Sending stats from inside SQL Server using TSQL / a stored procedure (Graphite.TSql.dll)
 - MSBuild task for sending stats to Graphite and StatsD  (MSBuild.Graphite.dll)
+- [ELMAH](http://code.google.com/p/elmah/) [error filter](http://code.google.com/p/elmah/wiki/ErrorFiltering) for logging all exception to Graphite or StatsD (Graphite.Elmah.dll)
 
 ## TODO
 
