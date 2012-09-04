@@ -43,7 +43,7 @@ Reporting metrics to *Graphite* or *StatsD* can be done by calling one of the ex
 
     using Graphite;
 
-The available extension methods correspond to the metric types describe in *General*.
+The available extension methods correspond to the metric types described in *General*.
 
 **StatsD**:
 
@@ -229,9 +229,9 @@ Reporting metrics from within MSBuild scripts is possible utilizing the tasks in
 	
 	  <Target Name="graphite">
 	    <MSBuild.Graphite.Tasks.Graphite
-	        Address="graphite.ghana.mbi.de"
+	        Address="192.168.2.100"
 	        Transport="Tcp"
-	        PrefixKey="stats.events.wp.test"
+	        PrefixKey="stats.events"
 	        Key="deploys.test"
 	        Value="1" />
 	  </Target>
