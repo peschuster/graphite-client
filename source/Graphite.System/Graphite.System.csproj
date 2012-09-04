@@ -123,11 +123,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppPoolListener.cs" />
     <Compile Include="Configuration\EventlogListenerElement.cs" />
     <Compile Include="Configuration\GraphiteSystemConfiguration.cs" />
     <Compile Include="Configuration\CounterListenerElement.cs" />
     <Compile Include="Configuration\CounterListenerElementCollection.cs" />
     <Compile Include="Configuration\EventlogListenerElementCollection.cs" />
+    <Compile Include="Configuration\AppPoolElement.cs" />
+    <Compile Include="Configuration\AppPoolElementCollection.cs" />
     <Compile Include="EventlogListener.cs" />
     <Compile Include="Explorer.cs" />
     <Compile Include="Inspector.cs" />
