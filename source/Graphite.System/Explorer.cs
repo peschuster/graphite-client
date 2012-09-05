@@ -16,7 +16,7 @@ namespace Graphite.System
             {
                 Console.WriteLine("Categories:");
 
-                var categories = PerformanceCounterCategory.GetCategories();
+                var categories = PerformanceCounterCategory.GetCategories().OrderBy(c => c.CategoryName);
 
                 string intend = new string(' ', 4);
                 foreach (var category in categories)
