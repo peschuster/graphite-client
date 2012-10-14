@@ -8,7 +8,7 @@ using System.ServiceModel.Dispatcher;
 namespace Graphite.Wcf
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public sealed class StatsDProfilerBehaviorAttribute : Attribute, IServiceBehavior
+    public sealed class MetricsPipeBehaviorAttribute : Attribute, IServiceBehavior
     {
         private readonly bool reportRequestTime;
 
@@ -23,7 +23,7 @@ namespace Graphite.Wcf
         private readonly string fixedHitCountKey;
 
 
-        public StatsDProfilerBehaviorAttribute(bool reportRequestTime, bool reportHitCount, string fixedRequestTimeKey = null, string requestTimePrefix = null, string fixedHitCountKey = null, string hitCountPrefix = null)
+        public MetricsPipeBehaviorAttribute(bool reportRequestTime, bool reportHitCount, string fixedRequestTimeKey = null, string requestTimePrefix = null, string fixedHitCountKey = null, string hitCountPrefix = null)
         {
             this.fixedHitCountKey = fixedHitCountKey;
             this.hitCountPrefix = hitCountPrefix;
@@ -50,7 +50,7 @@ namespace Graphite.Wcf
                 foreach (EndpointDispatcher endpoint in dispatcher.Endpoints)
                 {
                     endpoint.DispatchRuntime.MessageInspectors.Add(
-                        new StatsDProfilerMessageInspector(
+                        new MetricsPipeMessageInspector(
                             new MetricSetting(this.reportRequestTime, this.fixedRequestTimeKey, this.requestTimePrefix), 
                             new MetricSetting(this.reportHitCount, this.fixedHitCountKey, this.hitCountPrefix)));
                 }

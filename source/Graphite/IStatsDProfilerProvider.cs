@@ -1,25 +1,25 @@
 namespace Graphite
 {
     /// <summary>
-    /// Provider for the current StatsDProfiler instamce.
+    /// Provider for the current MetricsPipe instamce.
     /// </summary>
-    public interface IStatsDProfilerProvider
+    public interface IMetricsPipeProvider
     {
         /// <summary>
-        /// Returns the current StatsDProfiler instance.
+        /// Returns the current MetricsPipe instance.
         /// </summary>
-        StatsDProfiler Current { get; set; }
+        MetricsPipe Current { get; set; }
 
         /// <summary>
-        /// Starts a new StatsDProfiler instance.
+        /// Starts a new MetricsPipe instance.
         /// </summary>
         /// <returns></returns>
-        StatsDProfiler Start();
+        MetricsPipe Start();
 
         /// <summary>
-        /// Stops the current StatsDProfiler instance.
+        /// Stops the current MetricsPipe instance.
         /// </summary>
         /// <returns></returns>
-        StatsDProfiler Stop();
+        MetricsPipe Stop();
     }
 }

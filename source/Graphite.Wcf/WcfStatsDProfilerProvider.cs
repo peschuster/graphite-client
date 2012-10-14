@@ -3,17 +3,17 @@ using Graphite.Configuration;
 
 namespace Graphite.Wcf
 {
-    public class WcfStatsDProfilerProvider : IStatsDProfilerProvider
+    public class WcfMetricsPipeProvider : IMetricsPipeProvider
     {
-        private static WcfStatsDProfilerProvider instance;
+        private static WcfMetricsPipeProvider instance;
 
-        public static WcfStatsDProfilerProvider Instance
+        public static WcfMetricsPipeProvider Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new WcfStatsDProfilerProvider();
+                    instance = new WcfMetricsPipeProvider();
                 }
 
                 return instance;
@@ -21,46 +21,46 @@ namespace Graphite.Wcf
         }
 
         /// <summary>
-        /// Returns the current StatsDProfiler instance.
+        /// Returns the current MetricsPipe instance.
         /// </summary>
         /// <value></value>
-        public StatsDProfiler Current
+        public MetricsPipe Current
         {
             get
             {
-                return StatsDProfilerInstance.Current;
+                return MetricsPipeInstance.Current;
             }
 
             set
             {
-                StatsDProfilerInstance.Current = value;
+                MetricsPipeInstance.Current = value;
             }
         }
 
         /// <summary>
-        /// Starts a new StatsDProfiler instance.
+        /// Starts a new MetricsPipe instance.
         /// </summary>
         /// <returns></returns>
-        public StatsDProfiler Start()
+        public MetricsPipe Start()
         {
             var context = OperationContext.Current;
 
             if (context == null)
                 return null;
 
-            var result = new StatsDProfiler(GraphiteConfiguration.Instance, this, StopwatchWrapper.StartNew);
+            var result = new MetricsPipe(GraphiteConfiguration.Instance, this, StopwatchWrapper.StartNew);
             Current = result;
 
             return result;
         }
 
         /// <summary>
-        /// Stops the current StatsDProfiler instance.
+        /// Stops the current MetricsPipe instance.
         /// </summary>
         /// <returns></returns>
-        public StatsDProfiler Stop()
+        public MetricsPipe Stop()
         {
-            StatsDProfiler current = Current;
+            MetricsPipe current = Current;
 
             if (current != null)
             {

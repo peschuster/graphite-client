@@ -14,9 +14,9 @@ namespace MvcWebTest.Controllers
 
         public ActionResult Index()
         {
-            StatsDProfiler.Current.Count("home.index");
+            MetricsPipe.Current.Count("home.index");
 
-            using (StatsDProfiler.Current.Step("home.index.view"))
+            using (MetricsPipe.Current.Step("home.index.view"))
             {
                 return View();
             }
@@ -24,9 +24,9 @@ namespace MvcWebTest.Controllers
         
         public ActionResult About()
         {
-            StatsDProfiler.Current.Count("home.about");
+            MetricsPipe.Current.Count("home.about");
 
-            using (StatsDProfiler.Current.Step("home.about.view"))
+            using (MetricsPipe.Current.Step("home.about.view"))
             {
                 return View();
             }
