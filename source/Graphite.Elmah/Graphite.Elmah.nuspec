@@ -13,7 +13,7 @@
     <copyright>Copyright 2012</copyright>
     <tags>Elmah Graphite StatsD metrics monitoring</tags>
     <dependencies>
-      <dependency id="Graphite" version="1.0" />
+      <dependency id="Graphite" version="2.0" />
       <dependency id="elmah.corelibrary" version="1.2" />
     </dependencies>
   </metadata>
