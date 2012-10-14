@@ -34,6 +34,12 @@ namespace Graphite.System
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="interval">The invocation interval in seconds.</param>
+        /// <returns></returns>
         public Scheduler Add(Action action, short interval)
         {
             if (!this.actions.ContainsKey(interval))
@@ -44,6 +50,14 @@ namespace Graphite.System
             this.actions[interval].Add(action);
 
             return this;
+        }
+
+        public bool Remove(Action action, short interval)
+        {
+            if (!this.actions.ContainsKey(interval))
+                return false;
+
+            return this.actions[interval].Remove(action);
         }
 
         public void Dispose()

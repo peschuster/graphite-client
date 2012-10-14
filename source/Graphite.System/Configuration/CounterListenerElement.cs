@@ -45,6 +45,11 @@ namespace Graphite.System.Configuration
         internal const string IntervalPropertyName = "interval";
 
         /// <summary>
+        /// The XML name of the <see cref="Retry"/> property.
+        /// </summary>        
+        internal const string RetryPropertyName = "retry";
+
+        /// <summary>
         /// Gets or sets the Key.
         /// </summary>
         [ConfigurationPropertyAttribute(KeyPropertyName, IsRequired = true, IsKey = true)]
@@ -122,6 +127,16 @@ namespace Graphite.System.Configuration
         {
             get { return (short)base[IntervalPropertyName]; }
             set { base[IntervalPropertyName] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the Sampling rate.
+        /// </summary>
+        [ConfigurationPropertyAttribute(RetryPropertyName, IsRequired = false, DefaultValue = false)]
+        public bool Retry
+        {
+            get { return (bool)base[RetryPropertyName]; }
+            set { base[RetryPropertyName] = value; }
         }
     }
 }

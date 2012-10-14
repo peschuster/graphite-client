@@ -69,6 +69,7 @@
     <xs:attribute name="target" use="required" type="xs:string"/>
     <xs:attribute name="sampling" use="optional" type="xs:float"/>
     <xs:attribute name="interval" use="optional" type="xs:short"/>
+    <xs:attribute name="retry" use="optional" type="xs:boolean"/>
   </xs:complexType>
   <xs:complexType name="Graphite.System.Configuration.EventlogListenerElement">
     <xs:attribute name="key" use="required" type="xs:string"/>

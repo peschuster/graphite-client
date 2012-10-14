@@ -10,6 +10,8 @@ namespace Graphite.System
 {
     internal class Kernel : IDisposable
     {
+        private const short RetryInterval = 60;
+
         private readonly Scheduler scheduler;
 
         private readonly ChannelFactory factory;
@@ -19,6 +21,8 @@ namespace Graphite.System
         private readonly List<EventlogListener> listeners = new List<EventlogListener>();
 
         private readonly List<AppPoolListener> appPools = new List<AppPoolListener>();
+
+        private readonly List<CounterListenerElement> retryCreation = new List<CounterListenerElement>();
 
         private bool disposed;
 
@@ -35,9 +39,26 @@ namespace Graphite.System
 
             foreach (var listener in systemConfiguration.CounterListeners.Cast<CounterListenerElement>())
             {
-                var action = this.CreateReportingAction(listener);
+                Action action;
 
-                this.scheduler.Add(action, listener.Interval);
+                try
+                {
+                    action = this.CreateReportingAction(listener);
+
+                    this.scheduler.Add(action, listener.Interval);
+                }
+                catch (InvalidOperationException)
+                {
+                    if (!listener.Retry)
+                        throw;
+
+                    this.retryCreation.Add(listener);
+                }
+            }
+
+            if (this.retryCreation.Any())
+            {
+                this.scheduler.Add(this.RetryCounterCreation, RetryInterval);
             }
 
             foreach (var appPool in systemConfiguration.AppPool.Cast<AppPoolElement>())
@@ -171,6 +192,29 @@ namespace Graphite.System
                 channel);
 
             this.listeners.Add(listener);
+        }
+
+        private void RetryCounterCreation()
+        {
+            foreach (CounterListenerElement listener in new List<CounterListenerElement>(this.retryCreation))
+            {
+                try
+                {
+                    Action action = this.CreateReportingAction(listener);
+
+                    this.scheduler.Add(action, listener.Interval);
+                    
+                    this.retryCreation.Remove(listener);
+                }
+                catch (InvalidOperationException)
+                {
+                }
+            }
+
+            if (!this.retryCreation.Any())
+            {
+                this.scheduler.Remove(this.RetryCounterCreation, RetryInterval);
+            }
         }
     }
 }
