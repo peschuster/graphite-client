@@ -21,3 +21,4 @@ StyleCop.Cache
 /tests/
 /source/.JustCode
 /dist/
+/nuget-archive/
