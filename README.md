@@ -24,9 +24,9 @@ Windows (.NET) library and tools for feeding data into [Graphite](http://readthe
 
 The architecture of the *Graphite* system is inspired by [MiniProfiler](http://github.com/SamSaffron/MiniProfiler):
 
-An `IStatsDProfilerProvider` manages the current profiler instance. The implementation of this provider differs depending on the context of the application: ASP.NET/Web, WCF and "standalone"/simple exe file.
+An `IMetricsPipeProvider` manages the current profiler instance. The implementation of this provider differs depending on the context of the application: ASP.NET/Web, WCF and "standalone"/simple exe file.
 
-Accessing the profiler works always the same through `StatsDProfiler.Current`
+Accessing the profiler works always the same through `MetricsPipe.Current`
 
 #### Metric Types
 
@@ -39,7 +39,7 @@ There are three different metric types:
 ### Code instrumentation
 > Graphite.dll
 
-Reporting metrics to *Graphite* or *StatsD* can be done by calling one of the extension methods on `StatsDProfiler.Current`. Therefore a `using` directive for the `Graphite` namespace is required:
+Reporting metrics to *Graphite* or *StatsD* can be done by calling one of the extension methods on `MetricsPipe.Current`. Therefore a `using` directive for the `Graphite` namespace is required:
 
     using Graphite;
 
@@ -47,38 +47,38 @@ The available extension methods correspond to the metric types described in *Gen
 
 **StatsD**:
 
- - `void Timing(this StatsDProfiler profiler, string key, int value)` - for direct submission of *timing* values
- - `IDisposable Step(this StatsDProfiler profiler, string key)` - for profiling code segements
- - `void Count(this StatsDProfiler profiler, string key, int value = 1, float sampling = 1)` - for reporting *counter* values
- - `void Gauge(this StatsDProfiler profiler, string key, int value)` - for reporting *gauges*
+ - `void Timing(this MetricsPipe profiler, string key, int value)` - for direct submission of *timing* values
+ - `IDisposable Step(this MetricsPipe profiler, string key)` - for profiling code segements
+ - `void Count(this MetricsPipe profiler, string key, int value = 1, float sampling = 1)` - for reporting *counter* values
+ - `void Gauge(this MetricsPipe profiler, string key, int value)` - for reporting *gauges*
 
 
 **Graphite**:
 
- - `void Raw(this StatsDProfiler profiler, string key, int value)` - for directly reporting values to Graphite
+ - `void Raw(this MetricsPipe profiler, string key, int value)` - for directly reporting values to Graphite
 
 An extension method can be called like this:
 
-    StatsDProfiler.Current.Count("exception");
+    MetricsPipe.Current.Count("exception");
 
 The `Step` method is a special method which measures the time till `Dispose()` is called on the returned `IDisposable`. This can be done best with a `using` statement:
 
-    using (StatsDProfiler.Current.Step("duration"))
+    using (MetricsPipe.Current.Step("duration"))
     {
 	    // Do some work here...
 	}
 
-The strength of extension methods is that they also work without throwing a `NullReferenceException`, when `StatsDProfiler.Current` is `null` - i.e. not initialized.
+The strength of extension methods is that they also work without throwing a `NullReferenceException`, when `MetricsPipe.Current` is `null` - i.e. not initialized.
 
 #### Standalone Applications
 
-The `StatsDProfiler` can be used in standalone applications (e.g. console or windows applications) after starting the profiler with the following line of code:
+The `MetricsPipe` can be used in standalone applications (e.g. console or windows applications) after starting the profiler with the following line of code:
 
-    StaticStatsDProfilerProvider.Instance.Start();
+    StaticMetricsPipeProvider.Instance.Start();
 
 Everything is disposed and cleaned up after calling
 
-    StaticStatsDProfilerProvider.Instance.Stop();
+    StaticMetricsPipeProvider.Instance.Stop();
 
 ### System Metrics
 > PerfCounterMonitor.exe (Graphite.System)
@@ -100,7 +100,7 @@ See the complete [documentation](http://github.com/peschuster/graphite-client/wi
 WCF services can be instrumented for reporting hit counts and execution times. Therefore an attribute needs to be added to the service instance:
 
     [ServiceBehavior]
-    [StatsDProfilerBehavior(true, true, fixedRequestTimeKey: null, requestTimePrefix: "service.example", fixedHitCountKey: null, hitCountPrefix: "service.example")]
+    [MetricsPipeBehavior(true, true, fixedRequestTimeKey: null, requestTimePrefix: "service.example", fixedHitCountKey: null, hitCountPrefix: "service.example")]
     public class ExampleGraphiteService
     {
         public void Test()

@@ -35,8 +35,8 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder die standardmäßigen Build- und Revisionsnummern 
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
 
 [assembly: InternalsVisibleTo("Graphite.System, PublicKey=0024000004800000940000000602000000240000525341310004000001000100617629e615a2b68d528b6ca940e2cb417eb4c614d9e03dddd3da54300960f5a895aa42a82c602d86999033148e6b2bf5b4ae605a517cf1f36517426cc7186c934764c1230de6b4bf3086305044162bb52cc314f63ff19eabd53ee4cf6c74e4302c7859aa41e42a28203ef30a4187b361d606dbd4542f9ec1cabda61d1e7bb4b8")]
 [assembly: InternalsVisibleTo("Graphite.Test, PublicKey=0024000004800000940000000602000000240000525341310004000001000100617629e615a2b68d528b6ca940e2cb417eb4c614d9e03dddd3da54300960f5a895aa42a82c602d86999033148e6b2bf5b4ae605a517cf1f36517426cc7186c934764c1230de6b4bf3086305044162bb52cc314f63ff19eabd53ee4cf6c74e4302c7859aa41e42a28203ef30a4187b361d606dbd4542f9ec1cabda61d1e7bb4b8")]

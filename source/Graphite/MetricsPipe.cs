@@ -6,17 +6,17 @@ namespace Graphite
     /// <summary>
     /// Profiler for StatsD
     /// </summary>
-    public class StatsDProfiler : IDisposable
+    public class MetricsPipe : IDisposable
     {
         private readonly ChannelFactory factory;
 
-        private static IStatsDProfilerProvider provider;
+        private static IMetricsPipeProvider provider;
 
         private IStopwatch watch;
 
         private bool disposed;
 
-        internal StatsDProfiler(GraphiteConfiguration configuration, IStatsDProfilerProvider provider, Func<IStopwatch> watch)
+        internal MetricsPipe(GraphiteConfiguration configuration, IMetricsPipeProvider provider, Func<IStopwatch> watch)
         {
             if (configuration == null)
                 throw new ArgumentNullException("configuration");
@@ -29,7 +29,7 @@ namespace Graphite
 
             this.factory = new ChannelFactory(configuration.Graphite, configuration.StatsD);
             
-            StatsDProfiler.provider = provider;
+            MetricsPipe.provider = provider;
 
             this.watch = watch();
         }
@@ -37,7 +37,7 @@ namespace Graphite
         /// <summary>
         /// Current instance of StatsD (might be null).
         /// </summary>
-        public static StatsDProfiler Current
+        public static MetricsPipe Current
         {
             get { return provider == null ? null : provider.Current; }
         }
@@ -79,7 +79,7 @@ namespace Graphite
         }
 
         /// <summary>
-        /// Stops the StatsDProfiler and the internal watch.
+        /// Stops the MetricsPipe and the internal watch.
         /// </summary>
         public void Stop()
         {

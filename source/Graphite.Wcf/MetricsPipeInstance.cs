@@ -3,11 +3,11 @@ using System.ServiceModel;
 
 namespace Graphite.Wcf
 {
-    public class StatsDProfilerInstance : IExtension<OperationContext>
+    public class MetricsPipeInstance : IExtension<OperationContext>
     {
-        private readonly StatsDProfiler profiler;
+        private readonly MetricsPipe profiler;
 
-        public StatsDProfilerInstance(StatsDProfiler profiler)
+        public MetricsPipeInstance(MetricsPipe profiler)
         {
             if (profiler == null)
                 throw new ArgumentNullException("profiler");
@@ -15,7 +15,7 @@ namespace Graphite.Wcf
             this.profiler = profiler;
         }
 
-        public static StatsDProfiler Current
+        public static MetricsPipe Current
         {
             get
             {
@@ -24,7 +24,7 @@ namespace Graphite.Wcf
                 if (context == null)
                     return null;
 
-                var instance = context.Extensions.Find<StatsDProfilerInstance>();
+                var instance = context.Extensions.Find<MetricsPipeInstance>();
 
                 return instance == null ? null : instance.profiler;
             }
@@ -36,7 +36,7 @@ namespace Graphite.Wcf
                 if (context == null)
                     return;
 
-                var instance = context.Extensions.Find<StatsDProfilerInstance>();
+                var instance = context.Extensions.Find<MetricsPipeInstance>();
 
                 if (instance != null)
                 {
@@ -45,7 +45,7 @@ namespace Graphite.Wcf
 
                 if (value != null)
                 {
-                    instance = new StatsDProfilerInstance(value);
+                    instance = new MetricsPipeInstance(value);
 
                     context.Extensions.Add(instance);
                 }
