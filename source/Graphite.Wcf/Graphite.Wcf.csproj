@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StatsDProfilerBehaviorAttribute.cs" />
     <Compile Include="MetricSetting.cs" />
     <Compile Include="MetricsPipeBehaviorAttribute.cs" />
     <Compile Include="MetricsPipeInstance.cs" />
