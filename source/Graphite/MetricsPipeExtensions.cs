@@ -3,9 +3,9 @@
 namespace Graphite
 {
     /// <summary>
-    /// Extensions for StatsD profiler.
+    /// Extensions for Metrics pipe.
     /// </summary>
-    public static class StatsDProfilerExtensions
+    public static class MetricsPipeExtensions
     {
         /// <summary>
         /// Times a step with specified key.
@@ -13,7 +13,7 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The key.</param>
         /// <returns></returns>
-        public static IDisposable Step(this StatsDProfiler profiler, string key)
+        public static IDisposable Step(this MetricsPipe profiler, string key)
         {
             if (profiler == null)
                 return null;
@@ -39,7 +39,7 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The key.</param>
         /// <param name="value">The timing value.</param>
-        public static void Timing(this StatsDProfiler profiler, string key, int value)
+        public static void Timing(this MetricsPipe profiler, string key, int value)
         {
             if (profiler == null)
                 return;
@@ -54,7 +54,7 @@ namespace Graphite
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <param name="sampling">Sample by provided value.</param>
-        public static void Count(this StatsDProfiler profiler, string key, int value = 1, float sampling = 1)
+        public static void Count(this MetricsPipe profiler, string key, int value = 1, float sampling = 1)
         {
             if (profiler == null)
                 return;
@@ -68,7 +68,7 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        public static void Gauge(this StatsDProfiler profiler, string key, int value)
+        public static void Gauge(this MetricsPipe profiler, string key, int value)
         {
             if (profiler == null)
                 return;
@@ -82,7 +82,7 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
-        public static void Raw(this StatsDProfiler profiler, string key, int value)
+        public static void Raw(this MetricsPipe profiler, string key, int value)
         {
             if (profiler == null)
                 return;

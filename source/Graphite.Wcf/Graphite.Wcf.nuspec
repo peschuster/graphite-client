@@ -13,7 +13,7 @@
     <copyright>Copyright 2012</copyright>
     <tags>WCF Graphite StatsD metrics monitoring</tags>
     <dependencies>
-      <dependency id="Graphite" version="1.0" />
+      <dependency id="Graphite" version="1.1" />
     </dependencies>
   </metadata>
   <files>

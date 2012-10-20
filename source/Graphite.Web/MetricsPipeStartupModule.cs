@@ -3,7 +3,7 @@ using System.Web;
 
 namespace Graphite.Web
 {
-    public class StatsDStartupModule : IHttpModule
+    public class MetricsPipeStartupModule : IHttpModule
     {
         public static class Settings
         {
@@ -26,12 +26,12 @@ namespace Graphite.Web
         {
             context.BeginRequest += (sender, e) =>
             {
-                WebStatsDProfilerProvider.Instance.Start();
+                WebMetricsPipeProvider.Instance.Start();
             };
 
             context.EndRequest += (sender, e) =>
             {
-                var profiler = WebStatsDProfilerProvider.Instance.Stop();
+                var profiler = WebMetricsPipeProvider.Instance.Stop();
 
                 if (profiler != null && Settings.ReportRequestTime)
                 {

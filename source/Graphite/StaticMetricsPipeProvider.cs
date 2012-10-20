@@ -2,17 +2,17 @@
 
 namespace Graphite
 {
-    public class StaticStatsDProfilerProvider : IStatsDProfilerProvider
+    public class StaticMetricsPipeProvider : IMetricsPipeProvider
     {
-        private static StaticStatsDProfilerProvider instance;
+        private static StaticMetricsPipeProvider instance;
 
-        public static StaticStatsDProfilerProvider Instance
+        public static StaticMetricsPipeProvider Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new StaticStatsDProfilerProvider();
+                    instance = new StaticMetricsPipeProvider();
                 }
 
                 return instance;
@@ -20,30 +20,30 @@ namespace Graphite
         }
 
         /// <summary>
-        /// Returns the current StatsDProfiler instance.
+        /// Returns the current MetricsPipe instance.
         /// </summary>
         /// <value></value>
-        public StatsDProfiler Current { get; set; }
+        public MetricsPipe Current { get; set; }
 
         /// <summary>
-        /// Starts a new StatsDProfiler instance.
+        /// Starts a new MetricsPipe instance.
         /// </summary>
         /// <returns></returns>
-        public StatsDProfiler Start()
+        public MetricsPipe Start()
         {
-            var result = new StatsDProfiler(GraphiteConfiguration.Instance, this, StopwatchWrapper.StartNew);
+            var result = new MetricsPipe(GraphiteConfiguration.Instance, this, StopwatchWrapper.StartNew);
             Current = result;
 
             return result;
         }
 
         /// <summary>
-        /// Stops the current StatsDProfiler instance.
+        /// Stops the current MetricsPipe instance.
         /// </summary>
         /// <returns></returns>
-        public StatsDProfiler Stop()
+        public MetricsPipe Stop()
         {
-            StatsDProfiler current = Current;
+            MetricsPipe current = Current;
 
             if (current != null)
             {

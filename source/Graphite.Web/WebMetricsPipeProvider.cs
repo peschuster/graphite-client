@@ -3,19 +3,19 @@ using Graphite.Configuration;
 
 namespace Graphite.Web
 {
-    public class WebStatsDProfilerProvider : IStatsDProfilerProvider
+    public class WebMetricsPipeProvider : IMetricsPipeProvider
     {
-        private const string CacheKey = "StatsD.Profiler";
+        private const string CacheKey = "MetricsPipe.Instance";
 
-        private static WebStatsDProfilerProvider instance;
+        private static WebMetricsPipeProvider instance;
 
-        public static WebStatsDProfilerProvider Instance
+        public static WebMetricsPipeProvider Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new WebStatsDProfilerProvider();
+                    instance = new WebMetricsPipeProvider();
                 }
 
                 return instance;
@@ -23,10 +23,10 @@ namespace Graphite.Web
         }
 
         /// <summary>
-        /// Returns the current StatsDProfiler instance.
+        /// Returns the current MetricsPipe instance.
         /// </summary>
         /// <value></value>
-        public StatsDProfiler Current
+        public MetricsPipe Current
         {
             get
             {
@@ -35,7 +35,7 @@ namespace Graphite.Web
                 if (context == null)
                     return null;
 
-                return context.Items[CacheKey] as StatsDProfiler;
+                return context.Items[CacheKey] as MetricsPipe;
             }
 
             set
@@ -50,29 +50,29 @@ namespace Graphite.Web
         }
 
         /// <summary>
-        /// Starts a new StatsDProfiler instance.
+        /// Starts a new MetricsPipe instance.
         /// </summary>
         /// <returns></returns>
-        public StatsDProfiler Start()
+        public MetricsPipe Start()
         {
             var context = HttpContext.Current;
 
             if (context == null)
                 return null;
 
-            var result = new StatsDProfiler(GraphiteConfiguration.Instance, this, StopwatchWrapper.StartNew);
+            var result = new MetricsPipe(GraphiteConfiguration.Instance, this, StopwatchWrapper.StartNew);
             Current = result;
 
             return result;
         }
 
         /// <summary>
-        /// Stops the current StatsDProfiler instance.
+        /// Stops the current MetricsPipe instance.
         /// </summary>
         /// <returns></returns>
-        public StatsDProfiler Stop()
+        public MetricsPipe Stop()
         {
-            StatsDProfiler current = Current;
+            MetricsPipe current = Current;
 
             if (current != null)
             {
