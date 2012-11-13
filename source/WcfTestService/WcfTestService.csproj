@@ -41,12 +41,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Graphite">
-      <HintPath>..\packages\Graphite.1.0.0.0\lib\net40-Client\Graphite.dll</HintPath>
-    </Reference>
-    <Reference Include="Graphite.Wcf">
-      <HintPath>..\packages\Graphite.Wcf.1.0.0.0\lib\net40\Graphite.Wcf.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -93,6 +87,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Graphite.Wcf\Graphite.Wcf.csproj">
+      <Project>{2d96ab33-eed6-4ace-89bc-79ab9b8a3a84}</Project>
+      <Name>Graphite.Wcf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Graphite\Graphite.csproj">
+      <Project>{e9ed1c85-2c0a-43a7-a98a-fc3ec92b6f8a}</Project>
+      <Name>Graphite</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
