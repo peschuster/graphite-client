@@ -5,7 +5,7 @@
     <version>$version$</version>
     <authors>Peter Schuster</authors>
     <owners>Peter Schuster</owners>
-    <licenseUrl>http://github.com/peschuster/graphite-client/blob/master/LICENSE.mdL</licenseUrl>
+    <licenseUrl>http://github.com/peschuster/graphite-client/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>http://github.com/peschuster/graphite-client</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ELMAH error filter for logging all exceptions to Graphite or StatsD.</description>
