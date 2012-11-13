@@ -45,17 +45,33 @@ namespace Graphite.System
             if (string.IsNullOrEmpty(this.counterName))
                 return 0;
 
-            if (workingSetListener == null)
+            if (this.workingSetListener == null)
             {
-                workingSetListener = new CounterListener("Process", this.counterName, "Working Set");
+                try
+                {
+                    this.workingSetListener = new CounterListener("Process", this.counterName, "Working Set");
+                }
+                catch (InvalidOperationException)
+                { 
+                }
             }
 
             if (this.workingSetListener == null)
-                return null;
+                return 0;
 
-            float? value = this.workingSetListener.ReportValue();
+            try
+            {
+                float? value = this.workingSetListener.ReportValue();
 
-            return value.HasValue ? (int)value.Value : default(int?);
+                return value.HasValue ? (int)value.Value : default(int?);
+            }
+            catch (InvalidOperationException)
+            {
+                // counter not available.
+                this.workingSetListener = null;
+
+                return 0;
+            }
         }
 
         private string GetCounterName(string appPool)
