@@ -38,7 +38,7 @@ namespace Graphite
         }
 
         /// <summary>
-        /// Creates a new sampled monitoring channel.
+        /// Creates a new monitoring channel.
         /// </summary>
         /// <param name="target">The target string (e.g. graphite, statsd, etc.)</param>
         /// <param name="type">The type string (e.g. counter, gauge, etc.)</param>
@@ -68,6 +68,36 @@ namespace Graphite
                     k => buildKey(this.statsdPrefix, k), 
                     formatter, 
                     this.statsdPipe);
+            }
+
+            throw new NotImplementedException("No pipe for configured target '" + target + "' implemented.");
+        }
+
+        /// <summary>
+        /// Creates a new monitoring channel with history support.
+        /// </summary>
+        /// <param name="target">The target string (e.g. graphite, statsd, etc.)</param>
+        /// <param name="type">The type string (e.g. counter, gauge, etc.)</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException">No implementation for specified target available.</exception>
+        /// <exception cref="System.ArgumentException">No message formatter for specified target and type available.</exception>
+        public IHistoryMonitoringChannel CreateHistoryChannel(string type, string target)
+        {
+            var formatter = (IHistoryMessageFormatter)this.formatters.Get(target, type, false);
+
+            if (string.Equals(target, "graphite", StringComparison.OrdinalIgnoreCase))
+            {
+                if (this.graphitePipe == null)
+                    throw new InvalidOperationException("graphite pipe is not configured.");
+
+                return new HistoryMonitoringChannel(
+                    k => buildKey(this.graphitePrefix, k),
+                    formatter,
+                    this.graphitePipe);
+            }
+            else if (string.Equals(target, "statsd", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("History support is not available for the statsd pipe.", "target");
             }
 
             throw new NotImplementedException("No pipe for configured target '" + target + "' implemented.");

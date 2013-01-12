@@ -103,12 +103,15 @@
     <Compile Include="Formatters\GraphiteFormatter.cs" />
     <Compile Include="Formatters\IMessageFormatter.cs" />
     <Compile Include="Formatters\ISampledMessageFormatter.cs" />
+    <Compile Include="Formatters\IHistoryMessageFormatter.cs" />
     <Compile Include="Formatters\StatsDCounterFormatter.cs" />
     <Compile Include="Formatters\StatsDGaugeFormatter.cs" />
     <Compile Include="Formatters\StatsDTimingFormatter.cs" />
     <Compile Include="Infrastructure\IMonitoringChannel.cs" />
     <Compile Include="Infrastructure\ISamplingPipe.cs" />
     <Compile Include="IMetricsPipeProvider.cs" />
+    <Compile Include="Infrastructure\IHistoryMonitoringChannel.cs" />
+    <Compile Include="Infrastructure\HistoryMonitoringChannel.cs" />
     <Compile Include="IStopwatch.cs" />
     <Compile Include="Infrastructure\SamplingMonitoringChannel.cs" />
     <Compile Include="Infrastructure\MonitoringChannel.cs" />

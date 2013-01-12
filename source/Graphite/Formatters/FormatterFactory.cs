@@ -54,15 +54,16 @@ namespace Graphite.Formatters
         /// <param name="target">The target string (e.g. graphite, statsd, etc.)</param>
         /// <param name="type">[Optional] The type string (e.g. counter, gauge, etc.)</param>
         /// <param name="sampling">Set to true, if the message formatter must support sampling.</param>
+        /// <param name="history">Set to true, if the message formatter must support custom timestamps.</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentException">Invalid combination of <paramref name="target" /> and <paramref name="type" />.</exception>
-        public IMessageFormatter Get(string target, string type = null, bool sampling = false)
+        public IMessageFormatter Get(string target, string type = null, bool sampling = false, bool history = false)
         {
             IMessageFormatter formatter = this.formatters
-                .FirstOrDefault(f => (!sampling || f is ISampledMessageFormatter) && f.IsMatch(target, type));
+                .FirstOrDefault(f => (!sampling || f is ISampledMessageFormatter) && (!history || f is IHistoryMessageFormatter) && f.IsMatch(target, type));
 
             if (formatter == null)
-                throw new ArgumentException("Invalid combination: target '" + target + "', type '" + type + "', sampling required '" + sampling + "'.");
+                throw new ArgumentException("Invalid combination: target '" + target + "', type '" + type + "', sampling required '" + sampling + "', history support '" + history + "'.");
 
             return formatter;
         }
