@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -142,6 +143,23 @@ namespace Graphite.System
             p.BeginOutputReadLine();
 
             bool success = p.WaitForExit(maxMilliseconds);
+            p.CancelOutputRead();
+
+            if (!success)
+            {
+                try
+                {
+                    p.Kill();
+                }
+                catch (Win32Exception)
+                {
+                    // unable to kill the process
+                }
+                catch (InvalidOperationException)
+                {
+                    // process already stopped
+                }
+            }
 
             result = standardOut.ToString();
 
