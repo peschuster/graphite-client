@@ -18,6 +18,26 @@ Windows (.NET) library and tools for feeding data into [Graphite](http://readthe
  - [Graphite.Wcf](http://nuget.org/packages/Graphite.Wcf)
  - [Graphite.Elmah](http://nuget.org/packages/Graphite.Elmah)
 
+## Quickstart
+
+1. Install NugGet package [Graphite](http://nuget.org/packages/Graphite) (for standalone applications) or [Graphite.Wcf](http://nuget.org/packages/Graphite.Wcf) for WCF applications or Reference Graphite.Mvc.dll (currently not on NuGet) for ASP.NET MVC applications.
+
+2. Add configuration for the base Graphite DLL to your App.config/Web.config:
+
+    <configSections>
+      <section name="graphite" type="Graphite.Configuration.GraphiteConfiguration, Graphite" />
+    </configSections>
+    <graphite xmlns="http://github.com/peschuster/Graphite/Configuration">
+      <!--<graphite address="127.0.0.1" port="2003" transport="Tcp" />-->
+      <statsd address="127.0.0.1" port="8125" prefixKey="test" />
+    </graphite>
+
+3. Add a `using` directive for *Graphite*: `using Graphite;`
+
+4. [For standalone apps] Create a profiler instance on application start: `StaticMetricsPipeProvider.Instance.Start();` and stop it on application exit: `StaticMetricsPipeProvider.Instance.Stop();`.
+
+5. Use Graphite in your code: `MetricsPipe.Current.Count("exception");`
+
 ## Features/Documentation
 
 ### General
