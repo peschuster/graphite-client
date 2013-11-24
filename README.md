@@ -24,13 +24,13 @@ Windows (.NET) library and tools for feeding data into [Graphite](http://readthe
 
 2. Add configuration for the base Graphite DLL to your App.config/Web.config:
 
-    <configSections>
-      <section name="graphite" type="Graphite.Configuration.GraphiteConfiguration, Graphite" />
-    </configSections>
-    <graphite xmlns="http://github.com/peschuster/Graphite/Configuration">
-      <!--<graphite address="127.0.0.1" port="2003" transport="Tcp" />-->
-      <statsd address="127.0.0.1" port="8125" prefixKey="test" />
-    </graphite>
+    &lt;configSections&gt;
+      &lt;section name="graphite" type="Graphite.Configuration.GraphiteConfiguration, Graphite" /&gt;
+    &lt;/configSections&gt;
+    &lt;graphite xmlns="http://github.com/peschuster/Graphite/Configuration"&gt;
+      &lt;!--&lt;graphite address="127.0.0.1" port="2003" transport="Tcp" /&gt;--&gt;
+      &lt;statsd address="127.0.0.1" port="8125" prefixKey="test" /&gt;
+    &lt;/graphite&gt;
 
 3. Add a `using` directive for *Graphite*: `using Graphite;`
 
