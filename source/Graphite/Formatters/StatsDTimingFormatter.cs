@@ -12,7 +12,7 @@ namespace Graphite.Formatters
                 && type.Equals("timing", StringComparison.OrdinalIgnoreCase);
         }
 
-        public string Format(string key, int value)
+        public string Format(string key, long value)
         {
             return string.Format("{0}:{1:d}|ms", key, value);
         }

@@ -12,12 +12,12 @@ namespace Graphite.Formatters
                 && type.Equals("counter", StringComparison.OrdinalIgnoreCase);
         }
 
-        public string Format(string key, int magnitude)
+        public string Format(string key, long magnitude)
         {
             return string.Format("{0}:{1}|c", key, magnitude);
         }
 
-        public string Format(string key, int magnitude, float sampling)
+        public string Format(string key, long magnitude, float sampling)
         {
             return string.Format("{0}:{1}|c|@{2}", key, magnitude, sampling);
         }

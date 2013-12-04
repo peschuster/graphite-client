@@ -39,7 +39,7 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The key.</param>
         /// <param name="value">The timing value.</param>
-        public static void Timing(this MetricsPipe profiler, string key, int value)
+        public static void Timing(this MetricsPipe profiler, string key, long value)
         {
             if (profiler == null)
                 return;
@@ -54,7 +54,7 @@ namespace Graphite
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <param name="sampling">Sample by provided value.</param>
-        public static void Count(this MetricsPipe profiler, string key, int value = 1, float sampling = 1)
+        public static void Count(this MetricsPipe profiler, string key, long value = 1, float sampling = 1)
         {
             if (profiler == null)
                 return;
@@ -68,7 +68,7 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        public static void Gauge(this MetricsPipe profiler, string key, int value)
+        public static void Gauge(this MetricsPipe profiler, string key, long value)
         {
             if (profiler == null)
                 return;
@@ -82,7 +82,7 @@ namespace Graphite
         /// <param name="profiler">The profiler.</param>
         /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
-        public static void Raw(this MetricsPipe profiler, string key, int value)
+        public static void Raw(this MetricsPipe profiler, string key, long value)
         {
             if (profiler == null)
                 return;
