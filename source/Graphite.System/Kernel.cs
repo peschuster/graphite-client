@@ -134,7 +134,7 @@ namespace Graphite.System
 
                 if (value.HasValue)
                 {
-                    channel.Report(config.Key, (int)value.Value);
+                    channel.Report(config.Key, (long)value.Value);
                 }
             };
         }
@@ -153,7 +153,7 @@ namespace Graphite.System
             {
                 if (config.WorkingSet)
                 {
-                    int? value = element.ReportWorkingSet();
+                    long? value = element.ReportWorkingSet();
 
                     if (value.HasValue)
                     {

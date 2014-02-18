@@ -23,6 +23,6 @@ namespace Graphite.Formatters
         /// <param name="key">The key string.</param>
         /// <param name="value">The reported value.</param>
         /// <returns>The formatted string.</returns>
-        string Format(string key, int value);
+        string Format(string key, long value);
     }
 }

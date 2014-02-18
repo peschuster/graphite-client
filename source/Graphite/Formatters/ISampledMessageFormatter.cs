@@ -13,6 +13,6 @@ namespace Graphite.Formatters
         /// <param name="value">The reported value.</param>
         /// <param name="sampling">The sampling factor.</param>
         /// <returns>The formatted string.</returns>
-        string Format(string key, int value, float sampling);
+        string Format(string key, long value, float sampling);
     }
 }

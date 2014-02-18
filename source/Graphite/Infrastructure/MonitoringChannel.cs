@@ -41,7 +41,7 @@ namespace Graphite.Infrastructure
         /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public bool Report(string key, int value)
+        public bool Report(string key, long value)
         {
             string formattedValue = this.formatter.Format(
                 this.keyBuilder(key),
@@ -56,7 +56,7 @@ namespace Graphite.Infrastructure
         /// <param name="key">The metric key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public Task<bool> ReportAsync(string key, int value)
+        public Task<bool> ReportAsync(string key, long value)
         {
             return Task<bool>.Factory
                 .StartNew(() => this.Report(key, value));

@@ -40,7 +40,7 @@ namespace Graphite.System
             }
         }
 
-        public int? ReportWorkingSet()
+        public long? ReportWorkingSet()
         {
             // AppPool not found -> is not started -> 0 memory in use.
             if (string.IsNullOrEmpty(this.counterName))
@@ -64,7 +64,7 @@ namespace Graphite.System
             {
                 float? value = this.workingSetListener.ReportValue();
 
-                return value.HasValue ? (int)value.Value : default(int?);
+                return value.HasValue ? (long)value.Value : default(long?);
             }
             catch (InvalidOperationException)
             {
@@ -108,7 +108,7 @@ namespace Graphite.System
             {
                 using (PerformanceCounter counter = new PerformanceCounter("Process", "ID Process", instance, true))
                 {
-                    int val = (int)counter.RawValue;
+                    long val = counter.RawValue;
 
                     if (val == processId)
                     {
