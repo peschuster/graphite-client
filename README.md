@@ -115,6 +115,8 @@ Besides profiling and instrumenting your code manually you can report various sy
 
 See the complete [documentation](http://github.com/peschuster/graphite-client/wiki/System-Metrics) for `PerfCounterMonitor.exe`.
 
+**You can download the binaries of *Graphite.System* here:** [Graphite.System v1.0.0](https://github.com/peschuster/graphite-client/releases/tag/Graphite.System_1-0-0-0)
+
 
 ### WCF
 > Graphite.Wcf.dll
