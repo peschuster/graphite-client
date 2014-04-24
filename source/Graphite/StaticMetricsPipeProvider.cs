@@ -2,10 +2,16 @@
 
 namespace Graphite
 {
+    /// <summary>
+    /// <see cref="IMetricsPipeProvider"/> with static lifetime for usage in self-hosted applications (e.g. console application).
+    /// </summary>
     public class StaticMetricsPipeProvider : IMetricsPipeProvider
     {
         private static StaticMetricsPipeProvider instance;
 
+        /// <summary>
+        /// Static instance of this provider (singleton).
+        /// </summary>
         public static StaticMetricsPipeProvider Instance
         {
             get

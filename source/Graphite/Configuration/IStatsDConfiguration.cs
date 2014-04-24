@@ -1,4 +1,3 @@
-
 namespace Graphite.Configuration
 {
     /// <summary>

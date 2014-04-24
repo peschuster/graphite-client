@@ -4,7 +4,7 @@ using Graphite.Configuration;
 namespace Graphite
 {
     /// <summary>
-    /// Profiler for StatsD
+    /// Profiler for StatsD and Graphite
     /// </summary>
     public class MetricsPipe : IDisposable
     {
@@ -35,7 +35,7 @@ namespace Graphite
         }
 
         /// <summary>
-        /// Current instance of StatsD (might be null).
+        /// Current instance of MetricsPipe (might be null).
         /// </summary>
         public static MetricsPipe Current
         {

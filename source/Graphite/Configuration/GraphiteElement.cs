@@ -23,6 +23,9 @@ namespace Graphite.Configuration
         /// </summary>        
         internal const string TransportPropertyName = "transport";
 
+        /// <summary>
+        /// The XML name of the <see cref="PrefixKey"/> property.
+        /// </summary>    
         internal const string PrefixKeyPropertyName = "prefixKey";
 
         /// <summary>

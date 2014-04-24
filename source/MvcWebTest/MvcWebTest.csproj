@@ -46,6 +46,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
+    <Reference Include="Graphite">
+      <HintPath>..\packages\Graphite.1.1.0.0\lib\net40-Client\Graphite.dll</HintPath>
+    </Reference>
+    <Reference Include="Graphite.Elmah, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Graphite.Elmah.1.0.1.0\lib\net40\Graphite.Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -165,17 +172,9 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Graphite.Elmah\Graphite.Elmah.csproj">
-      <Project>{1e287287-bdc9-40c3-940b-45b0f682955a}</Project>
-      <Name>Graphite.Elmah</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Graphite.Web\Graphite.Web.csproj">
       <Project>{2a4858fe-7353-4e9a-84c1-1fd11808af39}</Project>
       <Name>Graphite.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Graphite\Graphite.csproj">
-      <Project>{e9ed1c85-2c0a-43a7-a98a-fc3ec92b6f8a}</Project>
-      <Name>Graphite</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
