@@ -15,7 +15,7 @@ namespace Graphite.System.Configuration
         internal const string AppPoolPropertyName = "appPoolName";
 
         /// <summary>
-        /// The XML name of the <see cref="Sampling"/> property.
+        /// The XML name of the <see cref="WorkingSet"/> property.
         /// </summary>        
         internal const string WorkingSetPropertyName = "workingSet";
 
@@ -25,7 +25,7 @@ namespace Graphite.System.Configuration
         internal const string TypePropertyName = "type";
 
         /// <summary>
-        /// The XML name of the <see cref="Instance"/> property.
+        /// The XML name of the <see cref="Target"/> property.
         /// </summary>        
         internal const string TargetPropertyName = "target";
 
@@ -33,6 +33,16 @@ namespace Graphite.System.Configuration
         /// The XML name of the <see cref="Interval"/> property.
         /// </summary>        
         internal const string IntervalPropertyName = "interval";
+
+        /// <summary>
+        /// The XML name of the <see cref="Category"/> property.
+        /// </summary>
+        internal const string CategoryPropertyName = "category";
+
+        /// <summary>
+        /// The XML name of the <see cref="Counter"/> property.
+        /// </summary>        
+        internal const string CounterPropertyName = "counter";
 
         /// <summary>
         /// Gets or sets the Key.
@@ -57,7 +67,7 @@ namespace Graphite.System.Configuration
         /// <summary>
         /// Gets or sets the Sampling rate.
         /// </summary>
-        [ConfigurationPropertyAttribute(WorkingSetPropertyName, IsRequired = true)]
+        [ConfigurationPropertyAttribute(WorkingSetPropertyName, IsRequired = false)]
         public bool WorkingSet
         {
             get { return (bool)base[WorkingSetPropertyName]; }
@@ -92,6 +102,26 @@ namespace Graphite.System.Configuration
         {
             get { return (short)base[IntervalPropertyName]; }
             set { base[IntervalPropertyName] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the Category.
+        /// </summary>
+        [ConfigurationPropertyAttribute(CategoryPropertyName, IsRequired = false)]
+        public string Category
+        {
+            get { return (string)base[CategoryPropertyName]; }
+            set { base[CategoryPropertyName] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the Counter.
+        /// </summary>
+        [ConfigurationPropertyAttribute(CounterPropertyName, IsRequired = false)]
+        public string Counter
+        {
+            get { return (string)base[CounterPropertyName]; }
+            set { base[CounterPropertyName] = value; }
         }
     }
 }

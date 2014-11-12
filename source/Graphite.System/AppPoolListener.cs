@@ -11,13 +11,26 @@ namespace Graphite.System
     internal class AppPoolListener
     {
         private readonly string appPoolName;
+        private readonly string category;
+        private readonly string counter;
 
         private string counterName;
 
-        private CounterListener workingSetListener;
+        private CounterListener counterListener;
+        private bool workingSet;
+
+        public AppPoolListener(string appPoolName, string category, string counter)
+        {
+            this.appPoolName = appPoolName;
+            this.category = category;
+            this.counter = counter;
+
+            this.LoadCounterName();
+        }
 
         public AppPoolListener(string appPoolName)
         {
+            this.workingSet = true;
             this.appPoolName = appPoolName;
 
             this.LoadCounterName();
@@ -29,47 +42,49 @@ namespace Graphite.System
 
             if (!string.IsNullOrEmpty(newName) && this.counterName != newName)
             {
-                if (this.workingSetListener != null)
+                if (this.counterListener != null)
                 {
-                    this.workingSetListener.Dispose();
+                    this.counterListener.Dispose();
 
-                    this.workingSetListener = null;
+                    this.counterListener = null;
                 }
 
                 this.counterName = newName;
             }
         }
 
-        public long? ReportWorkingSet()
+        public float? ReportValue()
         {
             // AppPool not found -> is not started -> 0 memory in use.
             if (string.IsNullOrEmpty(this.counterName))
                 return 0;
 
-            if (this.workingSetListener == null)
+            if (this.counterListener == null)
             {
                 try
                 {
-                    this.workingSetListener = new CounterListener("Process", this.counterName, "Working Set");
+                    this.counterListener = workingSet 
+                        ? new CounterListener("Process", this.counterName, "Working Set") 
+                        : new CounterListener(category, this.counterName, counter);
                 }
                 catch (InvalidOperationException)
                 { 
                 }
             }
 
-            if (this.workingSetListener == null)
+            if (this.counterListener == null)
                 return 0;
 
             try
             {
-                float? value = this.workingSetListener.ReportValue();
 
-                return value.HasValue ? (long)value.Value : default(long?);
+
+                return this.counterListener.ReportValue(); ;
             }
             catch (InvalidOperationException)
             {
                 // counter not available.
-                this.workingSetListener = null;
+                this.counterListener = null;
 
                 return 0;
             }

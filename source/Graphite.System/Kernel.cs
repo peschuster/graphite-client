@@ -151,14 +151,12 @@ namespace Graphite.System
 
             return () =>
             {
-                if (config.WorkingSet)
-                {
-                    long? value = element.ReportWorkingSet();
+                
+                float? value = element.ReportValue();
 
-                    if (value.HasValue)
-                    {
-                        channel.Report(config.Key, value.Value);
-                    }
+                if (value.HasValue)
+                {
+                    channel.Report(config.Key, (long) value.Value);
                 }
             };
         }
