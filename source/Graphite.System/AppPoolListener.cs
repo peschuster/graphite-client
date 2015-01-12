@@ -11,8 +11,8 @@ namespace Graphite.System
     internal class AppPoolListener
     {
         private readonly string appPoolName;
-        private readonly string category;
-        private readonly string counter;
+        private readonly string category = "Process";
+        private readonly string counter = "Working Set";
 
         private string counterName;
 
@@ -36,7 +36,7 @@ namespace Graphite.System
             this.LoadCounterName();
         }
 
-        public void LoadCounterName()
+        public bool LoadCounterName()
         {
             string newName = this.GetCounterName(this.appPoolName);
 
@@ -48,15 +48,19 @@ namespace Graphite.System
 
                     this.counterListener = null;
                 }
-
-                this.counterName = newName;
+				if (!string.IsNullOrEmpty(newName))
+				{
+					this.counterName = newName;
+					return true;
+				}
             }
+	        return false;
         }
 
         public float? ReportValue()
         {
             // AppPool not found -> is not started -> 0 memory in use.
-            if (string.IsNullOrEmpty(this.counterName))
+            if (string.IsNullOrEmpty(this.counterName) && !LoadCounterName())
                 return 0;
 
             if (this.counterListener == null)

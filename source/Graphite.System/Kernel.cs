@@ -141,7 +141,8 @@ namespace Graphite.System
 
         private Action CreateReportingAction(AppPoolElement config, out AppPoolListener listener)
         {
-            var element = new AppPoolListener(config.AppPoolName);
+
+            var element = config.WorkingSet && string.IsNullOrEmpty(config.Counter) ? new AppPoolListener(config.AppPoolName) : new AppPoolListener(config.AppPoolName, config.Category, config.Counter);
 
             listener = element;
             
