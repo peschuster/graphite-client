@@ -11,13 +11,12 @@ namespace Graphite.System
     internal class AppPoolListener
     {
         private readonly string appPoolName;
-        private readonly string category = "Process";
-        private readonly string counter = "Working Set";
+        private readonly string category;
+        private readonly string counter;
 
         private string counterName;
 
         private CounterListener counterListener;
-        private bool workingSet;
 
         public AppPoolListener(string appPoolName, string category, string counter)
         {
@@ -27,15 +26,7 @@ namespace Graphite.System
 
             this.LoadCounterName();
         }
-
-        public AppPoolListener(string appPoolName)
-        {
-            this.workingSet = true;
-            this.appPoolName = appPoolName;
-
-            this.LoadCounterName();
-        }
-
+        
         public bool LoadCounterName()
         {
             string newName = this.GetCounterName(this.appPoolName);
@@ -48,28 +39,26 @@ namespace Graphite.System
 
                     this.counterListener = null;
                 }
-				if (!string.IsNullOrEmpty(newName))
-				{
-					this.counterName = newName;
-					return true;
-				}
+
+				this.counterName = newName;
+				
+                return true;
             }
+
 	        return false;
         }
 
         public float? ReportValue()
         {
-            // AppPool not found -> is not started -> 0 memory in use.
+            // AppPool not found -> is not started.
             if (string.IsNullOrEmpty(this.counterName) && !LoadCounterName())
-                return 0;
+                return null;
 
             if (this.counterListener == null)
             {
                 try
                 {
-                    this.counterListener = workingSet 
-                        ? new CounterListener("Process", this.counterName, "Working Set") 
-                        : new CounterListener(category, this.counterName, counter);
+                    this.counterListener = new CounterListener(category, this.counterName, counter);
                 }
                 catch (InvalidOperationException)
                 { 
@@ -77,7 +66,7 @@ namespace Graphite.System
             }
 
             if (this.counterListener == null)
-                return 0;
+                return null;
 
             try
             {
@@ -90,7 +79,7 @@ namespace Graphite.System
                 // counter not available.
                 this.counterListener = null;
 
-                return 0;
+                return null;
             }
         }
 
@@ -117,17 +106,17 @@ namespace Graphite.System
 
         private string ProcessNameById(string prefix, int processId)
         {
-            var category = new PerformanceCounterCategory("Process");
+            var localCategory = new PerformanceCounterCategory("Process");
 
-            string[] instances = category.GetInstanceNames()
+            string[] instances = localCategory.GetInstanceNames()
                 .Where(p => p.StartsWith(prefix))
                 .ToArray();
 
             foreach (string instance in instances)
             {
-                using (PerformanceCounter counter = new PerformanceCounter("Process", "ID Process", instance, true))
+                using (var localCounter = new PerformanceCounter("Process", "ID Process", instance, true))
                 {
-                    long val = counter.RawValue;
+                    long val = localCounter.RawValue;
 
                     if (val == processId)
                     {
@@ -154,11 +143,11 @@ namespace Graphite.System
                 CreateNoWindow = true,
             };
 
-            StringBuilder standardOut = new StringBuilder();
+            var standardOut = new StringBuilder();
 
             Process p = Process.Start(startInfo);
 
-            p.OutputDataReceived += (object s, DataReceivedEventArgs d) => standardOut.AppendLine(d.Data);
+            p.OutputDataReceived += (s, d) => standardOut.AppendLine(d.Data);
             p.BeginOutputReadLine();
 
             bool success = p.WaitForExit(maxMilliseconds);

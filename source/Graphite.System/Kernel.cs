@@ -142,7 +142,16 @@ namespace Graphite.System
         private Action CreateReportingAction(AppPoolElement config, out AppPoolListener listener)
         {
 
-            var element = config.WorkingSet && string.IsNullOrEmpty(config.Counter) ? new AppPoolListener(config.AppPoolName) : new AppPoolListener(config.AppPoolName, config.Category, config.Counter);
+            AppPoolListener element = null;
+
+            if (config.WorkingSet && string.IsNullOrEmpty(config.Counter))
+            {
+                element = new AppPoolListener(config.AppPoolName, "Process", "Working Set");
+            } 
+            else if (!string.IsNullOrEmpty(config.Counter))
+            {
+                element = new AppPoolListener(config.AppPoolName, config.Category, config.Counter);
+            }
 
             listener = element;
             
@@ -152,12 +161,14 @@ namespace Graphite.System
 
             return () =>
             {
-                
-                float? value = element.ReportValue();
-
-                if (value.HasValue)
+                if (element != null)
                 {
-                    channel.Report(config.Key, (long) value.Value);
+                    float? value = element.ReportValue();
+
+                    if (value.HasValue)
+                    {
+                        channel.Report(config.Key, (long)value.Value);
+                    }
                 }
             };
         }
