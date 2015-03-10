@@ -85,7 +85,7 @@
   <xs:complexType name="Graphite.System.Configuration.AppPoolElement">
     <xs:attribute name="key" use="required" type="xs:string"/>
     <xs:attribute name="appPoolName" use="required" type="xs:string"/>
-    <xs:attribute name="workingSet" use="required" type="xs:boolean"/>
+    <xs:attribute name="workingSet" use="optional" type="xs:boolean"/>
     <xs:attribute name="type" use="required" type="xs:string"/>
     <xs:attribute name="target" use="required" type="xs:string"/>
     <xs:attribute name="interval" use="optional" type="xs:short"/>
