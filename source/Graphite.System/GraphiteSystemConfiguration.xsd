@@ -89,5 +89,7 @@
     <xs:attribute name="type" use="required" type="xs:string"/>
     <xs:attribute name="target" use="required" type="xs:string"/>
     <xs:attribute name="interval" use="optional" type="xs:short"/>
+    <xs:attribute name="category" use="optional" type="xs:string"/>
+    <xs:attribute name="counter" use="optional" type="xs:string"/>
   </xs:complexType>
 </xs:schema>
