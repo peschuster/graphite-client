@@ -19,6 +19,11 @@ namespace MSBuild.Graphite
         /// <summary>
         /// For timings several statistical (mean, upper_90, sum) are calculated and sumbited to graphite.
         /// </summary>
-        Timing
+        Timing,
+
+        /// <summary>
+        /// StatsD supports counting unique occurences of events between flushes, using a Set to store all occuring events.
+        /// </summary>
+        Set
     }
 }

@@ -104,6 +104,7 @@
     <Compile Include="Formatters\IMessageFormatter.cs" />
     <Compile Include="Formatters\ISampledMessageFormatter.cs" />
     <Compile Include="Formatters\StatsDCounterFormatter.cs" />
+    <Compile Include="Formatters\StatsDSetFormatter.cs" />
     <Compile Include="Formatters\StatsDGaugeFormatter.cs" />
     <Compile Include="Formatters\StatsDTimingFormatter.cs" />
     <Compile Include="Infrastructure\IMonitoringChannel.cs" />

@@ -77,6 +77,20 @@ namespace Graphite
         }
 
         /// <summary>
+        /// Reports a set value for specified key.
+        /// </summary>
+        /// <param name="profiler">The profiler.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        public static void Set(this MetricsPipe profiler, string key, long value)
+        {
+            if (profiler == null)
+                return;
+
+            profiler.ReportSet(key, value);
+        }
+
+        /// <summary>
         /// Reports a raw value directly to graphite.
         /// </summary>
         /// <param name="profiler">The profiler.</param>

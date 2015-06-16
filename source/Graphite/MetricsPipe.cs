@@ -71,6 +71,13 @@ namespace Graphite
             return channel.Report(key, value);
         }
 
+        internal bool ReportSet(string key, long value)
+        {
+            var channel = this.factory.CreateChannel("set", "statsd");
+
+            return channel.Report(key, value);
+        }
+
         internal bool ReportRaw(string key, long value)
         {
             var channel = this.factory.CreateChannel("gauge", "graphite");

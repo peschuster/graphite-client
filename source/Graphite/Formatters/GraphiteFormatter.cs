@@ -10,7 +10,7 @@ namespace Graphite.Formatters
         {
             return !string.IsNullOrWhiteSpace(target)
                 && target.Equals("graphite", StringComparison.OrdinalIgnoreCase)
-                && (string.IsNullOrWhiteSpace(type) || type.Equals("gauge", StringComparison.OrdinalIgnoreCase));
+                && (string.IsNullOrWhiteSpace(type) || type.Equals("gauge", StringComparison.OrdinalIgnoreCase) || type.Equals("set", StringComparison.OrdinalIgnoreCase));
         }
 
         public string Format(string key, long value)
