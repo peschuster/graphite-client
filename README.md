@@ -34,6 +34,15 @@ Windows (.NET) library and tools for feeding data into [Graphite](http://readthe
 </graphite>
 ```
 
+It is also possible to set the base configuration inside the `connectionStrings` section. The `graphite` "configSection" must not be defined for these connection string configurations to take effect.
+
+```
+<connectionStrings>
+  <add name="graphite" connectionString="address=127.0.0.1;port=2003;transport=Tcp" />
+  <add name="statsd" connectionString="address=127.0.0.1;port=8125;prefixKey=test" />
+</connectionStrings>
+```
+
 3. Add a `using` directive for *Graphite*: `using Graphite;`
 
 4. [For standalone apps] Create a profiler instance on application start: `StaticMetricsPipeProvider.Instance.Start();` and stop it on application exit: `StaticMetricsPipeProvider.Instance.Stop();`.

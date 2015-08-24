@@ -37,7 +37,7 @@ namespace Graphite
         /// <returns></returns>
         public MetricsPipe Start()
         {
-            var result = new MetricsPipe(GraphiteConfiguration.Instance, this, StopwatchWrapper.StartNew);
+            var result = new MetricsPipe(GraphiteConfigurationProvider.Get(), this, StopwatchWrapper.StartNew);
             Current = result;
 
             return result;

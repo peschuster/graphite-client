@@ -26,7 +26,7 @@ namespace Graphite.System
 
         private bool disposed;
 
-        public Kernel(GraphiteConfiguration configuration, GraphiteSystemConfiguration systemConfiguration)
+        public Kernel(IConfigurationContainer configuration, GraphiteSystemConfiguration systemConfiguration)
         {
             this.factory = new ChannelFactory(configuration.Graphite, configuration.StatsD);
 

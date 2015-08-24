@@ -39,7 +39,7 @@ namespace Graphite.System
 
             try
             {
-                this.kernel = new Kernel(GraphiteConfiguration.Instance, GraphiteSystemConfiguration.Instance);
+                this.kernel = new Kernel(GraphiteConfigurationProvider.Get(), GraphiteSystemConfiguration.Instance);
             }
             catch (Exception exception)
             {

@@ -16,7 +16,7 @@ namespace Graphite
 
         private bool disposed;
 
-        internal MetricsPipe(GraphiteConfiguration configuration, IMetricsPipeProvider provider, Func<IStopwatch> watch)
+        internal MetricsPipe(IConfigurationContainer configuration, IMetricsPipeProvider provider, Func<IStopwatch> watch)
         {
             if (configuration == null)
                 throw new ArgumentNullException("configuration");

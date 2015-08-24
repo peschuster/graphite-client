@@ -87,14 +87,18 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChannelFactory.cs" />
+    <Compile Include="Configuration\ConnectionStringContainer.cs" />
+    <Compile Include="Configuration\GraphiteConfigurationProvider.cs" />
     <Compile Include="Configuration\GraphiteConfiguration.cs" />
+    <Compile Include="Configuration\ConnectionStringConfigurationBase.cs" />
+    <Compile Include="Configuration\IConfigurationContainer.cs" />
+    <Compile Include="Configuration\StatsDConnectionStringConfiguration.cs" />
+    <Compile Include="Configuration\GraphiteConnectionStringConfiguration.cs" />
     <Compile Include="Configuration\GraphiteElement.cs" />
     <Compile Include="Configuration\IGraphiteConfiguration.cs" />
     <Compile Include="Configuration\IStatsDConfiguration.cs" />

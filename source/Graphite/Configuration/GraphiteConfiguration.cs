@@ -5,7 +5,7 @@ namespace Graphite.Configuration
     /// <summary>
     /// Base configuration for graphite package.
     /// </summary>
-    public class GraphiteConfiguration : ConfigurationSection
+    public class GraphiteConfiguration : ConfigurationSection, IConfigurationContainer
     {
         /// <summary>
         /// The XML name of the GraphiteConfigurationSectionName Configuration Section.
@@ -66,6 +66,16 @@ namespace Graphite.Configuration
         {
             get { return (StatsDElement)this[StatsDPropertyName]; }
             set { base[StatsDPropertyName] = value; }
+        }
+
+        IGraphiteConfiguration IConfigurationContainer.Graphite
+        {
+            get { return this.Graphite; }
+        }
+
+        IStatsDConfiguration IConfigurationContainer.StatsD
+        {
+            get { return this.StatsD; }
         }
     }
 }

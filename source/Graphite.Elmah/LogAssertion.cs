@@ -23,9 +23,9 @@ namespace Graphite
         /// </summary>
         public LogAssertion()
         {
-            this.factory = new ChannelFactory(
-                GraphiteConfiguration.Instance.Graphite, 
-                GraphiteConfiguration.Instance.StatsD);
+            IConfigurationContainer config = GraphiteConfigurationProvider.Get();
+
+            this.factory = new ChannelFactory(config.Graphite, config.StatsD);
 
             var configuration = GraphiteElmahConfiguration.Instance;
 

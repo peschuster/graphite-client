@@ -42,7 +42,7 @@ namespace Graphite.System
                 }
                 else
                 {
-                    using (new Kernel(GraphiteConfiguration.Instance, GraphiteSystemConfiguration.Instance))
+                    using (new Kernel(GraphiteConfigurationProvider.Get(), GraphiteSystemConfiguration.Instance))
                     {
                         Console.WriteLine("Listening on configured performance counters...");
                         Console.WriteLine("Press [enter] to exit.");

@@ -60,7 +60,7 @@ namespace Graphite.Web
             if (context == null)
                 return null;
 
-            var result = new MetricsPipe(GraphiteConfiguration.Instance, this, StopwatchWrapper.StartNew);
+            var result = new MetricsPipe(GraphiteConfigurationProvider.Get(), this, StopwatchWrapper.StartNew);
             Current = result;
 
             return result;
