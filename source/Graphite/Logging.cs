@@ -34,7 +34,7 @@ namespace Graphite
             {
                 Format(current, buffer, intend);
 
-                current = exception.InnerException;
+                current = current.InnerException;
                 intend += 4;
 
             } while (current != null);
