@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace Graphite
@@ -24,18 +25,19 @@ namespace Graphite
             var buffer = new StringBuilder();
 
             buffer.AppendLine(new string('=', 30));
-            buffer.AppendLine(DateTime.Now.ToString());
+            buffer.AppendLine(DateTime.Now.ToString(CultureInfo.InvariantCulture));
             buffer.AppendLine(new string('-', 30));
 
             Exception current = exception;
 
-            int intend = 0;
+            int indent = 0;
+
             do
             {
-                Format(current, buffer, intend);
+                Format(current, buffer, indent);
 
                 current = current.InnerException;
-                intend += 4;
+                indent += 4;
 
             } while (current != null);
 
