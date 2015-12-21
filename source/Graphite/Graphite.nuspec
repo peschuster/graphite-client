@@ -9,8 +9,8 @@
     <projectUrl>http://github.com/peschuster/graphite-client</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Library for feeding data into Graphite and StatsD.</description>
-    <releaseNotes>Rename "StatsDProfiler" -> "MetricsPipe", use "long" as default metric data type.</releaseNotes>
-    <copyright>Copyright 2012-2014</copyright>
+    <releaseNotes>Support for statsd "set". Support for case configuration in connectionString section.</releaseNotes>
+    <copyright>Copyright 2012-2015</copyright>
     <tags>Graphite StatsD metrics monitoring</tags>
     <dependencies />
   </metadata>

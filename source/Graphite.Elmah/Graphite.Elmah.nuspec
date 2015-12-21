@@ -9,11 +9,11 @@
     <projectUrl>http://github.com/peschuster/graphite-client</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ELMAH error filter for logging all exceptions to Graphite or StatsD.</description>
-    <releaseNotes>Update for compatibility with Graphite 1.1 - no functional changes.</releaseNotes>
-    <copyright>Copyright 2012-2014</copyright>
+    <releaseNotes>Update for compatibility with Graphite 1.2 - no functional changes.</releaseNotes>
+    <copyright>Copyright 2012-2015</copyright>
     <tags>Elmah Graphite StatsD metrics monitoring</tags>
     <dependencies>
-      <dependency id="Graphite" version="1.1" />
+      <dependency id="Graphite" version="1.2" />
       <dependency id="elmah.corelibrary" version="1.2" />
     </dependencies>
   </metadata>
