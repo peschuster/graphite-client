@@ -18,6 +18,24 @@ namespace Graphite
             if (profiler == null)
                 return null;
 
+            return Step(profiler, key, Timing);
+        }
+
+        /// <summary>
+        /// Times a step with specified key.
+        /// </summary>
+        /// <param name="profiler">The profiler.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="reporter">Action to report result.</param>
+        /// <returns></returns>
+        public static IDisposable Step(this MetricsPipe profiler, string key, Action<MetricsPipe, string, long> reporter)
+        {
+            if (profiler == null)
+                return null;
+
+            if (reporter == null)
+                throw new ArgumentNullException("reporter");
+
             var timing = profiler.StartTiming();
 
             return new Reporter(() =>
@@ -28,7 +46,7 @@ namespace Graphite
 
                 if (elapsed.HasValue)
                 {
-                    profiler.ReportTiming(key, elapsed.Value);
+                    reporter(profiler, key, elapsed.Value);
                 }
             });
         }
