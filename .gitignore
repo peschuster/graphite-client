@@ -12,6 +12,7 @@ package*/
 [Dd]ebug*/
 *.lib
 *.sbr
+.vs/
 obj/
 [Rr]elease*/
 _ReSharper*/
