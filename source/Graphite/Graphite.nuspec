@@ -9,7 +9,7 @@
     <projectUrl>http://github.com/peschuster/graphite-client</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Library for feeding data into Graphite and StatsD.</description>
-    <releaseNotes>Support for statsd "set". Support for case configuration in connectionString section.</releaseNotes>
+    <releaseNotes>Extension: Allow profiling (.Step()) with configurable metric type.</releaseNotes>
     <copyright>Copyright 2012-2016</copyright>
     <tags>Graphite StatsD metrics monitoring</tags>
     <dependencies />
