@@ -4,6 +4,8 @@ Windows (.NET) library and tools for feeding data into [Graphite](http://readthe
 
 ## Current status
 
+[![Build status](https://ci.appveyor.com/api/projects/status/owo6sm3llyujpxiw?svg=true)](https://ci.appveyor.com/project/peschuster/graphite-client)
+
 - Base library (Graphite.dll)
 - Monitoring service for [PerformanceCounters](http://www.codeproject.com/Articles/8590/An-Introduction-To-Performance-Counters) (PerfCounterMonitor.exe)
 - Basic instrumentation of ASP.NET MVC apps (inspired by MiniProfiler, Graphite.Mvc.dll)
