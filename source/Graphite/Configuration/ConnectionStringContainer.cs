@@ -20,11 +20,17 @@ namespace Graphite.Configuration
             this.statsd = new Lazy<IStatsDConfiguration>(() => new StatsDConnectionStringConfiguration());
         }
 
+        /// <summary>
+        /// The graphite configuration.
+        /// </summary>
         public IGraphiteConfiguration Graphite
         {
             get { return this.graphite.Value; }
         }
 
+        /// <summary>
+        /// The statsd configuration.
+        /// </summary>
         public IStatsDConfiguration StatsD
         {
             get { return this.statsd.Value; }
