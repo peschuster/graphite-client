@@ -1,43 +1,28 @@
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Net;
-using System.Net.Sockets;
-using System.Text;
 
 namespace Graphite.Infrastructure
 {
     internal class TcpPipe : IPipe, IDisposable
     {
-        private readonly IPEndPoint endpoint;
-
-        private TcpClient tcpClient;
+        private readonly TcpSenderPipe sender;
 
         private bool disposed;
 
         public TcpPipe(IPAddress address, int port)
         {
-            this.endpoint = new IPEndPoint(address, port);
-
-            this.RenewClient();
+            this.sender = new TcpSenderPipe(address, port);
+            this.sender.Run();
         }
 
         public bool Send(string message)
         {
-            if (message == null)
-                return false;
-
-            return this.Send(new[] { message });
+            return this.sender.Send(message);
         }
 
         public bool Send(string[] messages)
         {
-            if (messages == null)
-                return false;
-
-            var data = Encoding.Default.GetBytes(string.Join("\n", messages) + "\n");
-
-            return this.CoreSend(data);
+            return this.sender.Send(messages);
         }
 
         public void Dispose()
@@ -53,9 +38,9 @@ namespace Graphite.Infrastructure
             {
                 try
                 {
-                    if (this.tcpClient != null)
+                    if (this.sender != null)
                     {
-                        this.tcpClient.Close();
+                        this.sender.Dispose();
                     }
                 }
                 catch
@@ -64,53 +49,6 @@ namespace Graphite.Infrastructure
 
                 this.disposed = true;
             }
-        }
-
-        private void EnsureConnected()
-        {
-            try
-            {
-                if (this.tcpClient.Connected)
-                    return;
-
-                this.tcpClient.Connect(this.endpoint);
-            }
-            catch (ObjectDisposedException)
-            {
-                this.RenewClient();
-
-                this.tcpClient.Connect(this.endpoint);
-            }
-        }
-
-        private void RenewClient()
-        {
-            this.tcpClient = new TcpClient();
-            this.tcpClient.ExclusiveAddressUse = false;
-        }
-
-        private bool CoreSend(byte[] data)
-        {
-            this.EnsureConnected();
-
-            try
-            {
-                this.tcpClient
-                    .GetStream()
-                    .Write(data, 0, data.Length);
-
-                return true;
-            }
-            catch (IOException exception)
-            {
-                Logging.Source.TraceEvent(TraceEventType.Error, 0, exception.Format());
-            }
-            catch (ObjectDisposedException exception)
-            {
-                Logging.Source.TraceEvent(TraceEventType.Error, 0, exception.Format());
-            }
-
-            return false;
         }
     }
 }
