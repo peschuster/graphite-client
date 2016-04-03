@@ -24,6 +24,7 @@ namespace Graphite.System
                     Console.WriteLine();
                     Console.WriteLine("[no parameters] -> Start listening on configured PerformanceCounters (App.config)");
                     Console.WriteLine("-e [category] [instance] -> Explore PerformanceCounters (all or by category or by category and instance)");
+                    Console.WriteLine("-i -> Inspect and print the current configuration");
                     Console.WriteLine();
                 }
                 else if (parameter != null && parameter.Any(isEParamater))
