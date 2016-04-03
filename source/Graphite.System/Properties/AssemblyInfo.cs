@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Peter Schuster")]
 [assembly: AssemblyProduct("Graphite.System")]
-[assembly: AssemblyCopyright("Copyright © Peter Schuster 2012-2015")]
+[assembly: AssemblyCopyright("Copyright © Peter Schuster 2012-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
