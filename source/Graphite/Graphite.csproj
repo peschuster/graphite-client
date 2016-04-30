@@ -114,6 +114,7 @@
     <Compile Include="Infrastructure\IMonitoringChannel.cs" />
     <Compile Include="Infrastructure\ISamplingPipe.cs" />
     <Compile Include="IMetricsPipeProvider.cs" />
+    <Compile Include="Infrastructure\TcpSenderPipe.cs" />
     <Compile Include="IStopwatch.cs" />
     <Compile Include="Infrastructure\SamplingMonitoringChannel.cs" />
     <Compile Include="Infrastructure\MonitoringChannel.cs" />
