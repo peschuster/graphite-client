@@ -34,7 +34,8 @@ namespace Graphite.System
             this.serviceInstaller.DisplayName = "Graphite System Monitoring";
             this.serviceInstaller.ServiceName = "GraphiteSystemMonitoring";
             this.serviceInstaller.StartType = ServiceStartMode.Automatic;
-            
+            this.serviceInstaller.DelayedAutoStart = true;
+
             // 
             // serviceProcessInstaller
             // 
