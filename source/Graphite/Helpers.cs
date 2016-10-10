@@ -7,13 +7,16 @@ namespace Graphite
     internal static class Helpers
     {
         /// <remarks>
-        /// See: http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address#106223"
+        /// See: http://stackoverflow.com/questions/106179/regular-expression-to-match-dns-hostname-or-ip-address"
         /// </remarks>
-        public const string ValidHostnamePattern = @"^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$";
-        
+        public const string ValidHostnamePattern = @"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
+
+        public const string ValidIpAddressPattern = @"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
+
         public static bool IsHostname(string value)
         {
-            return Regex.IsMatch(value, ValidHostnamePattern);
+            return Regex.IsMatch(value, ValidHostnamePattern)
+                && !Regex.IsMatch(value, ValidIpAddressPattern);
         }
 
         public static IPAddress LookupIpAddress(string hostname)

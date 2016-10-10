@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HostnameTest.cs" />
     <Compile Include="ToUnderscoresTest.cs" />
     <Compile Include="UriTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
