@@ -143,11 +143,19 @@ namespace Graphite.System
                 CreateNoWindow = true,
             };
 
+            var lockObject = new object();
             var standardOut = new StringBuilder();
 
             Process p = Process.Start(startInfo);
 
-            p.OutputDataReceived += (s, d) => standardOut.AppendLine(d.Data);
+            p.OutputDataReceived += (s, d) =>
+                {
+                    lock (lockObject)
+                    {
+                        standardOut.AppendLine(d.Data);
+                    }
+                };
+                
             p.BeginOutputReadLine();
 
             bool success = p.WaitForExit(maxMilliseconds);
@@ -169,7 +177,10 @@ namespace Graphite.System
                 }
             }
 
-            result = standardOut.ToString();
+            lock (lockObject)
+            {
+                result = standardOut.ToString();
+            }
 
             return success;
         }
