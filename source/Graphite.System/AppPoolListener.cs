@@ -40,12 +40,12 @@ namespace Graphite.System
                     this.counterListener = null;
                 }
 
-				this.counterName = newName;
-				
+                this.counterName = newName;
+                
                 return true;
             }
 
-	        return false;
+            return false;
         }
 
         public float? ReportValue()
@@ -70,8 +70,6 @@ namespace Graphite.System
 
             try
             {
-
-
                 return this.counterListener.ReportValue(); ;
             }
             catch (InvalidOperationException)
