@@ -38,10 +38,42 @@ CREATE PROCEDURE sp_graphitesend
 AS
 EXTERNAL NAME [Graphite.TSql].[Graphite.TSql.GraphiteProcedures].GraphiteSend
 GO
-
 -- --------------------------------------------------------------------------
 -- Example usage:
 --
 -- exec sp_graphitesend N'192.168.0.1', 2003, 'stats.events.myserver.test', 1
 --
 -- --------------------------------------------------------------------------
+GO
+-- Create stored procedure 'sp_graphitesendseries'
+CREATE PROCEDURE sp_graphitesendseries
+(
+@host	nvarchar(255),
+@port	int,
+@points	 NVARCHAR(MAX),
+@returnstring	 NVARCHAR(MAX) OUTPUT
+)
+AS
+EXTERNAL NAME [Graphite.TSql].[Graphite.TSql.GraphiteProcedures].GraphiteSendSeries
+GO
+-- --------------------------------------------------------------------------
+-- Example usage:
+-- send several series points to graphite to optimize Clr by using xml synthax
+--create table #GraphiteTable  
+--( [key] nvarchar(255) 
+--, value INT );  
+
+--DECLARE @outputString NVARCHAR(MAX) 
+--DECLARE @inputString NVARCHAR(MAX) 
+-- insert into #GraphiteTable values ('stats.events.myserver.test', 15)
+-- insert into #GraphiteTable values ('stats.events.myserver.test1', 12)
+-- insert into #GraphiteTable values ('stats.events.myserver.test2', 87)
+ 
+--DECLARE @outputString NVARCHAR(MAX) 
+--DECLARE @inputString NVARCHAR(MAX) 
+--set @inputString = (SELECT * FROM #GraphiteTable FOR XML PATH('Points'), ROOT('Root'))   
+--EXEC sp_graphitesendseries N'192.168.0.1', 2003 ,@inputString, @outputString OUT
+--select @outputString
+--
+-- --------------------------------------------------------------------------
+GO
