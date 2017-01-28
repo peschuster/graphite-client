@@ -45,14 +45,9 @@ namespace Graphite.System.Configuration
         internal const string ValuePropertyName = "value";
 
         /// <summary>
-        /// The XML name of the <see cref="EventID"/> property.
+        /// The XML name of the <see cref="EventId"/> property.
         /// </summary>        
-        internal const string EventIDPropertyName = "eventid";
-
-        /// <summary>
-        /// The XML name of the <see cref="AttachEventIDToKey"/> property.
-        /// </summary>        
-        internal const string AttachEventIDToKeyPropertyName = "attacheventidtokey";
+        internal const string EventIdPropertyName = "eventId";
 
         /// <summary>
         /// The XML name of the <see cref="Sampling"/> property.
@@ -142,21 +137,11 @@ namespace Graphite.System.Configuration
         /// <summary>
         /// Gets or sets the EventID.
         /// </summary>
-        [ConfigurationPropertyAttribute(EventIDPropertyName, IsRequired = false, DefaultValue = null)]
-        public int? EventID
+        [ConfigurationPropertyAttribute(EventIdPropertyName, IsRequired = false, DefaultValue = null)]
+        public long? EventId
         {
-            get { return (int?)base[EventIDPropertyName]; }
-            set { base[EventIDPropertyName] = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the 
-        /// </summary>
-        [ConfigurationPropertyAttribute(AttachEventIDToKeyPropertyName, IsRequired = false, DefaultValue = false)]
-        public bool AttachEventIDToKey
-        {
-            get { return (bool)base[AttachEventIDToKeyPropertyName]; }
-            set { base[AttachEventIDToKeyPropertyName] = value; }
+            get { return (long?)base[EventIdPropertyName]; }
+            set { base[EventIdPropertyName] = value; }
         }
 
         /// <summary>

@@ -91,5 +91,6 @@
     <xs:attribute name="interval" use="optional" type="xs:short"/>
     <xs:attribute name="category" use="optional" type="xs:string"/>
     <xs:attribute name="counter" use="optional" type="xs:string"/>
+    <xs:attribute name="eventId" use="optional" type="xs:long"/>
   </xs:complexType>
 </xs:schema>

@@ -198,9 +198,8 @@ namespace Graphite.System
                 config.Category,
                 types,
                 config.Key,
-                config.EventID,
+                config.EventId,
                 config.Value,
-                config.AttachEventIDToKey,
                 channel);
 
             this.listeners.Add(listener);
