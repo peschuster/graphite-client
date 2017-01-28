@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
-using System.Data;
-using System.IO;
+using System.Xml;
 using Microsoft.SqlServer.Server;
 
 namespace Graphite.TSql
@@ -25,7 +24,7 @@ namespace Graphite.TSql
                 }
             }
         }
-        
+
         [SqlProcedure]
         public static void GraphiteSendSeries(string host, int port, string series, out string returnString)
         {
@@ -33,22 +32,39 @@ namespace Graphite.TSql
 
             using (var pipe = new TcpPipe(address, port))
             {
-                returnString = "";
+                returnString = string.Empty;
+
                 try
                 {
-                    DataSet ds = new DataSet();
-                    ds.ReadXml(new StringReader(series));
-                    //DataTable dt = ds.Tables[0];
-                    foreach (DataRow dr in ds.Tables[0].Rows)
-                    {
-                        pipe.Send(GraphiteFormatter.Format(dr[0].ToString(), Convert.ToInt32(dr[1].ToString())));
+                    var doc = new XmlDocument();
+                    doc.LoadXml(series);
 
+                    int count = 0;
+
+                    foreach (XmlNode node in doc.DocumentElement)
+                    {
+                        if (node.ChildNodes.Count != 2)
+                            continue;
+
+                        string value = GraphiteFormatter.Format(node.FirstChild.InnerText, Convert.ToInt32(node.LastChild.InnerText));
+                        if (pipe.Send(value))
+                        {
+                            count += 1;
+                        }
                     }
-                    returnString = ds.Tables[0].Rows.Count + " values sent";   
+
+                    returnString = count + " values sent";
+                }
+                catch (FormatException exception)
+                {
+                    SqlContext.Pipe.Send(exception.Message);
+
+                    returnString = exception.Message;
                 }
                 catch (InvalidOperationException exception)
                 {
                     SqlContext.Pipe.Send(exception.Message);
+
                     returnString = exception.Message;
                 }
             }
