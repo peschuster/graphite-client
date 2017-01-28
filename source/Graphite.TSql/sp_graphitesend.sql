@@ -16,6 +16,9 @@ GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_graphitesend]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[sp_graphitesend]
 GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_graphitesendseries]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].sp_graphitesendseries
+GO
 IF  EXISTS (SELECT * FROM sys.assemblies WHERE name = N'Graphite.TSql')
 DROP ASSEMBLY [Graphite.TSql]
 GO
@@ -61,7 +64,7 @@ GO
 -- Example usage:
 -- Send several series points to graphite to optimize clr by using xml syntax.
 -- CREATE TABLE #GraphiteTable ([key] nvarchar(255), value INT );  
---
+-- 
 -- INSERT INTO #GraphiteTable VALUES ('stats.events.myserver.test', 15);
 -- INSERT INTO #GraphiteTable VALUES ('stats.events.myserver.test1', 12);
 -- INSERT INTO #GraphiteTable VALUES ('stats.events.myserver.test2', 87);
@@ -71,6 +74,8 @@ GO
 -- SET @inputString = (SELECT * FROM #GraphiteTable FOR XML PATH('Points'), ROOT('Root'))   
 -- EXEC sp_graphitesendseries N'192.168.0.1', 2003, @inputString, @outputString OUT
 -- SELECT @outputString
+-- 
+-- DROP TABLE #GraphiteTable;
 --
 -- --------------------------------------------------------------------------
 GO
