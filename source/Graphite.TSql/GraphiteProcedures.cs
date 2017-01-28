@@ -27,7 +27,7 @@ namespace Graphite.TSql
         }
         
         [SqlProcedure]
-        public static void GraphiteSendSeries(string host, int port, string Series, out string returnString)
+        public static void GraphiteSendSeries(string host, int port, string series, out string returnString)
         {
             IPAddress address = Helpers.ParseAddress(host);
 
@@ -37,7 +37,7 @@ namespace Graphite.TSql
                 try
                 {
                     DataSet ds = new DataSet();
-                    ds.ReadXml(new StringReader(Series));
+                    ds.ReadXml(new StringReader(series));
                     //DataTable dt = ds.Tables[0];
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
