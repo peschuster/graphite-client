@@ -127,7 +127,7 @@ namespace Graphite.System
 
             string key = this.key
                 .Replace("${type}", typeTranslation[e.Entry.EntryType])
-                .Replace("${eventId}", typeTranslation[e.Entry.EntryType]);
+                .Replace("${eventId}", e.Entry.InstanceId.ToString());
 
             this.channel.Report(key, this.value);
         }
