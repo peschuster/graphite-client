@@ -198,6 +198,7 @@ namespace Graphite.System
                 config.Category,
                 types,
                 config.Key,
+                config.EventId,
                 config.Value,
                 channel);
 

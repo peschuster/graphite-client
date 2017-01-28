@@ -45,6 +45,11 @@ namespace Graphite.System.Configuration
         internal const string ValuePropertyName = "value";
 
         /// <summary>
+        /// The XML name of the <see cref="EventId"/> property.
+        /// </summary>        
+        internal const string EventIdPropertyName = "eventId";
+
+        /// <summary>
         /// The XML name of the <see cref="Sampling"/> property.
         /// </summary>        
         internal const string SamplingPropertyName = "sampling";
@@ -127,6 +132,16 @@ namespace Graphite.System.Configuration
         {
             get { return (int)base[ValuePropertyName]; }
             set { base[ValuePropertyName] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the EventID.
+        /// </summary>
+        [ConfigurationPropertyAttribute(EventIdPropertyName, IsRequired = false, DefaultValue = null)]
+        public long? EventId
+        {
+            get { return (long?)base[EventIdPropertyName]; }
+            set { base[EventIdPropertyName] = value; }
         }
 
         /// <summary>

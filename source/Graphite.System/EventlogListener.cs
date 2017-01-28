@@ -23,6 +23,8 @@ namespace Graphite.System
 
         private readonly string category;
 
+        private readonly long? eventId;
+
         private readonly EventLogEntryType[] types;
 
         private readonly IMonitoringChannel channel;
@@ -35,7 +37,7 @@ namespace Graphite.System
 
         private EventLog log;
 
-        public EventlogListener(string protocol, string source, string category, EventLogEntryType[] types, string key, int value, IMonitoringChannel channel)
+        public EventlogListener(string protocol, string source, string category, EventLogEntryType[] types, string key, long? eventId, int value, IMonitoringChannel channel)
         {
             if (protocol == null)
                 throw new ArgumentNullException("protocol");
@@ -48,6 +50,7 @@ namespace Graphite.System
 
             this.key = key;
             this.value = value;
+            this.eventId = eventId;
             
             this.channel = channel;
             this.types = types;
@@ -119,9 +122,14 @@ namespace Graphite.System
             if (!string.IsNullOrEmpty(this.category) && !this.category.Equals(e.Entry.Category, StringComparison.OrdinalIgnoreCase))
                 return;
 
-            this.channel.Report(
-                this.key.Replace("${type}", typeTranslation[e.Entry.EntryType]),
-                this.value);
+            if (this.eventId.HasValue && this.eventId.Value != e.Entry.InstanceId)
+                return;
+
+            string key = this.key
+                .Replace("${type}", typeTranslation[e.Entry.EntryType])
+                .Replace("${eventId}", typeTranslation[e.Entry.EntryType]);
+
+            this.channel.Report(key, this.value);
         }
     }
 }
