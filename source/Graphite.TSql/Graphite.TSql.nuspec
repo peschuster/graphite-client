@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Graphite.TSql</id>
+    <version>$version$</version>
+    <authors>Peter Schuster</authors>
+    <owners>Peter Schuster</owners>
+    <licenseUrl>http://github.com/peschuster/graphite-client/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://github.com/peschuster/graphite-client</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Instrumentation of TSql code for reporting metrics to Graphite and StatsD.</description>
+    <releaseNotes>Initial package </releaseNotes>
+    <copyright>Copyright 2012-2017</copyright>
+    <tags>TSQL Graphite StatsD metrics monitoring</tags>
+    <dependencies>
+      <dependency id="Graphite" version="1.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="sp_graphitesend.sql" target="content\sp_graphitesend.sql" />
+  </files>
+</package>
