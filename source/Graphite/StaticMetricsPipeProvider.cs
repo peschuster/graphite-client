@@ -42,6 +42,19 @@ namespace Graphite
 
             return result;
         }
+        
+        /// <summary>
+        /// Starts a new MetricsPipe instance.
+        /// </summary>
+        /// <param name="configurationContainer"></param>
+        /// <returns></returns>
+        public MetricsPipe Start(IConfigurationContainer configurationContainer)
+        {
+            var result = new MetricsPipe(configurationContainer, this, StopwatchWrapper.StartNew);
+            Current = result;
+
+            return result;
+        }
 
         /// <summary>
         /// Stops the current MetricsPipe instance.
