@@ -1,4 +1,5 @@
-﻿using Graphite.Configuration;
+﻿using System;
+using Graphite.Configuration;
 
 namespace Graphite
 {
@@ -37,19 +38,22 @@ namespace Graphite
         /// <returns></returns>
         public MetricsPipe Start()
         {
-            var result = new MetricsPipe(GraphiteConfigurationProvider.Get(), this, StopwatchWrapper.StartNew);
-            Current = result;
+            IConfigurationContainer configurationContainer = GraphiteConfigurationProvider.Get();
 
-            return result;
+            return this.Start(configurationContainer);
         }
         
         /// <summary>
         /// Starts a new MetricsPipe instance.
         /// </summary>
-        /// <param name="configurationContainer"></param>
+        /// <param name="configurationContainer">Configuration container for graphite and statsd parameters.</param>
         /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException" />
         public MetricsPipe Start(IConfigurationContainer configurationContainer)
         {
+            if (configurationContainer == null)
+                throw new ArgumentNullException("configurationContainer");
+
             var result = new MetricsPipe(configurationContainer, this, StopwatchWrapper.StartNew);
             Current = result;
 
