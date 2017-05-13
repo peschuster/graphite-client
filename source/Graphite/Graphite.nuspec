@@ -9,8 +9,8 @@
     <projectUrl>http://github.com/peschuster/graphite-client</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Library for feeding data into Graphite and StatsD.</description>
-    <releaseNotes>Extension: Allow profiling (.Step()) with configurable metric type.</releaseNotes>
-    <copyright>Copyright 2012-2016</copyright>
+    <releaseNotes>Bugfixes for multi-threaded applications and new TcpSenderPipe.</releaseNotes>
+    <copyright>Copyright 2012-2017</copyright>
     <tags>Graphite StatsD metrics monitoring</tags>
     <dependencies />
   </metadata>
