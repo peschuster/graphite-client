@@ -52,6 +52,7 @@
     <None Include="..\Graphite\graphite.snk">
       <Link>graphite.snk</Link>
     </None>
+    <None Include="Graphite.TSql.nuspec" />
     <None Include="sp_graphitesend.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
