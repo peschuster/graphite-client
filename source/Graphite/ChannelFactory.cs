@@ -11,7 +11,7 @@ namespace Graphite
     /// </summary>
     public class ChannelFactory : IDisposable
     {
-        private static readonly Func<string, string, string> buildKey = (prefix, key) => 
+        private static readonly Func<string, string, string> buildKey = (prefix, key) =>
             !string.IsNullOrEmpty(prefix) ? prefix + "." + key : key;
 
         private readonly FormatterFactory formatters;
@@ -55,8 +55,8 @@ namespace Graphite
                     throw new InvalidOperationException("graphite pipe is not configured.");
 
                 return new MonitoringChannel(
-                    k => buildKey(this.graphitePrefix, k), 
-                    formatter, 
+                    k => buildKey(this.graphitePrefix, k),
+                    formatter,
                     this.graphitePipe);
             }
             else if (string.Equals(target, "statsd", StringComparison.OrdinalIgnoreCase))
@@ -65,8 +65,8 @@ namespace Graphite
                     throw new InvalidOperationException("statsd pipe is not configured.");
 
                 return new MonitoringChannel(
-                    k => buildKey(this.statsdPrefix, k), 
-                    formatter, 
+                    k => buildKey(this.statsdPrefix, k),
+                    formatter,
                     this.statsdPipe);
             }
 
@@ -92,9 +92,9 @@ namespace Graphite
                     throw new InvalidOperationException("statsd pipe is not configured.");
 
                 return new SamplingMonitoringChannel(
-                    k => buildKey(this.statsdPrefix, k), 
-                    formatter, 
-                    this.statsdPipe, 
+                    k => buildKey(this.statsdPrefix, k),
+                    formatter,
+                    this.statsdPipe,
                     sampling);
             }
             else if (string.Equals(target, "graphite", StringComparison.OrdinalIgnoreCase))
@@ -155,13 +155,12 @@ namespace Graphite
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht", Justification="Ownership transferred to outer pipe.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht", Justification = "Ownership transferred to outer pipe.")]
         private void SetupStatsD(IStatsDConfiguration configuration)
         {
-            IPAddress address = Helpers.ParseAddress(configuration.Address);
+            Func<IPipe> pipeFactory = () => new UdpPipe(configuration.Address, configuration.Port);
 
-            // Initialize with ip address.
-            IPipe inner = new UdpPipe(address, configuration.Port);
+            var inner = new AutoRefreshPipe(pipeFactory, configuration.Lifetime);
 
             this.statsdPipe = new SamplingPipe(inner);
         }
@@ -178,8 +177,9 @@ namespace Graphite
             }
             else if (configuration.Transport == TransportType.Udp)
             {
-                // Initialize with ip address.
-                this.graphitePipe = new UdpPipe(address, configuration.Port);
+                Func<IPipe> pipeFactory = () => new UdpPipe(configuration.Address, configuration.Port);
+
+                this.graphitePipe = new AutoRefreshPipe(pipeFactory, configuration.Lifetime);
             }
             else
             {

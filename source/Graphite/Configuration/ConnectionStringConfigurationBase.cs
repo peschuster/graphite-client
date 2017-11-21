@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Graphite.Configuration
@@ -24,6 +25,11 @@ namespace Graphite.Configuration
         public string PrefixKey { get; private set; }
 
         /// <summary>
+        /// Gets the time before renewing the socket, when using UDP protocol.
+        /// </summary>
+        public TimeSpan Lifetime { get; private set; }
+
+        /// <summary>
         /// Parses connection string to properties.
         /// </summary>
         /// <param name="connectionString"></param>
@@ -37,7 +43,7 @@ namespace Graphite.Configuration
                     .Split(';')
                     .Select(x => x.Split(new[] { '=' }, 2))
                     .ToDictionary(
-                        x => x.First().ToLowerInvariant(), 
+                        x => x.First().ToLowerInvariant(),
                         x => x.Skip(1).FirstOrDefault());
 
                 string value;
@@ -58,6 +64,14 @@ namespace Graphite.Configuration
                 if (values.TryGetValue("prefixkey", out value))
                 {
                     this.PrefixKey = value;
+                }
+
+                if (values.TryGetValue("lifetime", out value))
+                {
+                    if (TimeSpan.TryParse(value, out TimeSpan temp))
+                    {
+                        this.Lifetime = temp;
+                    }
                 }
             }
 

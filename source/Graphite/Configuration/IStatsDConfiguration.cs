@@ -1,3 +1,5 @@
+using System;
+
 namespace Graphite.Configuration
 {
     /// <summary>
@@ -19,5 +21,10 @@ namespace Graphite.Configuration
         /// Gets the common prefix key.
         /// </summary>        
         string PrefixKey { get; }
+
+        /// <summary>
+        /// Gets the time before renewing the socket, when using UDP protocol
+        /// </summary>
+        TimeSpan Lifetime { get; }
     }
 }
