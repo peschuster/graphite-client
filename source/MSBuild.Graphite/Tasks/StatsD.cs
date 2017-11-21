@@ -30,6 +30,8 @@ namespace MSBuild.Graphite.Tasks
         [Required]
         public MetricType Type { get; set; }
 
+        public TimeSpan Lifetime { get; set; }
+
         public override bool Execute()
         {
             using (var channelFactory = new ChannelFactory(null, this))
