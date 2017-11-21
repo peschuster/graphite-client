@@ -111,6 +111,7 @@
     <Compile Include="Formatters\StatsDSetFormatter.cs" />
     <Compile Include="Formatters\StatsDGaugeFormatter.cs" />
     <Compile Include="Formatters\StatsDTimingFormatter.cs" />
+    <Compile Include="Infrastructure\AutoRefreshPipe.cs" />
     <Compile Include="Infrastructure\IMonitoringChannel.cs" />
     <Compile Include="Infrastructure\ISamplingPipe.cs" />
     <Compile Include="IMetricsPipeProvider.cs" />

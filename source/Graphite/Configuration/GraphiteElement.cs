@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Net;
 
 namespace Graphite.Configuration
@@ -27,6 +28,11 @@ namespace Graphite.Configuration
         /// The XML name of the <see cref="PrefixKey"/> property.
         /// </summary>    
         internal const string PrefixKeyPropertyName = "prefixKey";
+
+        /// <summary>
+        /// The XML name of the <see cref="Lifetime"/> property
+        /// </summary>
+        internal const string LifetimePropertyName = "lifetime";
 
         /// <summary>
         /// Gets or sets the port number.
@@ -66,6 +72,16 @@ namespace Graphite.Configuration
         {
             get { return (string)base[PrefixKeyPropertyName]; }
             set { base[PrefixKeyPropertyName] = value; }
+        }
+
+        /// <summary>
+        /// When using UDP protocol, the time before renewing the socket
+        /// </summary>        
+        [ConfigurationProperty(LifetimePropertyName, IsRequired = false)]
+        public TimeSpan Lifetime
+        {
+            get { return (TimeSpan)base[LifetimePropertyName]; }
+            set { base[LifetimePropertyName] = value; }
         }
     }
 }

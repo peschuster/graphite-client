@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -12,11 +11,11 @@ namespace Graphite.Infrastructure
 
         private bool disposed;
 
-        public UdpPipe(IPAddress address, int port)
+        public UdpPipe(string address, int port)
         {
             this.udpClient = new UdpClient();
 
-            this.udpClient.Connect(new IPEndPoint(address, port));
+            this.udpClient.Connect(address, port);
         }
 
         public bool Send(string message)
@@ -36,7 +35,7 @@ namespace Graphite.Infrastructure
 
             return this.CoreSend(data);
         }
-  
+
         private bool CoreSend(byte[] data)
         {
             try

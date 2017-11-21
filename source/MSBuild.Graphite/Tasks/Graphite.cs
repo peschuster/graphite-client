@@ -24,15 +24,15 @@ namespace MSBuild.Graphite.Tasks
         public int Port { get; set; }
 
         [Required]
-        public string Transport 
+        public string Transport
         {
             get { return this.transport.ToString(); }
             set { this.transport = (TransportType)Enum.Parse(typeof(TransportType), value); }
         }
 
-        TransportType IGraphiteConfiguration.Transport 
-        { 
-            get { return this.transport; } 
+        TransportType IGraphiteConfiguration.Transport
+        {
+            get { return this.transport; }
         }
 
         public string PrefixKey { get; set; }
@@ -42,12 +42,14 @@ namespace MSBuild.Graphite.Tasks
 
         public int Value { get; set; }
 
+        public TimeSpan Lifetime { get; set; }
+
         public override bool Execute()
         {
             using (var channelFactory = new ChannelFactory(this, null))
             {
                 IMonitoringChannel channel = channelFactory.CreateChannel(
-                    "gauge", 
+                    "gauge",
                     "graphite");
 
                 channel.Report(this.Key, this.Value);
