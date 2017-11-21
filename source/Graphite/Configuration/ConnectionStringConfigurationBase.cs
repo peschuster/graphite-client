@@ -68,7 +68,9 @@ namespace Graphite.Configuration
 
                 if (values.TryGetValue("lifetime", out value))
                 {
-                    if (TimeSpan.TryParse(value, out TimeSpan temp))
+                    TimeSpan temp;
+
+                    if (TimeSpan.TryParse(value, out temp))
                     {
                         this.Lifetime = temp;
                     }
